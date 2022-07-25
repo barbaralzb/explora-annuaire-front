@@ -1,5 +1,13 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+export default async function handler (req, res) {
+  const { method } = req
+  switch (method) {
+    case 'POST':
+      try {
 
-export default function handler (req, res) {
-  res.status(200).json({ name: 'John Doe' })
+      } catch (error) {
+        res.status(400).json({ success: false, error: 'Falla del servidor' })
+      }
+    default:
+      return res.status(500).json({ success: false, error: 'Falla del servidor' })
+  }
 }
