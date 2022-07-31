@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 
-export default function Select ({ labels, query, setQuery, setSelectedLabel, selectedLabel, handlerAction }) {
+export default function Select ({ labels, query, setQuery, setSelectedLabel, selectedLabel }) {
   const filteredLabel =
     query === ''
       ? labels

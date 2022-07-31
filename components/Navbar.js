@@ -1,31 +1,33 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import useRouter from 'next/dist/client/router'
 import { useAppContext } from '../context/AppContext'
 import { initialState } from 'context/AppReducer'
-
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false }
-]
+import { useRouter } from 'next/router'
 
 function classNames (...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar () {
-  const { state, dispatch } = useAppContext()
-  const router = useRouter
+  const { state } = useAppContext()
+  const router = useRouter()
   const [user, setUser] = useState(state)
+  const [currentPath, setCurrentPath] = useState('')
+
+  const navigation = [
+    { name: 'Missions', href: '/evenements/all' },
+    { name: 'Associations', href: '/assotiations' },
+    { name: 'A props', href: '/about' },
+    { name: 'Sign in', href: '/signin' }
+  ]
+  const path = router.pathname
 
   useEffect(() => {
     setUser(state)
-  }, [state])
+  }, [state, currentPath])
 
   const handlerLogOut = () => {
     window.localStorage.removeItem('loggedUser', JSON.stringify(state))
@@ -67,19 +69,22 @@ export default function Navbar () {
                 </div>
                 <div className='hidden sm:block sm:ml-6'>
                   <div className='flex space-x-4'>
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {navigation.map((item) => {
+                      return (
+                        <Link key={item.name} href={item.href}>
+                          <a
+                            onClick={() => setCurrentPath(item.href)}
+                            className={classNames(
+                              item.href === path ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'px-3 py-2 rounded-md text-sm font-medium'
+                            )}
+                            aria-current={item.current ? 'page' : undefined}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
@@ -147,7 +152,7 @@ export default function Navbar () {
                       <span className='font-bold'>Crée evenement →</span>
                     </a>
                   </Link>
-                  </div>
+                </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -160,7 +165,7 @@ export default function Navbar () {
                       <span className='font-bold'>Connexion →</span>
                     </a>
                   </Link>
-                  </div>}
+                </div>}
 
             </div>
           </div>

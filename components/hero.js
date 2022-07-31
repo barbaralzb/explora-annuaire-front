@@ -1,124 +1,19 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' }
-]
-
 export default function Hero () {
   return (
-    <div className='relative bg-white overflow-hidden'>
+    <div className='relative'>
+      <div className='absolute w-full'>
+        <svg width='100%' height='100%' id='svg' viewBox='0 0 1440 400' xmlns='http://www.w3.org/2000/svg' className='transition duration-300 ease-in-out delay-150'><defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#f5f9fb66' /><stop offset='95%' stopColor='#f4f5fa66' /></linearGradient></defs><path d='M 0,400 C 0,400 0,100 0,100 C 59.84678804534525,117.81243558914463 119.6935760906905,135.62487117828925 194,127 C 268.3064239093095,118.37512882171075 357.07248368258325,83.31295087598761 421,72 C 484.92751631741675,60.68704912401238 524.0164891789763,73.12332531776023 598,94 C 671.9835108210237,114.87667468223977 780.8615596015115,144.19374785297148 852,135 C 923.1384403984885,125.80625214702852 956.5372724149777,78.10168327035382 1010,76 C 1063.4627275850223,73.89831672964618 1136.9893507385777,117.39951906561319 1212,129 C 1287.0106492614223,140.6004809343868 1363.5053246307111,120.3002404671934 1440,100 C 1440,100 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-0' transform='rotate(-180 720 200)' /><defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#f5f9fb88' /><stop offset='95%' stopColor='#f4f5fa88' /></linearGradient></defs><path d='M 0,400 C 0,400 0,200 0,200 C 66.21779457231193,179.3232566128478 132.43558914462386,158.64651322569563 200,167 C 267.56441085537614,175.35348677430437 336.47543799381646,212.73720371006524 402,211 C 467.52456200618354,209.26279628993476 529.66265888011,168.40467193404328 594,171 C 658.33734111989,173.59532806595672 724.8739264857436,219.64410855376158 798,237 C 871.1260735142564,254.35589144623842 950.8416351769154,243.01889385091033 1022,228 C 1093.1583648230846,212.98110614908967 1155.7595328065956,194.28031604259706 1224,189 C 1292.2404671934044,183.71968395740294 1366.1202335967023,191.85984197870147 1440,200 C 1440,200 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-1' transform='rotate(-180 720 200)' /><defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#f5f9fbff' /><stop offset='95%' stopColor='#f4f5faff' /></linearGradient></defs><path d='M 0,400 C 0,400 0,300 0,300 C 77.12538646513227,302.8120920645826 154.25077293026453,305.6241841291652 224,292 C 293.74922706973547,278.3758158708348 356.1222947440743,248.31535554792174 421,263 C 485.8777052559257,277.68464445207826 553.2600480934385,337.114393679148 620,337 C 686.7399519065615,336.885606320852 752.8375128821712,277.22706973548605 821,272 C 889.1624871178288,266.77293026451395 959.389900377877,315.9773273789076 1030,327 C 1100.610099622123,338.0226726210924 1171.6028856063208,310.86362074888353 1240,300 C 1308.3971143936792,289.13637925111647 1374.1985571968396,294.56818962555826 1440,300 C 1440,300 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-2' transform='rotate(-180 720 200)' /></svg>
+      </div>
       <div className='max-w-7xl mx-auto'>
-        <div className='relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32'>
-          <svg
-            className='hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2'
-            fill='currentColor'
-            viewBox='0 0 100 100'
-            preserveAspectRatio='none'
-            aria-hidden='true'
-          >
-            <polygon points='50,0 100,0 50,100 0,100' />
-          </svg>
-
-          <Popover>
-            <div className='relative pt-6 px-4 sm:px-6 lg:px-8'>
-              <nav className='relative flex items-center justify-between sm:h-10 lg:justify-start' aria-label='Global'>
-                <div className='flex items-center flex-grow flex-shrink-0 lg:flex-grow-0'>
-                  <div className='flex items-center justify-between w-full md:w-auto'>
-                    <a href='#'>
-                      <span className='sr-only'>Workflow</span>
-                      <img
-                        alt='Workflow'
-                        className='h-8 w-auto sm:h-10'
-                        src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-                      />
-                    </a>
-                    <div className='-mr-2 flex items-center md:hidden'>
-                      <Popover.Button className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
-                        <span className='sr-only'>Open main menu</span>
-                        <MenuIcon className='h-6 w-6' aria-hidden='true' />
-                      </Popover.Button>
-                    </div>
-                  </div>
-                </div>
-                <div className='hidden md:block md:ml-10 md:pr-4 md:space-x-8'>
-                  {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className='font-medium text-gray-500 hover:text-gray-900'>
-                      {item.name}
-                    </a>
-                  ))}
-                  <a href='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                    Log in
-                  </a>
-                </div>
-              </nav>
-            </div>
-
-            <Transition
-              as={Fragment}
-              enter='duration-150 ease-out'
-              enterFrom='opacity-0 scale-95'
-              enterTo='opacity-100 scale-100'
-              leave='duration-100 ease-in'
-              leaveFrom='opacity-100 scale-100'
-              leaveTo='opacity-0 scale-95'
-            >
-              <Popover.Panel
-                focus
-                className='absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden'
-              >
-                <div className='rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden'>
-                  <div className='px-5 pt-4 flex items-center justify-between'>
-                    <div>
-                      <img
-                        className='h-8 w-auto'
-                        src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-                        alt=''
-                      />
-                    </div>
-                    <div className='-mr-2'>
-                      <Popover.Button className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
-                        <span className='sr-only'>Close main menu</span>
-                        <XIcon className='h-6 w-6' aria-hidden='true' />
-                      </Popover.Button>
-                    </div>
-                  </div>
-                  <div className='px-2 pt-2 pb-3 space-y-1'>
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                  <a
-                    href='#'
-                    className='block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100'
-                  >
-                    Log in
-                  </a>
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
-
+        <div className='relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32'>
           <main className='mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28'>
             <div className='sm:text-center lg:text-left'>
-              <h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl'>
-                <span className='block xl:inline'>Data to enrich your</span>{' '}
-                <span className='block text-indigo-600 xl:inline'>online business</span>
+              <h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl mb-3'>
+                Explora -
               </h1>
+              <span className='block text-indigo-600 text-2xl font-extrabold uppercase'>L'annuaire des missions associatives à Rouen</span>
               <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                fugiat veniam occaecat fugiat aliqua.
+                Trouver une mission et fait des nouvelles recontre de vie, il y a plusieurs associations qui recherche des bénévoles
               </p>
               <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
                 <div className='rounded-md shadow'>
@@ -141,13 +36,6 @@ export default function Hero () {
             </div>
           </main>
         </div>
-      </div>
-      <div className='lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2'>
-        <img
-          className='h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full'
-          src='https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
-          alt=''
-        />
       </div>
     </div>
   )

@@ -2,15 +2,12 @@ import Head from 'next/head'
 import Layout from 'components/Layout'
 import styles from 'styles/Home.module.css'
 import Hero from 'components/hero'
-import Link from 'next/link'
+import Section from 'components/section'
 import { getSortedPostsData } from 'lib/posts'
-import Card from 'components/Card'
-
 export async function getStaticProps () {
   const posts = getSortedPostsData()
   return posts
 }
-
 export default function Home ({ posts }) {
   return (
     <div className={styles.container}>
@@ -21,20 +18,7 @@ export default function Home ({ posts }) {
 
       <Layout>
         <Hero />
-        <div className='grid grid-cols-2 gap-x-6 gap-y-12'>
-          {posts.map(({ id, title, body }) => (
-            <div key={id}>
-              <Link href={`/post/${id}`}>
-                <a>
-                  <Card
-                    title={title}
-                    body={body}
-                  />
-                </a>
-              </Link>
-            </div>
-          ))}
-        </div>
+        <Section posts={posts} />
       </Layout>
     </div>
   )

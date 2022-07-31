@@ -1,14 +1,32 @@
-export default function Card ({ title, body }) {
+import Image from 'next/image'
+
+export default function Card (props) {
   return (
-    <div className='card h-full'>
+    <div className='card shadow-lg rounded'>
       <div className='card-header'>
         <div className='card-header-title'>
-          {title}
+          {props.title}
         </div>
       </div>
       <div className='card-content'>
         <div className='content'>
-          {body}
+          <div className='flex gap-2'>
+            {/* {props.images.length > 0 &&
+                    props.images.map((item) => {
+                      return (
+                        <div key={item} className='relative shadow h-24 w-24 rounded'>
+                          <Image
+                            src={item}
+                            className='rounded-md shadow'
+                            layout='fill'
+                            objectFit='cover'
+                            alt=''
+                          />
+                        </div>
+
+                      )
+                    })} */}
+          </div>
         </div>
       </div>
     </div>
