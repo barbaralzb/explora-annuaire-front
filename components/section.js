@@ -8,21 +8,11 @@ export default function Section ({ posts }) {
       <div className='flex justify-center'>
         <div className='max-w-7xl w-full'>
           <div className='grid grid-cols-3 gap-4 mb-32'>
-            <Link href='/signin'>
-              <a className='inline-flex justify-center rounded-lg text-lg font-semibold py-3 px-4 text-black hover:bg-indigo-100 bg-indigo-100/80'>
-                <span className='font-bold'>Connexion →</span>
-              </a>
-            </Link>
-            <Link href='/signin'>
-              <a className='inline-flex justify-center rounded-lg text-lg font-semibold py-3 px-4 text-black hover:bg-indigo-100 bg-indigo-100/80'>
-                <span className='font-bold'>Connexion →</span>
-              </a>
-            </Link>
-            <Link href='/signin'>
-              <a className='inline-flex justify-center rounded-lg text-lg font-semibold py-3 px-4 text-black hover:bg-indigo-100 bg-indigo-100/80'>
-                <span className='font-bold'>Connexion →</span>
-              </a>
-            </Link>
+              { domainList.map(item) => {
+                return (
+                  
+                )
+              }}
           </div>
           <div className='flex justify-between'>
             <h1 className='font-extabold text-2xl'>Most Recent Post</h1>
