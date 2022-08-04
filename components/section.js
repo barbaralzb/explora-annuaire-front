@@ -1,18 +1,23 @@
 import Link from 'next/link'
-import { ServerUrl } from 'utils/utils'
+import { domainList } from 'utils/utils'
+import Pagination from './Basics/pagination'
+import Card from './Card'
 
 export default function Section ({ posts }) {
-  console.log(ServerUrl + posts[0].images[0].lien)
   return (
-    <>
-      <div className='flex justify-center'>
-        <div className='max-w-7xl w-full'>
-          <div className='grid grid-cols-3 gap-4 mb-32'>
-              { domainList.map(item) => {
-                return (
-                  
-                )
-              }}
+    <div>
+      <div className='flex justify-center bg-hero-pattern bg-no-repeat bg-[right_top_-20rem]'>
+        <div className='max-w-7xl'>
+          <div className='grid grid-cols-8 gap-4 my-20'>
+            {domainList.map((item) => (
+              <Link href='/signin' key={item.id}>
+                <a className='text-xs flex flex-col justify-center rounded-lg py-3 px-4 text-black hover:bg-white hover:shadow-lg hover:shadow-secondary/10 bg-white/60 items-center'>
+                  {item.icon}
+                  <span className='font-bold text-center'>{item.label}</span>
+                </a>
+              </Link>
+            )
+            )}
           </div>
           <div className='flex justify-between'>
             <h1 className='font-extabold text-2xl'>Most Recent Post</h1>
@@ -27,39 +32,15 @@ export default function Section ({ posts }) {
               <div className='border-t border-gray-200' />
             </div>
           </div>
-          <div className='grid grid-cols-2 gap-x-6 gap-y-12'>
-            {posts.map((post) => (
-              <div key={post._id}>
-                <Link href={`/evenements/${post._id}`}>
-                  <a>
-                    <div className='group relative'>
-                      <div className='w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none'>
-                        <img
-                          src={post.images ? ServerUrl + post.images[0].lien : './../public/images/proj'}
-                          /* alt={post.imageAlt} */
-                          className='w-full h-full object-center object-cover lg:w-full lg:h-full'
-                        />
-                      </div>
-                      <div className='mt-4 flex justify-between'>
-                        <div>
-                          <h3 className='text-sm text-gray-700'>
-                            <a href={post.href}>
-                              <span aria-hidden='true' className='absolute inset-0' />
-                              {post.name}
-                            </a>
-                          </h3>
-                          <p className='mt-1 text-sm text-gray-500'>{post.domain}</p>
-                        </div>
-                        <p className='text-sm font-medium text-gray-900'>{post.ageRange}</p>
-                      </div>
-                    </div>
-                  </a>
-                </Link>
-              </div>
+          {/* // aca empieza mi lista de eventos */}
+          <div className='grid grid-cols-3 gap-20 my-20'>
+            {posts.map((post, index) => (
+              <Card key={index} post={post} />
             ))}
           </div>
+          <Pagination />
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -10,6 +10,14 @@ module.exports = {
         secondary: '#F2B658',
         red: '#C94630',
         black: '#39403F'
+      },
+      backgroundImage: {
+        // 'hero-pattern': "url('/images/backgound-gradient.jpg')"
+        'hero-pattern': "url('/images/bbblurry-15.svg')"
+      },
+      backgroundPosition: {
+        top: 'top',
+        '-top-40': 'center top -400px'
       }
     }
   },

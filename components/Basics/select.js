@@ -11,13 +11,9 @@ export default function Select ({ labels, query, setQuery, setSelectedLabel, sel
           .toLowerCase()
           .includes(query.toLowerCase())
       )
-
-  // console.log(query !== '' ? `se escribio : ${query}` : 'ya se desmonto')
-  // console.log('este es el Label selected ', selectedLabel)
-
   return (
     <div className=''>
-      <Combobox value={selectedLabel} onChange={setSelectedLabel}>
+      <Combobox as='div' value={selectedLabel} onChange={setSelectedLabel}>
         <div className='relative mt-1'>
           <div className='relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
             <Combobox.Input
@@ -45,7 +41,7 @@ export default function Select ({ labels, query, setQuery, setSelectedLabel, sel
                   value={{ id: null, label: query }}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-teal-600 text-white' : 'text-gray-900'
+                      active ? 'bg-secondary text-white' : 'text-gray-900'
                     }`}
                 >
                   Cree "{query}"
@@ -56,7 +52,7 @@ export default function Select ({ labels, query, setQuery, setSelectedLabel, sel
                   key={item.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-teal-600 text-white' : 'text-gray-900'
+                      active ? 'bg-secondary text-white' : 'text-gray-900'
                     }`}
                   value={item}
                 >

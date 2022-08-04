@@ -18,10 +18,9 @@ export default function Navbar () {
   const [currentPath, setCurrentPath] = useState('')
 
   const navigation = [
-    { name: 'Missions', href: '/evenements/all' },
+    { name: 'Evénement', href: '/' },
     { name: 'Associations', href: '/assotiations' },
-    { name: 'A props', href: '/about' },
-    { name: 'Sign in', href: '/signin' }
+    { name: 'A props', href: '/about' }
   ]
   const path = router.pathname
 
@@ -36,10 +35,10 @@ export default function Navbar () {
   }
 
   return (
-    <Disclosure as='nav'>
+    <Disclosure as='nav' className='sticky top-0 z-10 bg-white/90 shadow-lg shadow-secondary/5 backdrop-blur-sm'>
       {({ open }) => (
         <>
-          <div className='max-w-full mx-auto px-2 sm:px-6 lg:px-8'>
+          <div className='max-w-7xl relative mx-auto'>
             <div className='relative flex items-center justify-between h-16'>
               <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                 {/* Mobile menu button */}
@@ -97,7 +96,7 @@ export default function Navbar () {
                         <span className='sr-only'>Open user menu</span>
                         <img
                           className='h-10 w-10 rounded-full'
-                          src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                          src='/images/proj.jpeg'
                           alt=''
                         />
                       </Menu.Button>
@@ -126,12 +125,14 @@ export default function Navbar () {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href='#'
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            >
-                              Settings
-                            </a>
+                            <Link href='/#'>
+
+                              <a
+                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              >
+                                Settings
+                              </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
@@ -147,12 +148,12 @@ export default function Navbar () {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                  <Link href='/create-evenement'>
+                  <Link href='/create-event'>
                     <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90'>
                       <span className='font-bold'>Crée evenement →</span>
                     </a>
                   </Link>
-                </div>
+                  </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -165,7 +166,7 @@ export default function Navbar () {
                       <span className='font-bold'>Connexion →</span>
                     </a>
                   </Link>
-                </div>}
+                  </div>}
 
             </div>
           </div>

@@ -1,11 +1,41 @@
+import { CgAsterisk } from 'react-icons/cg'
+import { Transition } from '@headlessui/react'
+import Select from 'components/Basics/select'
+import Image from 'next/image'
+import { FiTwitter } from 'react-icons/fi'
+import { FaFacebookSquare, FaInstagram } from 'react-icons/fa'
+import { getCurrentDate } from 'utils/currentDate'
+import theme from 'styles/theme'
+import { useEffect, useState } from 'react'
 
-export default function Home ({ posts }) {
-   <>
+export default function FormEvent (props) {
+  const [file, setFile] = useState([])
+  const [imagesPreview, setImagesPreview] = useState([])
+
+  useEffect(() => {
+    const imagesSrc = []
+    for (const img of file) {
+      imagesSrc.push(URL.createObjectURL(img))
+    }
+    setImagesPreview(imagesSrc)
+    return props.setFile(file)
+  }, [file])
+
+  function handleUploadSingleFile (e) {
+    setFile(file => [...file, e.target.files[0]])
+  }
+
+  function deleteFile (e) {
+    const s = file.filter((item, index) => index !== e)
+    setFile(s)
+  }
+
+  return (
+    <>
       <div className='bg-gradient-to-r from-neutral-100 via-white to-neutral-100'>
         <div className='flex justify-center p-12'>
           <div className='max-w-6xl'>
-
-            <form className='bg-white  shadow overflow-hidden sm:rounded-md' onSubmit={HandleSubmit}>
+            <form className='bg-white  shadow overflow-hidden sm:rounded-md' onSubmit={props.handleSubmit}>
               <div className='md:grid md:grid-cols-2 md:gap-6'>
                 <div className='col-span'>
                   <div className='md:grid md:grid-cols-1 md:gap-6 px-4 py-5 sm:p-6'>
@@ -20,8 +50,24 @@ export default function Home ({ posts }) {
                           name='title'
                           id='title'
                           autoComplete='given-name'
-                          onChange={HandleChange}
-                          value={form.title}
+                          onChange={props.handleChange}
+                          value={props.form.title}
+                          required
+                          className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        />
+                      </div>
+
+                      <div className='col-span-6'>
+                        <label htmlFor='title' className='flex text-sm font-medium text-gray-700'>
+                          Description <CgAsterisk size='10' color={theme.colors.secondary} />
+                        </label>
+                        <textarea
+                          type='text'
+                          name='description'
+                          id='description'
+                          autoComplete='given-name'
+                          onChange={props.handleChange}
+                          value={props.form.description}
                           required
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
@@ -32,12 +78,12 @@ export default function Home ({ posts }) {
                           Tranche d'age <CgAsterisk size='10' color={theme.colors.secondary} />
                         </label>
                         <Select
-                          labels={ageRangeList}
-                          setSelectedLabel={setSelectedAge}
-                          selectedLabel={selectedAge}
+                          labels={props.ageRangeList}
+                          setSelectedLabel={props.setSelectedAge}
+                          selectedLabel={props.selectedAge}
                           required
-                          query={queryAge}
-                          setQuery={setQueryAge}
+                          query={props.queryAge}
+                          setQuery={props.setQueryAge}
                         />
                       </div>
                       <div className='col-span-6'>
@@ -45,12 +91,12 @@ export default function Home ({ posts }) {
                           Domaine <CgAsterisk size='10' color={theme.colors.secondary} />
                         </label>
                         <Select
-                          labels={domainList}
-                          setSelectedLabel={setSelectedDomain}
-                          selectedLabel={selectedDomain}
+                          labels={props.domainList}
+                          setSelectedLabel={props.setSelectedDomain}
+                          selectedLabel={props.selectedDomain}
                           required
-                          query={queryDomain}
-                          setQuery={setQueryDomain}
+                          query={props.queryDomain}
+                          setQuery={props.setQueryDomain}
                         />
                       </div>
 
@@ -62,10 +108,10 @@ export default function Home ({ posts }) {
                           type='date'
                           name='dateStart'
                           id='dateStart'
-                          onChange={HandleChange}
+                          onChange={props.handleChange}
                           required
                           min={getCurrentDate()}
-                          value={form.dateStart}
+                          value={props.form.dateStart}
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
                       </div>
@@ -77,19 +123,19 @@ export default function Home ({ posts }) {
                           type='date'
                           name='dateEnd'
                           id='dateEnd'
-                          onChange={HandleChange}
-                          value={form.dateEnd ? form.dateEnd : form.dateStart}
-                          min={form.dateStart}
+                          onChange={props.handleChange}
+                          value={props.form.dateEnd ? props.form.dateEnd : props.form.dateStart}
+                          min={props.form.dateStart}
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
                       </div>
                       <div className='col-span-6 grid md:grid-cols-3 gap-6 md:gap-3 md:h-14'>
                         <div className='col-span-1 flex items-center md:h-14 pl-1'>
-                          <input id='fullDay' name='fullDay' onClick={HandleChange} onChange={handleCheckbox} checked={form.fullDay} type='checkbox' className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded' />
+                          <input id='fullDay' name='fullDay' onClick={props.handleChange} onChange={props.handleCheckbox} checked={props.form.fullDay} type='checkbox' className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded' />
                           <label htmlFor='fullDay' className='ml-2 block text-sm text-gray-900'>Toute le journee</label>
                         </div>
                         <Transition
-                          show={isShowing}
+                          show={props.isShowing}
                           enter='transition-opacity duration-150'
                           enterFrom='opacity-0'
                           enterTo='opacity-100'
@@ -107,8 +153,8 @@ export default function Home ({ posts }) {
                                 type='time'
                                 name='timeStart'
                                 id='timeStart'
-                                onChange={HandleChange}
-                                value={form.timeStart}
+                                onChange={props.handleChange}
+                                value={props.form.timeStart}
                                 className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                               />
                             </div>
@@ -121,8 +167,8 @@ export default function Home ({ posts }) {
                                 type='time'
                                 name='timeEnd'
                                 id='timeEnd'
-                                onChange={HandleChange}
-                                value={form.timeEnd}
+                                onChange={props.handleChange}
+                                value={props.form.timeEnd}
                                 className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                               />
                             </div>
@@ -138,8 +184,8 @@ export default function Home ({ posts }) {
                           type='text'
                           name='address'
                           id='address'
-                          onChange={HandleChange}
-                          value={form.address}
+                          onChange={props.handleChange}
+                          value={props.form.address}
                           autoComplete='street-address'
                           required
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -155,8 +201,8 @@ export default function Home ({ posts }) {
                           name='city'
                           id='city'
                           required
-                          onChange={HandleChange}
-                          value={form.city}
+                          onChange={props.handleChange}
+                          value={props.form.city}
                           autoComplete='city'
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
@@ -170,12 +216,12 @@ export default function Home ({ posts }) {
                           type='text'
                           maxLength='5'
                           minLength='5'
-                          onInput={onInput}
+                          onInput={props.onInput}
                           name='postalCode'
                           id='postalCode'
                           required
-                          onChange={HandleChange}
-                          value={form.postalCode}
+                          onChange={props.handleChange}
+                          value={props.form.postalCode}
                           autoComplete='postal-code'
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
@@ -195,8 +241,8 @@ export default function Home ({ posts }) {
                         name='email'
                         id='email'
                         autoComplete='email'
-                        onChange={HandleChange}
-                        value={form.email}
+                        onChange={props.handleChange}
+                        value={props.form.email}
                         className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -213,8 +259,8 @@ export default function Home ({ posts }) {
                           type='text'
                           name='facebook'
                           id='facebook'
-                          onChange={HandleChange}
-                          value={form.facebook}
+                          onChange={props.handleChange}
+                          value={props.form.facebook}
                           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
                           placeholder='www.facebook.fr'
                         />
@@ -232,8 +278,8 @@ export default function Home ({ posts }) {
                           type='text'
                           name='instagram'
                           id='instagram'
-                          onChange={HandleChange}
-                          value={form.instagram}
+                          onChange={props.handleChange}
+                          value={props.form.instagram}
                           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
                           placeholder='www.instagram.fr'
                         />
@@ -251,8 +297,8 @@ export default function Home ({ posts }) {
                           type='text'
                           name='twitter'
                           id='twitter'
-                          onChange={HandleChange}
-                          value={form.twitter}
+                          onChange={props.handleChange}
+                          value={props.form.twitter}
                           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
                           placeholder='www.twitter.com'
                         />
@@ -270,8 +316,8 @@ export default function Home ({ posts }) {
                           type='text'
                           name='website'
                           id='website'
-                          onChange={HandleChange}
-                          value={form.website}
+                          onChange={props.handleChange}
+                          value={props.form.website}
                           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
                           placeholder='www.example.fr'
                         />
@@ -326,11 +372,11 @@ export default function Home ({ posts }) {
                                 name='images'
                                 type='file'
                                 className='sr-only'
-                                onChange={uploadSingleFile}
+                                onChange={handleUploadSingleFile}
                                 multiple
                               />
                             </label>
-                            <p className='pl-1'>or drag and drop</p>
+                            {/* <p className='pl-1'>or drag and drop</p> */}
                           </div>
                           <p className='text-xs text-gray-500'>PNG, JPG, GIF up to 10MB</p>
                         </div>
@@ -348,9 +394,9 @@ export default function Home ({ posts }) {
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       </div>
-
     </>
+  )
+}

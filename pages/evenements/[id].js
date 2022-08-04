@@ -1,6 +1,6 @@
-import LayoutEvent from 'components/layoutEvent'
+import EventLayout from 'components/missionLayout'
 import Head from 'next/head'
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post ({ data }) {
@@ -10,9 +10,7 @@ export default function Post ({ data }) {
         <title>{data.title}</title>
       </Head>
       <section className='section'>
-        <div className='flex justify-center'>
-          <LayoutEvent data={data} />
-        </div>
+        <EventLayout data={data} />
       </section>
     </Layout>
   )

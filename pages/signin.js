@@ -133,7 +133,9 @@ export default function SignIn () {
                 <span>Connectez-vous</span>
               </button>
               <p className='mt-8 text-center'>
-                <a href='/password/reset' className='text-sm hover:underline'>Forgot password?</a>
+                <Link href='/password/reset'>
+                  <a className='text-sm hover:underline'>Forgot password?</a>
+                </Link>
               </p>
             </form>
           </div>
