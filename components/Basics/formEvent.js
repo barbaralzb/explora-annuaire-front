@@ -18,7 +18,7 @@ export default function FormEvent (props) {
       imagesSrc.push(URL.createObjectURL(img))
     }
     setImagesPreview(imagesSrc)
-    return props.setFile(file)
+    props.setFile(file)
   }, [file])
 
   function handleUploadSingleFile (e) {
@@ -52,7 +52,7 @@ export default function FormEvent (props) {
                           autoComplete='given-name'
                           onChange={props.handleChange}
                           value={props.form.title}
-                          required
+                          // required
                           className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                         />
                       </div>
@@ -323,6 +323,27 @@ export default function FormEvent (props) {
                         />
                       </div>
                     </div>
+
+                    {props.isEditing && props.form.images.length > 0 &&
+                      <div className='flex snap-x gap-x-4'>
+                        {props.form.images.map((image) => {
+                          return (
+                            <div key={image.url} className='relative shadow h-24 w-24 rounded'>
+                              <Image
+                                src={image.url ? image.url : '/images/proj.jpeg'}
+                                layout='fill'
+                                objectFit='cover'
+                                alt=''
+                              />
+                              <div className='absolute top-0 left-0 bg-slate-50'>
+                                <button type='button' onClick={() => props.deleteFileFromData(image._id)}>
+                                  delete
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>}
                     {imagesPreview.length > 0 &&
                       <div className='flex snap-x gap-x-4'>
                         {imagesPreview.map((item, index) => {

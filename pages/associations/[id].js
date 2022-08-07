@@ -1,28 +1,26 @@
-import EventLayout from 'components/eventLayout'
+import { getAllUserIds, getUserData } from 'lib/users'
 import Head from 'next/head'
 import Layout from '../../components/Layout'
-import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post ({ data }) {
   return (
     <Layout>
       <Head>
-        <title>{data.title}</title>
+        <title>{data.username}</title>
         <meta
           name='description'
           content={data.description}
         />
       </Head>
-      <section className='section'>
-        <EventLayout data={data} />
-      </section>
+      {data.map(user => (<div key={user.id}>{user.username}</div>)
+      )}
     </Layout>
   )
 }
 // esta funcion va a ejecutarse solamente en el lado del servidor
 export async function getStaticPaths () {
   // aqui estoy usando la funcion helper para llamar fetch
-  const paths = await getAllPostIds()
+  const paths = await getAllUserIds()
   // puedo ver que path es un objeto que contiene params > id:
   // console.log('posibles paths:', typeof (paths), paths)
   return {
@@ -41,7 +39,7 @@ export async function getStaticProps (context) {
   // mi pag dym le puse [id].js entonces mi params tengfra {id:...}
   const { params } = context
   // console.log('params es la primera key du context, que es context :', context)
-  const data = getPostData(params.id)
+  const data = getUserData(params.id)
   // console.log('que es params:', params)
   return data
 }

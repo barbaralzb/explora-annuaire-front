@@ -47,7 +47,7 @@ export default function Select ({ labels, query, setQuery, setSelectedLabel, sel
                   Cree "{query}"
                 </Combobox.Option>
               )}
-              {filteredLabel.map((item) => (
+              {filteredLabel?.map(item => (
                 <Combobox.Option
                   key={item.id}
                   className={({ active }) =>

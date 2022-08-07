@@ -5,12 +5,12 @@ import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 import useRouter from 'next/dist/client/router'
 import { useAppContext } from 'context/AppContext'
 import Link from 'next/link'
-import LoadingSpinner from 'components/loadingSpinner'
+import { Loader } from 'components/Basics/Loader'
 
 export default function SignIn () {
   const router = useRouter
   const [isLoading, setIsLoading] = useState(true)
-  const { state } = useAppContext()
+  const { state, dispatch } = useAppContext()
 
   useEffect(() => {
     if (state) {
@@ -61,6 +61,10 @@ export default function SignIn () {
         window.localStorage.setItem(
           'loggedUser', JSON.stringify(data)
         )
+        dispatch({
+          type: 'init_stored',
+          value: JSON.parse(window.localStorage.getItem('loggedUser'))
+        })
         router.push('/')
       }
     } catch (error) {
@@ -75,7 +79,7 @@ export default function SignIn () {
   return (
     <Layout>
       {isLoading
-        ? <LoadingSpinner />
+        ? <Loader />
         : <main className='relative flex flex-1 flex-col overflow-hidden py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-bg-red/5 to-bg-white'>
           <div className='absolute inset-0 text-slate-900/[0.07] [mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)]'>
             <svg className='absolute inset-0 h-full w-full' xmlns='http://www.w3.org/2000/svg'>

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { ageRangeList, domainList } from 'utils/utils'
 import Dropdown from './Basics/Dropdown'
 import FormEvent from './Basics/formEvent'
-import { v4 as uuidv4, v4 } from 'uuid'
 
 export default function EventLayout ({ data }) {
   const router = useRouter()
@@ -14,8 +13,6 @@ export default function EventLayout ({ data }) {
   const [selectedAge, setSelectedAge] = useState(ageRangeList[0])
   const [selectedDomain, setSelectedDomain] = useState(domainList[0])
   const [file, setFile] = useState([])
-  const [imagesPreview, setImagesPreview] = useState([])
-  const [imagesFromProps, setImagesFromProps] = useState([])
 
   const [isShowing, setIsShowing] = useState(true)
   const [queryAge, setQueryAge] = useState('')
@@ -62,58 +59,50 @@ export default function EventLayout ({ data }) {
       ageRange: selectedAge.label,
       domain: selectedDomain.label
     })
-  }, [selectedAge, selectedDomain, file])
-
-  function handleUploadSingleFile (e) {
-    setFile(file => [...file, e.target.files[0]])
-  }
+  }, [selectedAge, selectedDomain])
 
   useEffect(() => {
-    getUrlsFromDataImages()
-    if (file) {
-      for (const img of file) {
-        setImagesPreview(ImagesPreview => [...ImagesPreview, URL.createObjectURL(img)])
-      }
-    }
-  }, [file])
-
-  function deleteFile (e) {
-    const s = file.filter((item) => item !== e)
-    setFile(s)
-  }
-
-  function deleteFileFromData (e) {
-    const s = imagesFromProps.filter((item) => item !== e)
-    setImagesFromProps(s)
-  }
-
-  // obtengo las url de mi data y las guardo en imagesPreview
-  const getUrlsFromDataImages = () => {
-    const imagesStorage = []
-    for (const image of data.images) {
-      imagesStorage.push(image.url)
-    }
-    setImagesFromProps(imagesStorage)
-  }
+    console.log('form :', form)
+    console.log('form.images :', form.images)
+  }, [form])
 
   // mejorar, quizas callback or promise (?)
   const HandleSubmit = e => {
     e.preventDefault()
-    uploadFileHandler()
+    // uploadFileHandler()
 
-    // if (file.length > 0) {
-    //   uploadFileHandler()
-    // } else {
-    //   postData(form)
-    // }
-  }
-  useEffect(() => {
     if (file.length > 0) {
+      uploadFileHandler()
+    } else {
       postData(form)
     }
-  }, [form.images])
+  }
   // fin
 
+  const deleteImageFromProps = async (id) => {
+    // const id = data._id
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/uploadS3/${id}`, {
+        method: 'DELETE'
+      })
+      const data = await res.json()
+    } catch (error) {
+      console.log('Error del servidor', error)
+    }
+  }
+
+  // image deja enregistré
+  const deleteFileFromData = (e) => {
+    // charger l'id e le suprime
+    const newImageArray = form.images.filter((item) => item._id !== e)
+    setform({
+      ...form,
+      images: newImageArray
+    })
+    // deleteImageFromProps(e)
+  }
+
+  // sumbit
   const uploadFileHandler = async () => {
     const formData = new FormData()
     for (let i = 0; i < file.length; i++) {
@@ -128,9 +117,14 @@ export default function EventLayout ({ data }) {
         body: formData
       })
       const data = await res.json()
+
+      // buffer
+      let buffer = { ...form }
+      const imageBuffer = [...form.images, ...data]
+      buffer = { ...buffer, images: imageBuffer }
+
       setform({
-        ...form,
-        images: data
+        ...buffer
       })
     } catch (error) {
       console.log('Error del servidor', error)
@@ -185,11 +179,9 @@ export default function EventLayout ({ data }) {
             handleCheckbox={handleCheckbox}
             isShowing={isShowing}
             onInput={onInput}
-            imagesPreview={imagesPreview}
-            deleteFile={deleteFile}
-            handleUploadSingleFile={handleUploadSingleFile}
-            isEditing={imagesFromProps}
+            isEditing
             deleteFileFromData={deleteFileFromData}
+            setFile={setFile}
 
           />
         : <div className='bg-white'>
@@ -218,18 +210,21 @@ export default function EventLayout ({ data }) {
                 </div>
               </dl>
             </div>
-            <div className='grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8 h-full'>
-              {data.images.map((image, index) => (
-                <div key={index} className='w-auto relative h-full'>
+            <div className='grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8  w-full h-full'>
+              {data.images.map((image) => (
+                <div key={image.id} className='relative w-auto h-full'>
                   <Link passHref href={image.url}>
                     <a target='_blank' rel='noopener noreferrer'>
-                      <Image
-                        src={image.url}
-                        alt={image.name}
-                        className='bg-gray-100 rounded-lg'
-                        layout='fill'
-                        objectFit='contain'
-                      />
+                      <div className='relative w-full h-full'>
+                        <Image
+                          src={image.url}
+                          alt={image.name}
+                          className='bg-gray-100 rounded-lg'
+                          layout='fill'
+                          objectFit='cover'
+                          priority
+                        />
+                      </div>
                     </a>
                   </Link>
                 </div>

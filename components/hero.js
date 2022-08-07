@@ -1,18 +1,46 @@
-import Image from 'next/image'
+import Link from 'next/link'
+import { domainList } from 'utils/utils'
+import { motion } from 'framer-motion'
 
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2
+    }
+  }
+}
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+}
 export default function Hero () {
   return (
-    <div className='relative h-full w-full'>
-      <div className='absolute w-full h-full '>
-        {/* <svg width='100%' height='100%' id='svg' viewBox='0 0 1440 400' xmlns='http://www.w3.org/2000/svg' className='transition duration-300 ease-in-out delay-150'>
-        <defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#F2B65803' /><stop offset='95%' stopColor='#F2B65810' /></linearGradient></defs><path d='M 0,400 C 0,400 0,100 0,100 C 59.84678804534525,117.81243558914463 119.6935760906905,135.62487117828925 194,127 C 268.3064239093095,118.37512882171075 357.07248368258325,83.31295087598761 421,72 C 484.92751631741675,60.68704912401238 524.0164891789763,73.12332531776023 598,94 C 671.9835108210237,114.87667468223977 780.8615596015115,144.19374785297148 852,135 C 923.1384403984885,125.80625214702852 956.5372724149777,78.10168327035382 1010,76 C 1063.4627275850223,73.89831672964618 1136.9893507385777,117.39951906561319 1212,129 C 1287.0106492614223,140.6004809343868 1363.5053246307111,120.3002404671934 1440,100 C 1440,100 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-0' transform='rotate(-180 720 200)' /><defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#f5f9fb88' /><stop offset='95%' stopColor='#f4f5fa88' /></linearGradient></defs><path d='M 0,400 C 0,400 0,200 0,200 C 66.21779457231193,179.3232566128478 132.43558914462386,158.64651322569563 200,167 C 267.56441085537614,175.35348677430437 336.47543799381646,212.73720371006524 402,211 C 467.52456200618354,209.26279628993476 529.66265888011,168.40467193404328 594,171 C 658.33734111989,173.59532806595672 724.8739264857436,219.64410855376158 798,237 C 871.1260735142564,254.35589144623842 950.8416351769154,243.01889385091033 1022,228 C 1093.1583648230846,212.98110614908967 1155.7595328065956,194.28031604259706 1224,189 C 1292.2404671934044,183.71968395740294 1366.1202335967023,191.85984197870147 1440,200 C 1440,200 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-1' transform='rotate(-180 720 200)' /><defs><linearGradient id='gradient' x1='100%' y1='57%' x2='0%' y2='43%'><stop offset='5%' stopColor='#f5f9fbff' /><stop offset='95%' stopColor='#f4f5faff' /></linearGradient></defs><path d='M 0,400 C 0,400 0,300 0,300 C 77.12538646513227,302.8120920645826 154.25077293026453,305.6241841291652 224,292 C 293.74922706973547,278.3758158708348 356.1222947440743,248.31535554792174 421,263 C 485.8777052559257,277.68464445207826 553.2600480934385,337.114393679148 620,337 C 686.7399519065615,336.885606320852 752.8375128821712,277.22706973548605 821,272 C 889.1624871178288,266.77293026451395 959.389900377877,315.9773273789076 1030,327 C 1100.610099622123,338.0226726210924 1171.6028856063208,310.86362074888353 1240,300 C 1308.3971143936792,289.13637925111647 1374.1985571968396,294.56818962555826 1440,300 C 1440,300 1440,400 1440,400 Z' stroke='none' strokeWidth='0' fill='url(#gradient)' className='transition-all duration-300 ease-in-out delay-150 path-2' transform='rotate(-180 720 200)' />
-        </svg> */}
-        <Image
-          src='/images/backgound-gradient.jpg'
-          layout='fill'
-          objectFit='contain'
-        />
-      </div>
+    <div className='relative'>
+      <motion.ul
+        className='grid grid-cols-8 gap-4 my-20 items-center'
+        variants={container}
+        initial='hidden'
+        animate='visible'
+      >
+        {domainList.map(e => (
+          <motion.li key={e.id} variants={item}>
+            <Link href='/signin'>
+              <a className='text-xs flex flex-col justify-center rounded-lg py-3 px-4 text-black hover:bg-white hover:shadow-lg hover:shadow-secondary/10 bg-white/60 items-center'>
+                {e.icon}
+                <span className='font-bold text-center'>{e.label}</span>
+              </a>
+            </Link>
+          </motion.li>
+        ))}
+      </motion.ul>
     </div>
   )
 }

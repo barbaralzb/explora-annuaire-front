@@ -3,14 +3,12 @@ import FormEvent from 'components/Basics/formEvent'
 import { useRouter } from 'next/router'
 import { ageRangeList, domainList } from 'utils/utils'
 
-export default function CreateEvent () {
+export default function addEvent () {
   const router = useRouter()
-  // quiero saber si necesito dos estados de mi dispatch como se haria?
-
   const [selectedAge, setSelectedAge] = useState(ageRangeList[0])
   const [selectedDomain, setSelectedDomain] = useState(domainList[0])
   const [file, setFile] = useState([])
-  const [imagesPreview, setImagesPreview] = useState([])
+  const [message, setMessage] = useState([])
 
   const [isShowing, setIsShowing] = useState(true)
   const [queryAge, setQueryAge] = useState('')
@@ -34,7 +32,7 @@ export default function CreateEvent () {
     facebook: '',
     instagram: '',
     twitter: '',
-    images: file
+    images: []
   })
 
   const HandleChange = e => {
@@ -42,7 +40,7 @@ export default function CreateEvent () {
     if (name === 'fullDay') {
       setform({
         ...form,
-        [name]: checked
+        fullDay: checked
       })
     } else {
       setform({
@@ -52,45 +50,23 @@ export default function CreateEvent () {
     }
   }
 
-  function handleUploadSingleFile (e) {
-    setFile(file => [...file, e.target.files[0]])
-  }
-
   useEffect(() => {
     setform({
       ...form,
       ageRange: selectedAge.label,
       domain: selectedDomain.label
     })
+  }, [selectedAge, selectedDomain])
 
-    const imagesSrc = []
-    for (const img of file) {
-      imagesSrc.push(URL.createObjectURL(img))
-    }
-    setImagesPreview(imagesSrc)
-    // console.log('aca esta form.image cuando se carga mi componente : ', form.images)
-  }, [selectedAge, selectedDomain, file])
-
-  // mejorar, quizas callback or promise (?)
   const HandleSubmit = e => {
     e.preventDefault()
     if (file.length > 0) {
       uploadFileHandler()
+      postData(form)
     } else {
+      console.log('no hay imagenes')
       postData(form)
     }
-  }
-  useEffect(() => {
-    if (file.length > 0) {
-      postData(form)
-    }
-  }, [form.images])
-  // fin
-
-  function deleteFile (e) {
-    const s = file.filter((item, index) => index !== e)
-    setFile(s)
-    // console.log(`nuevo estado de file SIN la img suprimida, type of s : ${typeof (s)}, ${s}`)
   }
 
   const uploadFileHandler = async () => {
@@ -107,13 +83,7 @@ export default function CreateEvent () {
         body: formData
       })
       const data = await res.json()
-
       console.log('respuesta', data)
-
-      // let dataImg = []
-      // for (const i in data) {
-      //   dataImg = [...dataImg, { dataImg: data[i] }]
-      // }
       setform({
         ...form,
         images: data
@@ -137,8 +107,18 @@ export default function CreateEvent () {
       })
 
       const data = await res.json()
-      console.log('post realizado', data)
-      if (data.success === true) { router.push('/') }
+      console.log('post realizado success:', data.success, data)
+      if (!data.success) {
+        for (const key in data.error.errors) {
+          const error = data.error.errors[key]
+          setMessage(oldmessage => [
+            ...oldmessage,
+            { message: error.message }
+          ])
+        }
+      } else {
+        router.push('/')
+      }
     } catch (error) {
       console.log('Error del servidor', error)
     }
@@ -153,9 +133,13 @@ export default function CreateEvent () {
 
   // const random = Math.floor(Math.random() * backgroundColors.length)
   // const RandomColor = backgroundColors[random]
-  console.log('aca esta file', file)
+
   return (
     <>
+      {message.map(({ message }) => (
+        <p key={message}>{message}</p>
+
+      ))}
       <FormEvent
         handleSubmit={HandleSubmit}
         handleChange={HandleChange}
@@ -173,9 +157,6 @@ export default function CreateEvent () {
         handleCheckbox={handleCheckbox}
         isShowing={isShowing}
         onInput={onInput}
-        imagesPreview={imagesPreview}
-        deleteFile={deleteFile}
-        handleUploadSingleFile={handleUploadSingleFile}
         setFile={setFile}
       />
     </>
