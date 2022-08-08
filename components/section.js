@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useEffect } from 'react'
 import { domainList } from 'utils/utils'
 import Pagination from './Basics/pagination'
 import Card from './Card'
@@ -27,13 +28,16 @@ const fakeData = [
   }
 ]
 export default function Section ({ posts }) {
+  useEffect(() => {
+  }, [posts])
   return (
     <div className='shadow-xl shadow-secondary/5'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none'>
           <h2 className='text-2xl font-extrabold text-gray-900'>Evenements</h2>
           <div className='mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-12 lg:gap-y-24'>
-            {posts.map(post => (
+            {posts.length > 0 &&
+            posts.map(post => (
               <div key={post._id} className='group relative'>
                 <div className='relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1'>
                   <img

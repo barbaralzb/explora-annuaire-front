@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import FormEvent from 'components/Basics/formEvent'
 import { useRouter } from 'next/router'
 import { ageRangeList, domainList } from 'utils/utils'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function addEvent () {
   const router = useRouter()
@@ -34,6 +36,7 @@ export default function addEvent () {
     twitter: '',
     images: []
   })
+  const notify = () => toast('Something important isn\'t valid')
 
   const HandleChange = e => {
     const { name, value, checked } = e.target
@@ -109,8 +112,9 @@ export default function addEvent () {
       const data = await res.json()
       console.log('post realizado success:', data.success, data)
       if (!data.success) {
-        for (const key in data.error.errors) {
-          const error = data.error.errors[key]
+        notify()
+        for (const key in data.err.errors) {
+          const error = data.err.errors[key]
           setMessage(oldmessage => [
             ...oldmessage,
             { message: error.message }
@@ -136,10 +140,17 @@ export default function addEvent () {
 
   return (
     <>
-      {message.map(({ message }) => (
-        <p key={message}>{message}</p>
-
-      ))}
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <FormEvent
         handleSubmit={HandleSubmit}
         handleChange={HandleChange}

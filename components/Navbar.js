@@ -37,6 +37,7 @@ export default function Navbar () {
     })
     router.push('/')
   }
+  console.log(state)
 
   return (
     <Disclosure as='nav' className='sticky top-0 z-10 bg-white/90 shadow-lg shadow-secondary/5 backdrop-blur-sm'>
@@ -160,7 +161,7 @@ export default function Navbar () {
                       <span className='font-bold'>Crée evenement →</span>
                     </a>
                   </Link>
-                </div>
+                  </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -173,7 +174,7 @@ export default function Navbar () {
                       <span className='font-bold'>Connexion →</span>
                     </a>
                   </Link>
-                </div>}
+                  </div>}
 
             </div>
           </div>

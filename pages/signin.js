@@ -18,7 +18,7 @@ export default function SignIn () {
     } else {
       setIsLoading(false)
     }
-  })
+  }, [state])
 
   const [ShowPassword, setShowPassword] = useState(false)
   // const { token } = user

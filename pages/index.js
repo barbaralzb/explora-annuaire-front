@@ -9,6 +9,7 @@ export async function getServerSideProps () {
   return posts
 }
 export default function Home ({ posts }) {
+  console.log(posts)
   return (
     <div className={styles.container}>
       <Head>
