@@ -49,13 +49,13 @@ export default function AccountSettings () {
             >
               {navigation.map(item => (
                 <motion.li key={item.name} variants={i}>
-                  <Link href={item.href}>
+                  <Link href={`${item.href}`}>
                     <a>
-                      <div class='bg-white h-full p-8 space-y-3 border-2 group-hover:opacity-75 rounded-xl'>
+                      <div className='bg-white h-full p-8 space-y-3 border-2 group-hover:opacity-75 rounded-xl'>
 
-                        <h1 class='text-2xl font-semibold text-gray-700 capitalize'>{item.name}</h1>
+                        <h1 className='text-2xl font-semibold text-gray-700 capitalize'>{item.name}</h1>
 
-                        <p class='text-gray-500 dark:text-gray-300'>
+                        <p className='text-gray-500 dark:text-gray-300'>
                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ab nulla quod dignissimos vel non corrupti doloribus voluptatum eveniet
                         </p>
                       </div>

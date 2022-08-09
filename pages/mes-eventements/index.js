@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import Layout from 'components/Layout'
+import LayoutPage from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
 import Hero from 'components/hero'
 import Section from 'components/section'
 import { useAppContext } from 'context/AppContext'
 import useSWR from 'swr'
-import { useEffect, useState } from 'react'
 
 // export const fetcher = async (id) => {
 //   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/all/${id}`)
@@ -30,10 +29,9 @@ export default function MesEvenements () {
         <meta name='description' content='Explora Rouen missios bénévolat' />
       </Head>
 
-      <Layout>
-        <Hero />
+      <LayoutPage>
         <Section posts={data} />
-      </Layout>
+      </LayoutPage>
     </div>
   )
 }

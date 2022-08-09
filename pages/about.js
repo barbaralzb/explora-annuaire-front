@@ -27,6 +27,7 @@ import { RadioGroup } from '@headlessui/react'
 import SectionObjects from 'components/Basics/SectionObjects'
 import CTA from 'components/Basics/CallToAction'
 import CallToAction from 'components/Basics/CallToAction'
+import Image from 'next/image'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -261,6 +262,16 @@ export default function Example () {
                 Live demo
               </a>
             </div>
+          </div>
+          <div className='w-100 rounded-xl p-12 shadow-secondary/50 shadow-2xl'>
+            <Image
+              className='shadow-xl'
+              src='/images/vectors/2-girls.svg'
+              width='100%'
+              height='100%'
+              layout='responsive'
+              objectFit='contain'
+            />
           </div>
         </div>
       </main>

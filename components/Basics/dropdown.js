@@ -1,8 +1,42 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router'
 
-export default function Dropdown (props) {
+export default function Dropdown ({ setEditEvent, id, setIsLoading }) {
+  const router = useRouter()
+  const [message, setMessage] = useState([])
+
+  const deletePost = async () => {
+    console.log('click')
+    const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
+    const { token } = loggedUser
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await res.json()
+      console.log('post realizado success:', data.success, data)
+      if (!data.success) {
+        for (const key in data.err.errors) {
+          const error = data.err.errors[key]
+          setMessage(oldmessage => [
+            ...oldmessage,
+            { message: error.message }
+          ])
+        }
+      } else {
+        setIsLoading(true)
+        router.push('/')
+      }
+    } catch (error) {
+      console.log('Error del servidor', error)
+    }
+  }
   return (
     <div className='absolute top-10 right-10 z-10'>
       <Menu as='div' className='relative inline-block text-left'>
@@ -29,6 +63,7 @@ export default function Dropdown (props) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={() => setEditEvent(true)}
                     className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -55,7 +90,6 @@ export default function Dropdown (props) {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    onClick={() => props.setEditEvent(true)}
                     className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -82,6 +116,7 @@ export default function Dropdown (props) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={deletePost}
                     className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

@@ -1,11 +1,11 @@
 import EventLayout from 'components/eventLayout'
 import Head from 'next/head'
-import Layout from '../../components/Layout'
+import LayoutPage from '../../components/LayoutPage'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post ({ data }) {
   return (
-    <Layout>
+    <LayoutPage>
       <Head>
         <title>{data.title}</title>
         <meta
@@ -16,7 +16,7 @@ export default function Post ({ data }) {
       <section className='section'>
         <EventLayout data={data} />
       </section>
-    </Layout>
+    </LayoutPage>
   )
 }
 // esta funcion va a ejecutarse solamente en el lado del servidor

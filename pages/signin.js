@@ -6,11 +6,12 @@ import useRouter from 'next/dist/client/router'
 import { useAppContext } from 'context/AppContext'
 import Link from 'next/link'
 import { Loader } from 'components/Basics/Loader'
+import { Button, Input } from '@material-tailwind/react'
 
 export default function SignIn () {
   const router = useRouter
-  const [isLoading, setIsLoading] = useState(true)
   const { state, dispatch } = useAppContext()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (state) {
@@ -76,66 +77,61 @@ export default function SignIn () {
     setShowPassword(!Password)
   }
 
+  const onInput = e => {
+    e.target.value = e.target.value.replace(/[^0-9+]/g, '')
+  }
+
   return (
-    <Layout>
+    <>
       {isLoading
         ? <Loader />
         : <main className='relative flex flex-1 flex-col overflow-hidden py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-bg-red/5 to-bg-white'>
-          <div className='absolute inset-0 text-slate-900/[0.07] [mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)]'>
-            <svg className='absolute inset-0 h-full w-full' xmlns='http://www.w3.org/2000/svg'>
-              <defs>
-                <pattern id='grid-bg' width='32' height='32' patternUnits='userSpaceOnUse' x='100%' patternTransform='translate(0 -1)'>
-                  <path d='M0 32V.5H32' fill='none' stroke='rgba(99, 102, 241, 0.1)' />
-                </pattern>
-              </defs>
-              <rect width='100%' height='100%' fill='url(#grid-bg)' />
-            </svg>
-          </div>
           <div className='relative flex flex-1 flex-col items-center justify-center pt-12 pb-16'>
-            <Image
-              priority
-              src='/../public/images/proj.jpeg'
-              className='rounded-full ring-secondary shadow'
-              height={124}
-              width={124}
-              alt='explora'
-            />
+            <div className='w-11/12 h-auto'>
+              <Image
+                priority
+                src='/images/logo/logo-explora.png'
+                alt='Explora'
+                layout='responsive'
+                objectFit='contain'
+                width='100%'
+                height='100%'
+              />
+            </div>
             <h1 className='sr-only'>Log in to your Tailwind UI account</h1>
             <form className='w-full max-w-sm' onSubmit={HandleSubmit}>
               <div className='mb-6'>
-                <label htmlFor='email' className='block text-sm font-semibold leading-6 text-gray-900'>Email address</label>
-                <input
-                  className='mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-secondary ring-1 ring-slate-200'
+                <Input
+                  label='Email address'
                   value={form.email}
                   name='email'
                   type='email'
                   onChange={HandleChange}
                   required
+                  color='orange'
                 />
               </div>
               <div className='mb-6'>
-                <label htmlFor='password' className='block text-sm font-semibold leading-6 text-gray-900'>Password</label>
                 <div className='relative'>
-                  <input
-                    className=' mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-secondary ring-1 ring-slate-200'
+                  <Input
+                    label='Mots de passe'
                     value={form.password}
                     name='password'
-                    placeholder='*********'
                     type={ShowPassword ? 'text' : 'password'}
                     onChange={HandleChange}
                     required
+                    color='orange'
+                    icon={<div onClick={() => HandlePassword(ShowPassword)}>
+                      {ShowPassword
+                        ? <EyeIcon className='h-5 w-5 text-secondary' />
+                        : <EyeOffIcon className='h-5 w-5' />}
+                          </div>}
                   />
-
-                  <div className='absolute right-3 top-1/3 hover:cursor-pointer' onClick={() => HandlePassword(ShowPassword)}>
-                    {ShowPassword
-                      ? <EyeIcon className='h-5 w-5 text-secondary' />
-                      : <EyeOffIcon className='h-5 w-5' />}
-                  </div>
                 </div>
               </div>
-              <button type='submit' className='inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-secondary/80 text-white hover:bg-secondary w-full'>
-                <span>Connectez-vous</span>
-              </button>
+              <Button fullWidth color='orange' type='submit' className='normal-case text-sm font-semibold'>
+                Connectez-vous
+              </Button>
               <p className='mt-8 text-center'>
                 <Link href='/password/reset'>
                   <a className='text-sm hover:underline'>Forgot password?</a>
@@ -147,13 +143,15 @@ export default function SignIn () {
             <div className='space-y-4 text-sm text-gray-900 sm:flex sm:items-center sm:justify-center sm:space-y-0 sm:space-x-4'>
               <p className='text-center sm:text-left'>Vous n'avez pas de compte ?</p>
               <Link href='/signup'>
-                <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 text-slate-900 ring-1 ring-secondary/80 hover:ring-secondary' href='/all-access'>
-                  <span>Inscribez-vous <span aria-hidden='true'>→</span></span>
+                <a>
+                  <Button color='orange' variant='outlined' className='normal-case text-sm font-regular text-black'>
+                    <span>Inscribez-vous <span aria-hidden='true'>→</span></span>
+                  </Button>
                 </a>
               </Link>
             </div>
           </footer>
-        </main>}
-    </Layout>
+          </main>}
+    </>
   )
 }

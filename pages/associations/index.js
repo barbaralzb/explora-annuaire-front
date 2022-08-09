@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Layout from 'components/Layout'
+import Layout from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
 import { getSortedUsersData } from 'lib/users'
 export async function getServerSideProps () {
@@ -49,7 +49,7 @@ export default function allUsers ({ users }) {
               <div className='mt-4 flex justify-between'>
                 <div>
                   <h3 className='text-sm text-gray-700'>
-                    <a href={product.href}>
+                    <a href={`${product.href}`}>
                       <span aria-hidden='true' className='absolute inset-0' />
                       {product.name}
                     </a>

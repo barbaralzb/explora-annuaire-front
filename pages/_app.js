@@ -1,10 +1,10 @@
 import '../styles/globals.css'
 import { AppWrapper } from '../context/AppContext'
-import Navbar from 'components/Navbar'
-import Footer from 'components/footer'
 import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import { useEffect } from 'react'
+import Layout from 'components/Layout'
+import { ThemeProvider } from '@material-tailwind/react'
 
 function MyApp ({ Component, pageProps }) {
   const router = useRouter()
@@ -27,13 +27,14 @@ function MyApp ({ Component, pageProps }) {
       router.events.off('routeChangeError', handleStop)
     }
   }, [router])
-  const showHeader = router.pathname !== '/signin' && router.pathname !== '/signup'
   return (
     <>
       <AppWrapper>
-        {showHeader && <Navbar />}
-        <Component {...pageProps} />
-        <Footer />
+        <ThemeProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
       </AppWrapper>
     </>
   )

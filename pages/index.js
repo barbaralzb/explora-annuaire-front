@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Layout from 'components/Layout'
+import LayoutPage from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
 import Hero from 'components/hero'
 import Section from 'components/section'
@@ -17,10 +17,10 @@ export default function Home ({ posts }) {
         <meta name='description' content='Explora Rouen missios bénévolat' />
       </Head>
 
-      <Layout>
+      <LayoutPage>
         <Hero />
         <Section posts={posts} />
-      </Layout>
+      </LayoutPage>
     </div>
   )
 }

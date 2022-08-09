@@ -1,10 +1,10 @@
 import { getAllUserIds, getUserData } from 'lib/users'
 import Head from 'next/head'
-import Layout from '../../components/Layout'
+import LayoutPage from '../../components/LayoutPage'
 
 export default function Post ({ data }) {
   return (
-    <Layout>
+    <LayoutPage>
       <Head>
         <title>{data.username}</title>
         <meta
@@ -14,7 +14,7 @@ export default function Post ({ data }) {
       </Head>
       {data.map(user => (<div key={user.id}>{user.username}</div>)
       )}
-    </Layout>
+    </LayoutPage>
   )
 }
 // esta funcion va a ejecutarse solamente en el lado del servidor

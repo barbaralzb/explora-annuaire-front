@@ -1,4 +1,5 @@
-module.exports = {
+const withMT = require('@material-tailwind/react/utils/withMT')
+module.exports = withMT({
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}'
@@ -16,7 +17,8 @@ module.exports = {
       },
       backgroundImage: {
         // 'hero-pattern': "url('/images/backgound-gradient.jpg')"
-        'hero-pattern': "url('/images/bbblurry-15.svg')"
+        'hero-pattern': "url('/images/bbblurry-15.svg')",
+        squares: "url('/images/square-bg.svg')"
       },
       backgroundPosition: {
         top: 'top',
@@ -25,7 +27,7 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio')
   ]
-}
+})

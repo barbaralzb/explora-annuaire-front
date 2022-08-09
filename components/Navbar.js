@@ -1,33 +1,88 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useEffect, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Fragment, useState, useEffect } from 'react'
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  IconButton
+} from '@material-tailwind/react'
+import { Menu, Transition } from '@headlessui/react'
+import { RiUser6Line } from 'react-icons/ri'
 import Link from 'next/link'
-import { useAppContext } from '../context/AppContext'
 import { useRouter } from 'next/router'
+import { useAppContext } from 'context/AppContext'
 import { initialState } from 'context/AppReducer'
-import Image from 'next/image'
 
-function classNames (...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function Navbar () {
-  const { state, dispatch } = useAppContext()
+export default function Example () {
+  const [openNav, setOpenNav] = useState(false)
   const router = useRouter()
-  const [user, setUser] = useState(state)
   const [currentPath, setCurrentPath] = useState('')
+  const { state, dispatch } = useAppContext()
+  const [user, setUser] = useState(state)
+
+  useEffect(() => {
+    setUser(state)
+  }, [state, currentPath])
+
+  useEffect(() => {
+    window.addEventListener(
+      'resize',
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    )
+  }, [])
+
+  const navList = (
+    <ul className='mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6'>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 font-normal'
+      >
+        <a href='#' className='flex items-center' />
+      </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 font-normal'
+      >
+        <a href='#' className='flex items-center'>
+          Account
+        </a>
+      </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 font-normal'
+      >
+        <a href='#' className='flex items-center'>
+          Blocks
+        </a>
+      </Typography>
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 font-normal'
+      >
+        <a href='#' className='flex items-center'>
+          Docs
+        </a>
+      </Typography>
+    </ul>
+  )
 
   const navigation = [
     { name: 'Evénements', href: '/' },
     { name: 'Associations', href: '/associations' },
     { name: 'A props', href: '/about' }
   ]
+  function classNames (...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
   const path = router.pathname
-
-  useEffect(() => {
-    setUser(state)
-  }, [state, currentPath])
 
   const handlerLogOut = () => {
     window.localStorage.removeItem('loggedUser', JSON.stringify(state))
@@ -37,168 +92,253 @@ export default function Navbar () {
     })
     router.push('/')
   }
-  console.log(state)
 
   return (
-    <Disclosure as='nav' className='sticky top-0 z-10 bg-white/90 shadow-lg shadow-secondary/5 backdrop-blur-sm'>
-      {({ open }) => (
-        <>
-          <div className='max-w-7xl relative mx-auto'>
-            <div className='relative flex items-center justify-between h-16'>
-              <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
-                {/* Mobile menu button */}
-                <Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
-                  <span className='sr-only'>Open main menu</span>
-                  {open
-                    ? (
-                      <XIcon className='block h-6 w-6' aria-hidden='true' />
-                      )
-                    : (
-                      <MenuIcon className='block h-6 w-6' aria-hidden='true' />
-                      )}
-                </Disclosure.Button>
-              </div>
-              <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
-                <div className='flex-shrink-0 flex items-center'>
-                  <img
-                    className='block lg:hidden h-8 w-auto'
-                    src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
-                    alt='Workflow'
-                  />
-                  <img
-                    className='hidden lg:block h-8 w-auto'
-                    src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
-                    alt='Workflow'
-                  />
-                </div>
-                <div className='hidden sm:block sm:ml-6'>
-                  <div className='flex space-x-4'>
-                    {navigation.map(item => (
-                      <Link key={item.name} href={item.href}>
-                        <a
-                          onClick={() => setCurrentPath(item.href)}
-                          className={classNames(
-                            item.href === path ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'px-3 py-2 rounded-md text-sm font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
-                        >
-                          {item.name}
-                        </a>
-                      </Link>
-                    )
-                    )}
-                  </div>
-                </div>
-              </div>
-              {user !== null
-                ? <div className='flex gap-4'>
-                  {/* Profile dropdown */}
-                  <Menu as='div' className='ml-3 relative'>
-                    <div>
-                      <Menu.Button className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary/50 focus:ring-secondary'>
-                        <span className='sr-only'>Open user menu</span>
-                        <Image
-                          className='h-10 w-10 rounded-full'
-                          src='/images/proj.jpeg'
-                          alt=''
-                          width='34'
-                          height='34'
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter='transition ease-out duration-100'
-                      enterFrom='transform opacity-0 scale-95'
-                      enterTo='transform opacity-100 scale-100'
-                      leave='transition ease-in duration-75'
-                      leaveFrom='transform opacity-100 scale-100'
-                      leaveTo='transform opacity-0 scale-95'
-                    >
-                      <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                        <Menu.Item>
-
-                          {({ active }) => (
-                            <div
-                              className={classNames(active ? 'bg-gray-100' : '')}
-                            >
-                              <Link href='/account-settings'>
-                                <a className='block px-4 py-2 text-sm text-gray-700'>Mon compte</a>
-                              </Link>
-                            </div>
-                          )}
-
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-
-                            <div
-                              className={classNames(active ? 'bg-gray-100' : '')}
-                            >
-                              <Link href='/mes-eventements'>
-                                <a className='block px-4 py-2 text-sm text-gray-700'>Mes evenement</a>
-                              </Link>
-
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={handlerLogOut}
-                              className={classNames(active ? 'bg-gray-100' : '')}
-                            >
-                              <a className='block px-4 py-2 text-sm text-gray-700'>Déconnexion</a>
-                            </div>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                  <Link href='/evenements/add'>
-                    <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90'>
-                      <span className='font-bold'>Crée evenement →</span>
-                    </a>
-                  </Link>
-                  </div>
-                : <div className='flex gap-4 items-center'>
-                  <span>Vous etes une association ?</span>
-                  <Link href='/signup'>
-                    <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-white text-blackring-1 hove:ring-secondary hover:bg-white/25 hover:ring-slate-900/15 hover:text-secondary'>
-                      <span>Enregistrer →</span>
-                    </a>
-                  </Link>
-                  <Link href='/signin'>
-                    <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/80'>
-                      <span className='font-bold'>Connexion →</span>
-                    </a>
-                  </Link>
-                  </div>}
-
-            </div>
-          </div>
-
-          <Disclosure.Panel className='sm:hidden'>
-            <div className='px-2 pt-2 pb-3 space-y-1'>
-              {navigation.map(item => (
-                <Disclosure.Button
-                  key={item.name}
-                  as='a'
-                  href={item.href}
+    <div className='absolute left-2/4 z-[999] my-4 flex w-full max-w-screen-2xl -translate-x-2/4 flex-wrap items-center px-4 lg:fixed'>
+      <Navbar className='mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4'>
+        <div className='container mx-auto flex items-center justify-between text-blue-gray-900'>
+          <Link href='/'>
+            <a className='mr-4 cursor-pointer py-1.5 font-normal'>
+              <img
+                className='h-12 w-auto'
+                src='/images/logo/logo-explora.png'
+                alt='Explora'
+                width='100%'
+                height='100%'
+                layout='responsive'
+                objectFit='contain'
+              />
+            </a>
+          </Link>
+          <div className='hidden lg:block'>
+            {navigation.map(item => (
+              <Link key={item.name} href={item.href}>
+                <a
+                  onClick={() => setCurrentPath(item.href)}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
+                    item.href === path ? 'text-black' : 'text-black/60 hover:text-black',
+                    'px-3 py-2 rounded-md font-semibold '
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
                   {item.name}
-                </Disclosure.Button>
-              ))}
+                </a>
+              </Link>
+            )
+            )}
+          </div>
+          <div className='hidden lg:inline-block'>
+            {user !== null
+              ? <div className='flex gap-4'>
+                {/* Profile dropdown */}
+                <Menu as='div' className='ml-3 relative'>
+                  <div className='selection:h-full rounded-full'>
+                    <Menu.Button className='flex text-sm rounded-full transition ease-in-out delay-150 duration-100 hover:outline-none hover:ring-2 hover:ring-offset hover:ring-offset-orange-500/50 hover:ring-orange-500 hover:shadow-lg hover:shadow-orange-500/40'>
+                      <span className='sr-only'>Open user menu</span>
+                      <RiUser6Line size='35' className='p-2 text-black' />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter='transition ease-out duration-100'
+                    enterFrom='transform opacity-0 scale-95'
+                    enterTo='transform opacity-100 scale-100'
+                    leave='transition ease-in duration-75'
+                    leaveFrom='transform opacity-100 scale-100'
+                    leaveTo='transform opacity-0 scale-95'
+                  >
+                    <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                      <Menu.Item>
+
+                        {({ active }) => (
+                          <div
+                            className={classNames(active ? 'bg-gray-100' : '')}
+                          >
+                            <Link href='/account-settings'>
+                              <a className='block px-4 py-2 text-sm text-gray-700'>Mon compte</a>
+                            </Link>
+                          </div>
+                        )}
+
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+
+                          <div
+                            className={classNames(active ? 'bg-gray-100' : '')}
+                          >
+                            <Link href='/mes-eventements'>
+                              <a className='block px-4 py-2 text-sm text-gray-700'>Mes evenement</a>
+                            </Link>
+
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={handlerLogOut}
+                            className={classNames(active ? 'bg-gray-100' : '')}
+                          >
+                            <a className='block px-4 py-2 text-sm text-gray-700 '>Déconnexion</a>
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+                <Link href='/evenements/add'>
+                  {/* <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90 shadow-lg shadow-secondary/20'> */}
+                  <a>
+                    <Button color='orange' className='normal-case text-sm font-regular text-black'>
+                      <span className='font-bold text-white'>Créer evenement →</span>
+                    </Button>
+                  </a>
+                </Link>
+                </div>
+              : <div className='flex gap-4 items-center'>
+                <span>Vous etes une association ?</span>
+                <Link href='/signup'>
+                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-white text-blackring-1 hove:ring-secondary hover:bg-white/25 hover:ring-slate-900/15 hover:text-secondary'>
+                    <span>Enregistrer →</span>
+                  </a>
+                </Link>
+                <Link href='/signin'>
+                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/80'>
+                    <span className='font-bold'>Connexion →</span>
+                  </a>
+                </Link>
+                </div>}
+          </div>
+          <IconButton
+            variant='text'
+            className='ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav
+              ? (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  className='h-6 w-6'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 18L18 6M6 6l12 12'
+                  />
+                </svg>
+                )
+              : (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='h-6 w-6'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M4 6h16M4 12h16M4 18h16'
+                  />
+                </svg>
+                )}
+          </IconButton>
+        </div>
+        <MobileNav open={openNav}>
+          {navList}
+          {user !== null
+            ? <div className='flex gap-4'>
+              {/* Profile dropdown */}
+              <Menu as='div' className='ml-3 relative'>
+                <div className='selection:h-full rounded-full border-orange'>
+                  <Menu.Button className='flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary/50 focus:ring-secondary'>
+                    <span className='sr-only'>Open user menu</span>
+                    {/* <Image
+                          className='h-10 w-10 rounded-full'
+                          src='/images/ffflux.svg'
+                          alt=''
+                          width='34'
+                          height='34'
+                        /> */}
+                    <RiUser6Line size='35' className='p-2 text-white' />
+                  </Menu.Button>
+                </div>
+                <Transition
+                  as={Fragment}
+                  enter='transition ease-out duration-100'
+                  enterFrom='transform opacity-0 scale-95'
+                  enterTo='transform opacity-100 scale-100'
+                  leave='transition ease-in duration-75'
+                  leaveFrom='transform opacity-100 scale-100'
+                  leaveTo='transform opacity-0 scale-95'
+                >
+                  <Menu.Items className='z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                    <Menu.Item>
+
+                      {({ active }) => (
+                        <div
+                          className={classNames(active ? 'bg-gray-100' : '')}
+                        >
+                          <Link href='/account-settings'>
+                            <a className='block px-4 py-2 text-sm text-gray-700'>Mon compte</a>
+                          </Link>
+                        </div>
+                      )}
+
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+
+                        <div
+                          className={classNames(active ? 'bg-gray-100' : '')}
+                        >
+                          <Link href='/mes-eventements'>
+                            <a className='block px-4 py-2 text-sm text-gray-700'>Mes evenement</a>
+                          </Link>
+
+                        </div>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <div
+                          onClick={handlerLogOut}
+                          className={classNames(active ? 'bg-gray-100' : '')}
+                        >
+                          <a className='block px-4 py-2 text-sm text-gray-700'>Déconnexion</a>
+                        </div>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+              <Link href='/evenements/add'>
+                <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90 shadow-lg shadow-secondary/20'>
+                  <span className='font-bold'>Crée evenement →</span>
+                </a>
+              </Link>
             </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+            : <div className='flex gap-4 items-center'>
+              <span>Vous etes une association ?</span>
+              <Link href='/signup'>
+                <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-white text-blackring-1 hove:ring-secondary hover:bg-white/25 hover:ring-slate-900/15 hover:text-secondary'>
+                  <span>Enregistrer →</span>
+                </a>
+              </Link>
+              <Link href='/signin'>
+                <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/80'>
+                  <span className='font-bold'>Connexion →</span>
+                </a>
+              </Link>
+            </div>}
+        </MobileNav>
+      </Navbar>
+    </div>
   )
 }
