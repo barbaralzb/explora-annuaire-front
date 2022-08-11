@@ -15,7 +15,7 @@ export const ageRangeList = [
 
 export const domainList = [
   { id: 1, label: 'Éducation & Formation', icon: <FiBookOpen size='20' />, color: 'indigo' },
-  { id: 2, label: 'Sport', icon: <MdSportsSoccer size='20' />, color: 'yellow' },
+  { id: 2, label: 'Sport', icon: <MdSportsSoccer size='20' />, color: 'amber' },
   { id: 3, label: 'Culture', icon: <MdOutlinePalette size='20' />, color: 'orange' },
   { id: 4, label: 'Santé', icon: <MdOutlineMedicalServices size='20' />, color: 'blue' },
   { id: 5, label: 'Environnement', icon: <MdOutlineSpa size='20' />, color: 'green' },

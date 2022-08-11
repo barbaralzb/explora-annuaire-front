@@ -1,5 +1,5 @@
 import { CgAsterisk } from 'react-icons/cg'
-import Select from 'components/Basics/select'
+import Select from 'components/Basics/SelectComponent'
 import { FiTwitter } from 'react-icons/fi'
 import { FaFacebookSquare, FaInstagram } from 'react-icons/fa'
 import theme from 'styles/theme'
@@ -12,7 +12,6 @@ import { useRouter } from 'next/router'
 
 export default function FormAccount ({ formData }) {
   const router = useRouter()
-  console.log(formData)
   const [imagesPreview, setImagePreview] = useState('/images/uuunion.svg')
   const [message, setMessage] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -382,7 +381,7 @@ export default function FormAccount ({ formData }) {
               </button>
             </div>
           </form>
-        </>}
+          </>}
     </>
 
   )

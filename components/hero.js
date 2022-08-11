@@ -1,54 +1,76 @@
+
+import { Card, Button } from '@material-tailwind/react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { domainList } from 'utils/utils'
-import { motion } from 'framer-motion'
-import { Card } from '@material-tailwind/react'
+import { useRef } from 'react'
+import FilterScrollX from './FilterScrollX'
 
-const container = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
-    }
-  }
-}
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1
-  }
-}
 export default function Hero () {
+  const refer = useRef(null)
+
   return (
-    <div className='relative flex'>
-      <motion.ul
-        className='grid grid-cols-7 gap-4 items-center max-w-2xl mx-auto pt-8 sm:pt-26 lg:pt-24 lg:max-w-none px-4 sm:px-6 lg:px-8'
-        variants={container}
-        initial='hidden'
-        animate='visible'
-      >
-        {domainList.map(e => {
-          return (
-            <motion.li key={e.id} variants={item}>
-              <Link href='/signin'>
-                <a>
-                  <Card>
-                    <div className='`transition ease-in-out delay-150 duration-100 text-xs flex flex-col justify-center rounded-lg py-3 px-4 text-black/70 hover:text-black hover:bg-white bg-white/60 items-center'>
-                      {/* <div className={`transition ease-in-out delay-150 duration-100 focus:text-${e.color}-500`}> */}
-                      {e.icon}
-                      <span className='font-bold text-center'>{e.label}</span>
-                    </div>
+    <div className='min-h-screen h-full w-full max-h-screen'>
+      <div className='flex flex-col items-center h-full z-50 py-32 md:py-0'>
+        <div className='h-full max-w-7xl'>
+          <div className='h-full flex flex-col justify-items-stretch'>
+            <div className='md:grid gap-x-12 grid-cols-2 h-full items-center'>
+              <main>
+                <div className='sm:text-center lg:text-left'>
+                  <h1 className='tracking-tight font-extrabold text-gray-900 '>
+                    <div className='block text-4xl sm:text-5xl md:text-6xl'>Explora Rouen</div>
+                    <div className='block text-indigo-600 text-2xl sm:text-3xl md:text-4xl'>Annuaire des evenement associatif</div>
+                  </h1>
+                  <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
+                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
+                    fugiat veniam occaecat fugiat aliqua.
+                  </p>
+                  <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
+                    <Button color='indigo' size='lg' className='rounded-md shadow'>
+                      <Link href='/signin'>
+                        <a>
+                          Get started
+                        </a>
+                      </Link>
+                    </Button>
+                    <Link href='/'>
+                      <a>
+                        <Button color='indigo' size='lg' variant='outlined' className='mt-3 sm:mt-0 sm:ml-3'>
+                          Live demo
+                        </Button>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </main>
+              <div className='w-1/2 md:w-full mx-auto'>
+                <div className='relative flex justify-center'>
+                  <Card className='w-full h-full md:w-3/5 md:h-auto absolute blur-sm'>
+                    <Image
+                      src='/images/default/6.jpg'
+                      width='100%'
+                      height='100%'
+                      layout='responsive'
+                      objectFit='contain'
+                    />
                   </Card>
-                </a>
-              </Link>
-            </motion.li>
-          )
-        })}
-      </motion.ul>
+                  <Card className='w-full h-full md:w-3/5 md:h-auto left-8 -top-8'>
+                    <Image
+                      src='/images/default/6.jpg'
+                      width='100%'
+                      height='100%'
+                      layout='responsive'
+                      objectFit='contain'
+                    />
+                  </Card>
+                </div>
+              </div>
+            </div>
+            <div className='self-end py-12' ref={refer}>
+              <FilterScrollX refer={refer} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

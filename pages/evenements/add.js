@@ -26,16 +26,10 @@ export default function addEvent () {
   // console.log(router.query)
 
   return (
-    <>
-      <div className='bg-gradient-to-r from-neutral-100 via-white to-neutral-100 h-full'>
-        <div className='flex justify-center p-12'>
-          <div className='max-w-7xl'>
-            <FormEvent
-              formData={formData}
-            />
-          </div>
-        </div>
-      </div>
-    </>
+    <div className='mx-auto px-10 py-20 lg:py-32 xl:py-40 bg-indigo-50/40'>
+      <FormEvent
+        formData={formData}
+      />
+    </div>
   )
 }

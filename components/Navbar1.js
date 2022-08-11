@@ -82,7 +82,7 @@ export default function Navbar () {
                 <div className='hidden sm:block sm:ml-16'>
                   <div className='flex space-x-4 h-full items-center'>
                     {navigation.map(item => (
-                      <Link key={item.name} href={item.href}>
+                      <Link href={item.href} key={item.name}>
                         <a
                           onClick={() => setCurrentPath(item.href)}
                           className={classNames(
@@ -170,7 +170,7 @@ export default function Navbar () {
                       <span className='font-bold'>Crée evenement →</span>
                     </a>
                   </Link>
-                  </div>
+                </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -183,7 +183,7 @@ export default function Navbar () {
                       <span className='font-bold'>Connexion →</span>
                     </a>
                   </Link>
-                  </div>}
+                </div>}
 
             </div>
           </div>

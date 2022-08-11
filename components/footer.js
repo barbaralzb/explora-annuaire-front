@@ -1,6 +1,14 @@
+import { IconButton } from '@material-tailwind/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
+
+const navigation = [
+  { icon: <FaInstagram size='16' />, href: '/' },
+  { icon: <FaTwitter size='16' />, href: '/associations' },
+  { icon: <FaLinkedin size='16' />, href: '/about' },
+  { icon: <FaYoutube size='16' />, href: '/about' }
+]
 
 export default function Footer () {
   return (
@@ -20,10 +28,17 @@ export default function Footer () {
               />
             </div>
             <div className='flex gap-6 pb-5'>
-              <FaInstagram className='text-2xl cursor-pointer hover:text-yellow-600' />
-              <FaTwitter className='text-2xl cursor-pointer hover:text-blue-600' />
-              <FaLinkedin className='text-2xl cursor-pointer hover:text-blue-600' />
-              <FaYoutube className='text-2xl cursor-pointer hover:text-red-600' />
+              {navigation.map(item => (
+                <Link href={item.href} key={item.name}>
+                  <a>
+                    <IconButton color='orange' key={item.icon}>
+                      {item.icon}
+                    </IconButton>
+                  </a>
+                </Link>
+
+              )
+              )}
             </div>
           </ul>
         </div>
@@ -89,7 +104,7 @@ export default function Footer () {
         <h1 className=' text-gray-800 font-semibold'>
           © 2021-2022 All rights reserved | Build with ❤ by{' '}
           <span className='hover:text-secondary font-semibold cursor-pointer'>
-            <Link passHref href='https://www.linkedin.com/in/barbara-lizama-869880200/'>
+            <Link href='https://www.linkedin.com/in/barbara-lizama-869880200/' passHref>
               <a target='_blank' rel='noopener noreferrer'>
                 Barbara Lizama{' '}
               </a>

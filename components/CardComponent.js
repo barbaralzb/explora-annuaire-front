@@ -1,10 +1,9 @@
-import { Avatar, Card, CardBody, CardFooter, CardHeader } from '@material-tailwind/react'
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Chip } from '@material-tailwind/react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
 export default function CardComponent ({ post, bgColor }) {
   useEffect(() => {
-    console.log(bgColor)
   }, [bgColor])
 
   return (
@@ -20,11 +19,9 @@ export default function CardComponent ({ post, bgColor }) {
             />
 
           </CardHeader>
-          <CardBody className='m-4'>
+          <CardBody>
             <div className='flex flex-wrap items-center justify-between'>
-              <div className={`mt-1 rounded px-2 ${bgColor}`}>
-                <span className='text-xs font-bold uppercase text-white'>{post.domain}</span>
-              </div>
+              <Chip variant='gradient' color={bgColor} value={post.domain} />
               <span className='text-xs font-bold uppercase text-orange-500'>{post.ageRange}</span>
             </div>
             <h5 className='mt-2 font-medium text-2xl'>{post.title}</h5>

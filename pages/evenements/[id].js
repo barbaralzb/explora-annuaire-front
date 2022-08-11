@@ -1,11 +1,10 @@
-import EventLayout from 'components/eventLayout'
+import LayoutEvent from 'components/LayoutEvent'
 import Head from 'next/head'
-import LayoutPage from '../../components/LayoutPage'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post ({ data }) {
   return (
-    <LayoutPage>
+    <>
       <Head>
         <title>{data.title}</title>
         <meta
@@ -13,10 +12,10 @@ export default function Post ({ data }) {
           content={data.description}
         />
       </Head>
-      <section className='section'>
-        <EventLayout data={data} />
+      <section className='py-20 lg:py-32 xl:py-40 max-w-7xl mx-auto'>
+        <LayoutEvent data={data} />
       </section>
-    </LayoutPage>
+    </>
   )
 }
 // esta funcion va a ejecutarse solamente en el lado del servidor

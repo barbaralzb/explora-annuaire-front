@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const navigation = [
-  { name: 'Informations de l`association', href: 'account-settings/information-association' },
-  { name: 'Modifier mot de passe', href: 'account-settings/login' },
-  { name: 'Désactiver votre compte', href: 'account-settings/delete' }
+  { name: 'Informations de l`association', href: '/account-settings/information-association' },
+  { name: 'Modifier mot de passe', href: '/account-settings/login' },
+  { name: 'Désactiver votre compte', href: '/account-settings/delete' }
 ]
 
 const container = {
@@ -49,7 +49,7 @@ export default function AccountSettings () {
             >
               {navigation.map(item => (
                 <motion.li key={item.name} variants={i}>
-                  <Link href={`${item.href}`}>
+                  <Link href={item.href}>
                     <a>
                       <div className='bg-white h-full p-8 space-y-3 border-2 group-hover:opacity-75 rounded-xl'>
 
