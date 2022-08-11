@@ -229,7 +229,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
 
   const steps = [
     {
-      label: 'Step 1',
+      label: '1. Information',
       value: 'step1',
       form:
   <div className='grid grid-cols-6 gap-6 gap-y-8'>
@@ -413,7 +413,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
 
     },
     {
-      label: 'Step 2',
+      label: '2. Réseaux Sociaux',
       value: 'step2',
       form:
   <div className='md:grid md:grid-cols-1 md:gap-6 gap-y-8'>
@@ -495,7 +495,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
   </div>
     },
     {
-      label: 'Sauvegarder',
+      label: '3. Finalisation',
       value: 'save',
       form:
   <>

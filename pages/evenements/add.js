@@ -26,7 +26,7 @@ export default function addEvent () {
   // console.log(router.query)
 
   return (
-    <div className='mx-auto px-10 py-20 lg:py-32 xl:py-40 bg-indigo-50/40'>
+    <div className='mx-auto px-10 py-20 lg:py-32 xl:py-40 bg-dotssquares'>
       <FormEvent
         formData={formData}
       />

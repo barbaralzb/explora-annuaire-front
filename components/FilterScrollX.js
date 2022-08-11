@@ -91,7 +91,6 @@ export default function FilterScrollX ({ refer }) {
         className='col-auto w-max-full flex flex-nowrap scroll-smooth overflow-hidden items-center'
         style={{ '-webkit-appearance': 'none' }}
         ref={scrl} onScroll={scrollCheck}
-        // className={styles.ul}
         variants={container}
         initial='hidden'
         animate='visible'
@@ -104,7 +103,6 @@ export default function FilterScrollX ({ refer }) {
                 <a>
                   <Card className='w-full'>
                     <div className='w-full transition ease-in-out delay-150 duration-100 text-xs flex flex-col justify-center rounded-lg py-4 px-6 text-black/70 hover:text-black items-center'>
-                      {/* <div className={`transition ease-in-out delay-150 duration-100 focus:text-${e.color}-500`}> */}
                       {e.icon}
                       <span className='font-bold text-center'>{e.label}</span>
                     </div>

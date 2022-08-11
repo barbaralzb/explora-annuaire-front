@@ -18,7 +18,9 @@ module.exports = withMT({
       backgroundImage: {
         // 'hero-pattern': "url('/images/backgound-gradient.jpg')"
         'hero-pattern': "url('/images/bbblurry-15.svg')",
-        squares: "url('/images/square-bg.svg')"
+        squares: "url('/images/square-bg.svg')",
+        dots: "url('/images/points.svg')",
+        dotssquares: "url('/images/dotssquares.svg')"
       },
       backgroundPosition: {
         top: 'top',

@@ -2,8 +2,8 @@ import { Card, CardBody, CardFooter, CardHeader, IconButton, Typography } from '
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { BsPinMap } from 'react-icons/bs'
-import { FaFacebookSquare, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { BsCalendarCheck, BsPinMap } from 'react-icons/bs'
+import { FaFacebookSquare, FaInstagram } from 'react-icons/fa'
 import { TbWorld } from 'react-icons/tb'
 import Dropdown from './Basics/Dropdown'
 import FormEvent from './Basics/formEvent'
@@ -50,22 +50,8 @@ export default function LayoutEvent ({ data }) {
           <div className='relative w-full px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:py-16 lg:max-w-7xl lg:px-8 lg:grid-cols-5 rounded-md'>
             {/* <Dropdown setEditEvent={setEditEvent} id={_id} setIsLoading={setIsLoading} /> */}
             <div className='self-start lg:col-span-3'>
-              <div className='flex flex-col md:flex-row justify-between'>
-                <div className='w-full h-full'>
-                  <Image
-                    src='/images/calendar1.png'
-                    alt='Explora'
-                    width='100'
-                    height='100'
-                  />
-                </div>
-                <span>{formData.dateStart}</span>
-                <div>
-                  <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>{formData.title}</h2>
-                  <p className='mt-4 text-gray-500'>{formData.description}</p>
-                </div>
-
-              </div>
+              <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>{formData.title}</h2>
+              <p className='mt-4 text-gray-500'>{formData.description}</p>
               <dl className='mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8'>
                 <div className='border-t border-gray-200 pt-4'>
                   <div className='font-medium text-gray-900'>Heure</div>
@@ -113,44 +99,29 @@ export default function LayoutEvent ({ data }) {
             </div>
 
             <div className='flex flex-col gap-4 lg:col-span-2'>
-              <div
-                className='rounded-xl' style={{
-                  position: 'relative',
-                  width: '100%',
-                  height: '200px',
-                  maxHeight: '200px',
-                  maxWidth: '100%'
-                }}
-              >
-                <Image
-                  src={formData.images[0] ? formData.images[0].url : '/images/default/1.jpg'}
-                  alt='Explora'
-                  className='rounded-xl'
-                  width='100%'
-                  height='100%'
-                  layout='fill'
-                  objectFit='contain'
-                />
-              </div>
-              <div>
-                <Card>
-                  <CardBody className='text-center'>
-                    <Typography variant='h5' className='mb-2'>
-                      {formData.title}
-                    </Typography>
-                    <Typography>
-                      {formData.description}
-                    </Typography>
-                  </CardBody>
-                  <CardFooter divider className='flex items-center justify-between py-3'>
+              <Card>
+                <CardHeader color='indigo'>
+                  <Image
+                    src={formData.images[0] ? formData.images[0].url : '/images/default/1.jpg'}
+                    alt='Explora'
+                    className='rounded-xl'
+                    width='100%'
+                    height='100%'
+                    layout='responsive'
+                    objectFit='cover'
+                  />
+                </CardHeader>
+                <CardBody className='text-center'>
+                  <Typography variant='h5' className='mb-2'>
+                    <BsCalendarCheck />
+                    {formData.dateStart}
+                  </Typography>
+                  <div className='mb-2 flex items-center justify-between'>
                     <BsPinMap size='16' />
-                    <Typography variant='small' color='gray' className='flex gap-4'>
-                      {/* aqui podria hacer el link a google map */}
-                      {`${formData.address}, ${formData.city} ${formData.postalCode}`}
-                    </Typography>
-                  </CardFooter>
-                </Card>
-              </div>
+                    {`${formData.address} ${formData.city} ${formData.postalCode}`}
+                  </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </div>}

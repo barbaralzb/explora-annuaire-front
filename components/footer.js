@@ -44,23 +44,6 @@ export default function Footer () {
         </div>
         <div className='p-5'>
           <ul>
-            <p className='text-gray-800 font-bold text-2xl pb-4'>Evenements</p>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Stocks
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Futures & Options
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Mutual Funds
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Fixed deposits
-            </li>
-          </ul>
-        </div>
-        <div className='p-5'>
-          <ul>
             <p className='text-gray-800 font-bold text-2xl pb-4'>Associations</p>
             <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
               About

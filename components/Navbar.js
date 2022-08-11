@@ -170,7 +170,7 @@ export default function Example () {
                   {/* Profile dropdown */}
                   <Menu as='div' className='ml-3 relative'>
                     <Menu.Button>
-                      <Button variant='outlined' color='indigo' className='normal-case text-sm font-regular text-indigo-600 flex items-center'>
+                      <Button variant='outlined' color='orange' className='normal-case text-sm font-regular text-orange-700 flex items-center'>
                         Compte
                         <AiOutlineUser size='14' className='ml-2' />
                       </Button>
@@ -227,12 +227,12 @@ export default function Example () {
                   <Link href='/evenements/add'>
                     {/* <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90 shadow-lg shadow-secondary/20'> */}
                     <a>
-                      <Button color='indigo' className='normal-case text-sm font-regular text-black'>
+                      <Button color='orange' className='bg-orange-600 normal-case text-sm font-regular text-black'>
                         <span className='font-bold text-white'>Créer evenement →</span>
                       </Button>
                     </a>
                   </Link>
-                </div>
+                  </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -245,7 +245,7 @@ export default function Example () {
                       <span className='font-bold'>Connexion →</span>
                     </a>
                   </Link>
-                </div>}
+                  </div>}
             </div>
             <IconButton
               variant='text'
@@ -360,7 +360,7 @@ export default function Example () {
                     <span className='font-bold'>Crée evenement →</span>
                   </a>
                 </Link>
-                </div>
+              </div>
               : <div className='flex gap-4 items-center'>
                 <span>Vous etes une association ?</span>
                 <Link href='/signup'>
@@ -373,7 +373,7 @@ export default function Example () {
                     <span className='font-bold'>Connexion →</span>
                   </a>
                 </Link>
-                </div>}
+              </div>}
           </MobileNav>
         </Navbar>
       </div>
