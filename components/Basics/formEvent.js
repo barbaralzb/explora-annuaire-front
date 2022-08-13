@@ -13,8 +13,9 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import LayoutEvent from 'components/LayoutEvent'
+import 'moment/locale/fr'
 
-export default function FormEvent ({ formData, id, forNewEvent = true }) {
+export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [file, setFile] = useState([])
   const [imagesPreview, setImagesPreview] = useState([])
   const router = useRouter()
@@ -28,9 +29,6 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
   const [queryDomain, setQueryDomain] = useState('')
   const [startdate, setStartDate] = useState(new Date())
   const [enddate, setEndDate] = useState(new Date())
-
-  const [pageone, setPageone] = useState(true)
-  const [pagetwo, setPagetwo] = useState(false)
 
   const [form, setform] = useState({
     title: formData.title,
@@ -236,8 +234,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
     <div className='col-span-6'>
       <label htmlFor='title' className='flex text-sm font-medium text-gray-700' />
       <Input
-        label={<div> <span className='text-orange-500 mr-1'>⚹</span>Nom de l'événement</div>}
-        color='orange'
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Nom de l'événement</div>}
+        color='deep-purple'
         type='text'
         name='title'
         id='title'
@@ -251,8 +249,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
 
     <div className='col-span-6'>
       <Textarea
-        label={<div><span className='text-orange-500 mr-1'>⚹</span>Description</div>}
-        color='orange'
+        label={<div><span className='text-deep-purple-500 mr-1'>⚹</span>Description</div>}
+        color='deep-purple'
         type='text'
         name='description'
         id='description'
@@ -264,33 +262,34 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
       />
     </div>
 
-    <div className='col-span-6 md:col-span-3'>
-      <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-orange-500 mr-1'>⚹</span>Date debut
-      </label>
-      <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-orange-500'>
-        <DatePicker
-          className='outline-0 focus:outline-0'
-          selected={startdate}
-          onChange={(date) => setStartDate(date)}
-          dateFormat='dd MMMM yyyy'
-        />
-      </div>
-
+    <div className='col-span-6'>
+      <label htmlFor='dateStart' className='flex text-sm font-medium text-gray-700' />
+      <Input
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Date debut</div>}
+        color='deep-purple'
+        type='date'
+        name='dateStart'
+        id='dateStart'
+        onChange={handleChange}
+        value={form.dateStart}
+        success={form.dateStart}
+        required
+      />
     </div>
-    <div className='col-span-6 md:col-span-3'>
-      <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-orange-500 mr-1'>⚹</span>Date debut
-      </label>
-      <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-orange-500'>
-        <DatePicker
-          className='outline-0 focus:outline-0'
-          selected={enddate}
-          onChange={(date) => setEndDate(date)}
-          dateFormat='dd MMMM yyyy'
-        />
-      </div>
 
+    <div className='col-span-6'>
+      <label htmlFor='dateEnd' className='flex text-sm font-medium text-gray-700' />
+      <Input
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Date fin</div>}
+        color='deep-purple'
+        type='date'
+        name='dateEnd'
+        id='dateEnd'
+        onChange={handleChange}
+        value={form.dateEnd}
+        success={form.dateEnd}
+        required
+      />
     </div>
 
     {/*  TODO  */}
@@ -303,7 +302,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
         checked={!isCheck}
         value={!isCheck}
         type='checkbox'
-        color='orange'
+        color='deep-purple'
       />
       <label htmlFor='fullDay' className='ml-2 block text-sm text-gray-900'>Toute le journee</label>
     </div>
@@ -324,9 +323,9 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
         <div className='w-full flex justify-between'>
           <div className='col-span-6'>
             <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-              <span className='text-orange-500 mr-1'>⚹</span>Heure debut
+              <span className='text-deep-purple-500 mr-1'>⚹</span>Heure debut
             </label>
-            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-orange-500'>
+            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'>
               <DatePicker
                 className='outline-0 focus:outline-0'
                 selected={enddate}
@@ -341,9 +340,9 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
           </div>
           <div className='col-span-6'>
             <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-              <span className='text-orange-500 mr-1'>⚹</span>Heure fin
+              <span className='text-deep-purple-500 mr-1'>⚹</span>Heure fin
             </label>
-            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-orange-500'>
+            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'>
               <DatePicker
                 className='outline-0 focus:outline-0'
                 selected={enddate}
@@ -364,8 +363,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
     <div className='col-span-6'>
       <Input
         success={form.title}
-        color='orange'
-        label={<div> <span className='text-orange-500 mr-1'>⚹</span>Adresse postale</div>}
+        color='deep-purple'
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Adresse postale</div>}
         type='text'
         name='address'
         id='address'
@@ -380,8 +379,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
 
       <Input
         success={form.city}
-        color='orange'
-        label={<div> <span className='text-orange-500 mr-1'>⚹</span>Ville</div>}
+        color='deep-purple'
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Ville</div>}
         type='text'
         name='city'
         id='city'
@@ -395,8 +394,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
     <div className='col-span-6'>
       <Input
         success={form.postalCode}
-        color='orange'
-        label={<div> <span className='text-orange-500 mr-1'>⚹</span>Code postale</div>}
+        color='deep-purple'
+        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Code postale</div>}
         type='text'
         maxLength='5'
         minLength='5'
@@ -419,7 +418,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
   <div className='md:grid md:grid-cols-1 md:gap-6 gap-y-8'>
     <div>
       <Input
-        color='orange'
+        color='deep-purple'
         label='Email Contact'
         type='text'
         name='email'
@@ -436,7 +435,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
         <Chip value={<FaFacebookSquare size='16' />} variant='gradient' className='mr-2' />
         <Input
           label='Link Facebook'
-          color='orange'
+          color='deep-purple'
           type='text'
           name='facebook'
           id='facebook'
@@ -451,7 +450,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
         <Chip color='pink' value={<FaInstagram size='16' />} variant='gradient' className='mr-2' />
         <Input
           success={form.instagram}
-          color='orange'
+          color='deep-purple'
           label='Instagram'
           type='text'
           name='instagram'
@@ -466,7 +465,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
         <Chip color='teal' value={<FaLinkedin size='16' />} variant='gradient' className='mr-2' />
         <Input
           success={form.twitter}
-          color='orange'
+          color='deep-purple'
           label='Twitter'
           type='text'
           name='twitter'
@@ -479,10 +478,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
     <div>
       <div className='mt-1 flex rounded-md'>
 
-        <Chip color='orange' value='http://' variant='gradient' className='mr-2' />
+        <Chip color='deep-purple' value='http://' variant='gradient' className='mr-2' />
         <Input
           success={form.website}
-          color='orange'
+          color='deep-purple'
           label='Site web'
           type='text'
           name='website'
@@ -501,7 +500,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
   <>
     <div className='col-span-6'>
       <label htmlFor='ageRange' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-orange-500 mr-1'>⚹</span>Tranch d'age
+        <span className='text-deep-purple-500 mr-1'>⚹</span>Tranch d'age
       </label>
       <SelectComponent
         labels={ageRangeList}
@@ -514,7 +513,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
     </div>
     <div className='col-span-6'>
       <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-orange-500 mr-1'>⚹</span>Domaine
+        <span className='text-deep-purple-500 mr-1'>⚹</span>Domaine
       </label>
       <SelectComponent
         labels={domainList}
@@ -605,7 +604,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
       </div>
     </div>
     <Button
-      color='orange'
+      color='deep-purple'
       className='normal-case text-sm font-regular text-white'
       type='submit'
     >
@@ -655,24 +654,14 @@ export default function FormEvent ({ formData, id, forNewEvent = true }) {
                     </TabsBody>
                   </Tabs>
                 </div>
-
-                {/* <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
-                  <Button
-                    color='orange'
-                    className='normal-case text-sm font-regular text-white'
-                    onClick={pageone ? () => setPagetwo(true) : ''}
-                  >
-                    Suivante
-                  </Button>
-                </div> */}
               </form>
             </Card>
 
             <div className='col-span-2'>
-              <LayoutEvent data={form} />
+              <LayoutEvent data={form} user={user} />
             </div>
           </div>
-          </>}
+        </>}
     </>
   )
 }

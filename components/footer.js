@@ -31,7 +31,7 @@ export default function Footer () {
               {navigation.map(item => (
                 <Link href={item.href} key={item.name}>
                   <a>
-                    <IconButton color='orange' key={item.icon}>
+                    <IconButton color='deep-purple' key={item.icon}>
                       {item.icon}
                     </IconButton>
                   </a>
@@ -86,7 +86,7 @@ export default function Footer () {
       <div className='flex flex-col justify-center items-center text-center  p-5 bg-gray-50'>
         <h1 className=' text-gray-800 font-semibold'>
           © 2021-2022 All rights reserved | Build with ❤ by{' '}
-          <span className='hover:text-secondary font-semibold cursor-pointer'>
+          <span className='hover:text-deep-purple font-semibold cursor-pointer'>
             <Link href='https://www.linkedin.com/in/barbara-lizama-869880200/' passHref>
               <a target='_blank' rel='noopener noreferrer'>
                 Barbara Lizama{' '}

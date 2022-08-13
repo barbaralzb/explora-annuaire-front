@@ -170,7 +170,7 @@ export default function Example () {
                   {/* Profile dropdown */}
                   <Menu as='div' className='ml-3 relative'>
                     <Menu.Button>
-                      <Button variant='outlined' color='orange' className='normal-case text-sm font-regular text-orange-700 flex items-center'>
+                      <Button variant='outlined' color='deep-purple' className='normal-case text-sm font-regular text-deep-purple-700 flex items-center'>
                         Compte
                         <AiOutlineUser size='14' className='ml-2' />
                       </Button>
@@ -225,27 +225,33 @@ export default function Example () {
                     </Transition>
                   </Menu>
                   <Link href='/evenements/add'>
-                    {/* <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90 shadow-lg shadow-secondary/20'> */}
+                    {/* <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-deep-purple-500 bg-deep-purple-500/90 shadow-lg shadow-deep-purple-500/20'> */}
                     <a>
-                      <Button color='orange' className='bg-orange-600 normal-case text-sm font-regular text-black'>
+                      <Button color='deep-purple' className='bg-deep-purple-600 normal-case text-sm font-regular text-black'>
                         <span className='font-bold text-white'>Créer evenement →</span>
                       </Button>
                     </a>
                   </Link>
-                  </div>
+                </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
-                  <Link href='/signup'>
-                    <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-white text-blackring-1 hove:ring-secondary hover:bg-white/25 hover:ring-slate-900/15 hover:text-secondary'>
-                      <span>Enregistrer →</span>
-                    </a>
-                  </Link>
-                  <Link href='/signin'>
-                    <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/80'>
-                      <span className='font-bold'>Connexion →</span>
-                    </a>
-                  </Link>
-                  </div>}
+                  <Button color='deep-purple' variant='outlined'>
+                    <Link href='/signup'>
+                      <a>
+                        <span>Enregistrer →</span>
+                      </a>
+                    </Link>
+                  </Button>
+
+                  <Button color='deep-purple' variant='gradient'>
+                    <Link href='/signin'>
+                      <a>
+                        <span className='font-bold'>Connexion →</span>
+                      </a>
+                    </Link>
+                  </Button>
+
+                </div>}
             </div>
             <IconButton
               variant='text'
@@ -293,8 +299,8 @@ export default function Example () {
               ? <div className='flex gap-4'>
                 {/* Profile dropdown */}
                 <Menu as='div' className='ml-3 relative'>
-                  <div className='selection:h-full rounded-full border-orange'>
-                    <Menu.Button className='flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary/50 focus:ring-secondary'>
+                  <div className='selection:h-full rounded-full border-deep-purple'>
+                    <Menu.Button className='flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-deep-purple-500/50 focus:ring-deep-purple-500'>
                       <span className='sr-only'>Open user menu</span>
                       {/* <Image
                           className='h-10 w-10 rounded-full'
@@ -356,24 +362,28 @@ export default function Example () {
                   </Transition>
                 </Menu>
                 <Link href='/evenements/add'>
-                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/90 shadow-lg shadow-secondary/20'>
+                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-deep-purple-500 bg-deep-purple-500/90 shadow-lg shadow-deep-purple-500/20'>
                     <span className='font-bold'>Crée evenement →</span>
                   </a>
                 </Link>
-              </div>
+                </div>
               : <div className='flex gap-4 items-center'>
                 <span>Vous etes une association ?</span>
-                <Link href='/signup'>
-                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-white text-blackring-1 hove:ring-secondary hover:bg-white/25 hover:ring-slate-900/15 hover:text-secondary'>
-                    <span>Enregistrer →</span>
-                  </a>
-                </Link>
-                <Link href='/signin'>
-                  <a className='inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 text-white hover:bg-secondary bg-secondary/80'>
-                    <span className='font-bold'>Connexion →</span>
-                  </a>
-                </Link>
-              </div>}
+                <Button color='deep-purple' variant='outlined' className='normal-case'>
+                  <Link href='/signup'>
+                    <a>
+                      <span>Enregistrer →</span>
+                    </a>
+                  </Link>
+                </Button>
+                <Button color='deep-purple' variant='gradient' className='normal-case'>
+                  <Link href='/signin'>
+                    <a>
+                      <span>Connexion →</span>
+                    </a>
+                  </Link>
+                </Button>
+                </div>}
           </MobileNav>
         </Navbar>
       </div>

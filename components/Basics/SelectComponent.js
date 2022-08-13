@@ -18,7 +18,7 @@ export default function SelectComponent ({ labels, query, setQuery, setSelectedL
         <div className='relative mt-1'>
           <div className='relative w-full min-w-[200px] h-10'>
             <Combobox.Input
-              className='peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-orange-500'
+              className='peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(item) => item.label}
             />
@@ -42,14 +42,14 @@ export default function SelectComponent ({ labels, query, setQuery, setSelectedL
                   value={{ id: null, label: query }}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-secondary text-white' : 'text-gray-900'
+                      active ? 'bg-deep-purple-500 text-white' : 'text-gray-900'
                     }`}
                 >
                   Cree : "{query}"
                 </Combobox.Option>
               )}
               {filteredLabel?.map(item => {
-                let e = 'orange'
+                let e = 'deep-purple'
 
                 if (item.color !== undefined) {
                   e = item.color

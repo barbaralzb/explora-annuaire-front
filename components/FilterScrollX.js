@@ -1,8 +1,7 @@
 import { useState, useRef } from 'react'
-import { Card, IconButton } from '@material-tailwind/react'
+import { Button, IconButton } from '@material-tailwind/react'
 import Link from 'next/link'
 import { domainList } from 'utils/utils'
-import styles from './hero.module.css'
 import { motion } from 'framer-motion'
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from 'react-icons/hi'
 import PopoverComponent from './Basics/PopoverComponent'
@@ -67,7 +66,7 @@ export default function FilterScrollX ({ refer }) {
   }
 
   return (
-    <div className='grid grid-flow-col items-center justify-center'>
+    <div className='grid grid-flow-col items-center justify-center h-full'>
       <Transition
         show={scrollX !== 0}
         enter='transition-opacity duration-75'
@@ -80,7 +79,7 @@ export default function FilterScrollX ({ refer }) {
         <IconButton
           size='lg'
           variant='text'
-          color='orange'
+          color='deep-purple'
           className='mx-4'
           onClick={() => slide(-130)}
         >
@@ -88,8 +87,8 @@ export default function FilterScrollX ({ refer }) {
         </IconButton>
       </Transition>
       <motion.ul
-        className='col-auto w-max-full flex flex-nowrap scroll-smooth overflow-hidden items-center'
-        style={{ '-webkit-appearance': 'none' }}
+        className='col-auto w-max-full flex flex-nowrap scroll-smooth overflow-hidden items-center h-full'
+        style={{ WebkitAppearance: 'none' }}
         ref={scrl} onScroll={scrollCheck}
         variants={container}
         initial='hidden'
@@ -98,17 +97,15 @@ export default function FilterScrollX ({ refer }) {
 
         {domainList.map(e => {
           return (
-            <motion.li key={e.id} className={styles.li} variants={item}>
-              <Link href='/signin'>
-                <a>
-                  <Card className='w-full'>
-                    <div className='w-full transition ease-in-out delay-150 duration-100 text-xs flex flex-col justify-center rounded-lg py-4 px-6 text-black/70 hover:text-black items-center'>
-                      {e.icon}
-                      <span className='font-bold text-center'>{e.label}</span>
-                    </div>
-                  </Card>
-                </a>
-              </Link>
+            <motion.li key={e.id} className='mx-2 h-full py-6' variants={item}>
+              <Button color={e.color} className='w-36 h-full' variant='gradient'>
+                <Link href='/signin'>
+                  <a className='grid grid-cols-1 h-full place-items-center'>
+                    <div className='self-start'>{e.icon}</div>
+                    <span className='self-start font-semibold text-center normal-case text-base'>{e.label}</span>
+                  </a>
+                </Link>
+              </Button>
             </motion.li>
           )
         })}
@@ -125,7 +122,7 @@ export default function FilterScrollX ({ refer }) {
         <IconButton
           size='lg'
           variant='text'
-          color='orange'
+          color='deep-purple'
           className='mx-4'
           onClick={() => slide(+130)}
         >

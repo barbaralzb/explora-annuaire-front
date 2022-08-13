@@ -22,7 +22,7 @@ export default function CardComponent ({ post, bgColor }) {
           <CardBody>
             <div className='flex flex-wrap items-center justify-between'>
               <Chip variant='gradient' color={bgColor} value={post.domain} />
-              <span className='text-xs font-bold uppercase text-orange-500'>{post.ageRange}</span>
+              <span className='text-xs font-bold uppercase text-deep-purple-500'>{post.ageRange}</span>
             </div>
             <h5 className='mt-2 font-medium text-2xl'>{post.title}</h5>
             <p className='mb-3'>

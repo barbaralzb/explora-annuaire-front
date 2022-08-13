@@ -43,7 +43,7 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading }) {
           <Menu.Button className='shadow-md bg-white/70 group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/25 focus-visible:ring-opacity-75'>
             Options
             <ChevronDownIcon
-              className='ml-2 h-5 w-5 focus:text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80'
+              className='ml-2 h-5 w-5 focus:text-deep-purple-300 transition duration-150 ease-in-out group-hover:text-opacity-80'
               aria-hidden='true'
             />
           </Menu.Button>

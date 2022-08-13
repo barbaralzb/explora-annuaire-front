@@ -37,7 +37,7 @@ export default function PopoverComponent () {
               <span>Filter</span>
               <ChevronDownIcon
                 className={`${open ? '' : 'text-opacity-70'}
-                  ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
+                  ml-2 h-5 w-5 text-deep-purple-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
                 aria-hidden='true'
               />
             </Popover.Button>
@@ -57,7 +57,7 @@ export default function PopoverComponent () {
                       <a
                         key={item.name}
                         href={item.href}
-                        className='-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50'
+                        className='-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-deep-purple-500 focus-visible:ring-opacity-50'
                       >
                         <div className='flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12'>
                           <item.icon aria-hidden='true' />
@@ -76,7 +76,7 @@ export default function PopoverComponent () {
                   <div className='bg-gray-50 p-4'>
                     <a
                       href='##'
-                      className='flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50'
+                      className='flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-deep-purple-500 focus-visible:ring-opacity-50'
                     >
                       <span className='flex items-center'>
                         <span className='text-sm font-medium text-gray-900'>

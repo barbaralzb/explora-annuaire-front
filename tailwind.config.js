@@ -20,7 +20,8 @@ module.exports = withMT({
         'hero-pattern': "url('/images/bbblurry-15.svg')",
         squares: "url('/images/square-bg.svg')",
         dots: "url('/images/points.svg')",
-        dotssquares: "url('/images/dotssquares.svg')"
+        dotssquares: "url('/images/dotssquares.svg')",
+        blubbles: "url('/images/rrrainbow.svg')"
       },
       backgroundPosition: {
         top: 'top',

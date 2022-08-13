@@ -60,16 +60,16 @@ export default function SignUp () {
       })
 
       const data = await res.json()
-
+      const { token } = data
       if (res.ok === false) {
         console.log('Error al connectarse')
       } else {
         window.localStorage.setItem(
-          'loggedUser', JSON.stringify(data)
+          'loggedUser', JSON.stringify(token)
         )
         dispatch({
           type: 'init_stored',
-          value: JSON.parse(window.localStorage.getItem('loggedUser'))
+          value: data
         })
         router.push('/')
       }
@@ -108,7 +108,7 @@ export default function SignUp () {
                   type='username'
                   name='username'
                   onChange={HandleChange}
-                  color='orange'
+                  color='deep-purple'
                   required
                 />
               </div>
@@ -118,7 +118,7 @@ export default function SignUp () {
                   value={form.email}
                   name='email'
                   type='email'
-                  color='orange'
+                  color='deep-purple'
                   onChange={HandleChange}
                   required
                 />
@@ -132,16 +132,16 @@ export default function SignUp () {
                     type={ShowPassword ? 'text' : 'password'}
                     onChange={HandleChange}
                     required
-                    color='orange'
+                    color='deep-purple'
                     icon={<div onClick={() => HandlePassword(ShowPassword)}>
                       {ShowPassword
-                        ? <EyeIcon className='h-5 w-5 text-secondary' />
+                        ? <EyeIcon className='h-5 w-5 text-deep-purple-500' />
                         : <EyeOffIcon className='h-5 w-5' />}
                     </div>}
                   />
                 </div>
               </div>
-              <Button fullWidth color='orange' type='submit' className='normal-case text-sm font-semibold'>
+              <Button fullWidth color='deep-purple' type='submit' className='normal-case text-sm font-semibold'>
                 <Link href='/signin'>
                   <a>
                     <span>Inscribez-vous</span>
@@ -155,7 +155,7 @@ export default function SignUp () {
               <p className='text-center sm:text-left'>Vous avez déjà un compte ?</p>
               <Link href='/signin'>
                 <a>
-                  <Button color='orange' variant='outlined' className='normal-case text-sm font-regular text-black'>
+                  <Button color='deep-purple' variant='outlined' className='normal-case text-sm font-regular text-black'>
                     Connectez-vous
                   </Button>
                 </a>

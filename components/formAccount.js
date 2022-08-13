@@ -178,7 +178,7 @@ export default function FormAccount ({ formData }) {
 
                     <div className='col-span-6'>
                       <label htmlFor='username' className='flex text-sm font-medium text-gray-700'>
-                        Nom de l'association <CgAsterisk size='10' color={theme.colors.secondary} />
+                        Nom de l'association <CgAsterisk size='10' color={theme.colors.deep-purple-500} />
                       </label>
                       <input
                         type='text'
@@ -194,7 +194,7 @@ export default function FormAccount ({ formData }) {
 
                     <div className='col-span-6'>
                       <label htmlFor='description' className='flex text-sm font-medium text-gray-700'>
-                        Description <CgAsterisk size='10' color={theme.colors.secondary} />
+                        Description <CgAsterisk size='10' color={theme.colors.deep-purple-500} />
                       </label>
                       <textarea
                         type='text'
@@ -210,7 +210,7 @@ export default function FormAccount ({ formData }) {
 
                     <div className='col-span-6'>
                       <label htmlFor='domain' className='flex text-sm font-medium text-gray-700'>
-                        Domaine <CgAsterisk size='10' color={theme.colors.secondary} />
+                        Domaine <CgAsterisk size='10' color={theme.colors.deep-purple-500} />
                       </label>
                       <Select
                         labels={domainList}
@@ -240,7 +240,7 @@ export default function FormAccount ({ formData }) {
 
                     <div className='col-span-6 sm:col-span-6 md:col-span-3'>
                       <label htmlFor='city' className='flex text-sm font-medium text-gray-700'>
-                        Ville <CgAsterisk size='10' color={theme.colors.secondary} />
+                        Ville <CgAsterisk size='10' color={theme.colors.deep-purple-500} />
                       </label>
                       <input
                         type='text'
@@ -256,7 +256,7 @@ export default function FormAccount ({ formData }) {
 
                     <div className='col-span-6 sm:col-span-3 md:col-span-3'>
                       <label htmlFor='postalCode' className='flex text-sm font-medium text-gray-700'>
-                        Code postale <CgAsterisk size='10' color={theme.colors.secondary} />
+                        Code postale <CgAsterisk size='10' color={theme.colors.deep-purple-500} />
                       </label>
                       <input
                         type='text'

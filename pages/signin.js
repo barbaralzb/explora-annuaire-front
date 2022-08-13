@@ -55,16 +55,16 @@ export default function SignIn () {
       })
 
       const data = await res.json()
-
+      const { token } = data
       if (res.ok === false) {
         console.log('Error al connectarse')
       } else {
         window.localStorage.setItem(
-          'loggedUser', JSON.stringify(data)
+          'loggedUser', JSON.stringify(token)
         )
         dispatch({
           type: 'init_stored',
-          value: JSON.parse(window.localStorage.getItem('loggedUser'))
+          value: data
         })
         router.push('/')
       }
@@ -108,7 +108,7 @@ export default function SignIn () {
                   type='email'
                   onChange={HandleChange}
                   required
-                  color='orange'
+                  color='deep-purple'
                 />
               </div>
               <div className='mb-6'>
@@ -120,16 +120,16 @@ export default function SignIn () {
                     type={ShowPassword ? 'text' : 'password'}
                     onChange={HandleChange}
                     required
-                    color='orange'
+                    color='deep-purple'
                     icon={<div onClick={() => HandlePassword(ShowPassword)}>
                       {ShowPassword
-                        ? <EyeIcon className='h-5 w-5 text-secondary' />
+                        ? <EyeIcon className='h-5 w-5 text-deep-purple-500' />
                         : <EyeOffIcon className='h-5 w-5' />}
                           </div>}
                   />
                 </div>
               </div>
-              <Button fullWidth color='orange' type='submit' className='normal-case text-sm font-semibold'>
+              <Button fullWidth color='deep-purple' type='submit' className='normal-case text-sm font-semibold'>
                 Connectez-vous
               </Button>
               <p className='mt-8 text-center'>
@@ -144,7 +144,7 @@ export default function SignIn () {
               <p className='text-center sm:text-left'>Vous n'avez pas de compte ?</p>
               <Link href='/signup'>
                 <a>
-                  <Button color='orange' variant='outlined' className='normal-case text-sm font-regular text-black'>
+                  <Button color='deep-purple' variant='outlined' className='normal-case text-sm font-regular text-black'>
                     <span>Inscribez-vous <span aria-hidden='true'>→</span></span>
                   </Button>
                 </a>

@@ -39,7 +39,7 @@ const product = {
   ],
   images: [
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
+      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-deep-purple-500-product-shot.jpg',
       alt: 'Two each of gray, white, and black shirts laying flat.'
     },
     {
@@ -263,7 +263,7 @@ export default function Example () {
               </a>
             </div>
           </div>
-          <div className='w-100 rounded-xl p-12 shadow-secondary/50 shadow-2xl'>
+          <div className='w-100 rounded-xl p-12 shadow-deep-purple-500/50 shadow-2xl'>
             <Image
               className='shadow-xl'
               src='/images/vectors/2-girls.svg'
