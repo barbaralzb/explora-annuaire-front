@@ -14,6 +14,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import LayoutEvent from 'components/LayoutEvent'
 import 'moment/locale/fr'
+import { getCurrentDate } from 'utils/currentDate'
 
 export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [file, setFile] = useState([])
@@ -274,6 +275,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         value={form.dateStart}
         success={form.dateStart}
         required
+        min={getCurrentDate()}
       />
     </div>
 
@@ -286,9 +288,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         name='dateEnd'
         id='dateEnd'
         onChange={handleChange}
-        value={form.dateEnd}
+        value={form.dateEnd ? form.dateEnd : form.dateStart}
         success={form.dateEnd}
         required
+        min={form.dateStart}
       />
     </div>
 
@@ -661,7 +664,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
               <LayoutEvent data={form} user={user} />
             </div>
           </div>
-        </>}
+          </>}
     </>
   )
 }

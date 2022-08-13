@@ -57,7 +57,14 @@ export default function LayoutEvent ({ data, user }) {
             </div>
             <div className='border-t border-gray-200 pt-4'>
               <dt className='font-medium text-gray-900'>Date</dt>
-              <dd className='mt-2 text-sm text-gray-500'>{formatDate(formData.dateStart)}{formData.dateEnd}</dd>
+              <dd className='mt-2 text-sm text-gray-500'>
+                <div>{formatDate(formData.dateStart)}</div>
+                {formData.dateEnd &&
+                  <>
+                    <span className='mx-auto'>{'jusqu\'a'}</span>
+                    <div>{formatDate(formData.dateEnd)}</div>
+                  </>}
+              </dd>
             </div>
             <div className='border-t border-gray-200 pt-4'>
               <dt className='font-medium text-gray-900'>Adress</dt>
