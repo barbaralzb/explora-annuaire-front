@@ -10,7 +10,8 @@ export const ServerUrl = 'http://localhost:5000'
 
 export const ageRangeList = [
   { id: 1, label: 'Tout public' },
-  { id: 2, label: '+18' }
+  { id: 2, label: 'Adultes' },
+  { id: 3, label: 'Enfants' }
 ]
 
 export const domainList = [
@@ -20,7 +21,7 @@ export const domainList = [
   { id: 4, label: 'Santé', icon: <MdOutlineMedicalServices size='24' />, color: 'blue' },
   { id: 5, label: 'Environnement', icon: <MdOutlineSpa size='24' />, color: 'green' },
   { id: 6, label: 'Défense des droits', icon: <VscLaw size='24' />, color: 'teal' },
-  { id: 7, label: 'Exclusion & Pauvreté', icon: <RiHandHeartLine size='28' />, color: 'deep-deep-purple' },
+  { id: 7, label: 'Exclusion & Pauvreté', icon: <RiHandHeartLine size='28' />, color: 'deep-orange' },
   { id: 8, label: 'Réfugiés', icon: <TbHeartHandshake size='27' />, color: 'lime' },
   { id: 9, label: 'Animaux ', icon: <MdOutlinePets size='27' />, color: 'pink' }
 ]

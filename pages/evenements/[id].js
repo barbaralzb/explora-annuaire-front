@@ -1,8 +1,20 @@
+import { Loader } from 'components/Basics/Loader'
 import LayoutEvent from 'components/LayoutEvent'
+import { useAppContext } from 'context/AppContext'
 import Head from 'next/head'
+import useSWR from 'swr'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
+const fetcher = (url) => fetch(url).then((res) => res.json())
+
 export default function Post ({ data }) {
+  const { state } = useAppContext()
+  const { data: res, error } = useSWR(state ? `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${state.id}` : null, fetcher)
+
+  if (error) return <div>Failed to load</div>
+  if (!res) return <Loader />
+
+  console.log(data)
   return (
     <>
       <Head>
@@ -13,7 +25,7 @@ export default function Post ({ data }) {
         />
       </Head>
       <section className='py-20 lg:py-32 xl:py-40 max-w-7xl mx-auto'>
-        <LayoutEvent data={data} />
+        <LayoutEvent data={data} user={res} forNewEvent={false} imagesPreview={false} />
       </section>
     </>
   )

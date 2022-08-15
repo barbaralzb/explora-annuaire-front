@@ -7,7 +7,7 @@ const navigation = [
   { icon: <FaInstagram size='16' />, href: '/' },
   { icon: <FaTwitter size='16' />, href: '/associations' },
   { icon: <FaLinkedin size='16' />, href: '/about' },
-  { icon: <FaYoutube size='16' />, href: '/about' }
+  { icon: <FaYoutube size='16' />, href: '/youtube' }
 ]
 
 export default function Footer () {
@@ -29,7 +29,7 @@ export default function Footer () {
             </div>
             <div className='flex gap-6 pb-5'>
               {navigation.map(item => (
-                <Link href={item.href} key={item.name}>
+                <Link href={item.href} key={item.href}>
                   <a>
                     <IconButton color='deep-purple' key={item.icon}>
                       {item.icon}

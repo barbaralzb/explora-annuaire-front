@@ -2,7 +2,8 @@ import FormEvent from 'components/Basics/formEvent'
 import { Loader } from 'components/Basics/Loader'
 import { useAppContext } from 'context/AppContext'
 import useSWR from 'swr'
-import { ageRangeList, domainList } from 'utils/utils'
+import { getCurrentDate } from 'utils/currentDate'
+import { ageRangeList } from 'utils/utils'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 export default function addEvent () {
@@ -13,7 +14,7 @@ export default function addEvent () {
   const formData = {
     title: '',
     description: '',
-    dateStart: '',
+    dateStart: getCurrentDate(),
     dateEnd: '',
     fullDay: false,
     timeStart: '',
@@ -21,8 +22,8 @@ export default function addEvent () {
     address: '',
     city: '',
     postalCode: '',
-    ageRange: ageRangeList[0],
-    domain: domainList[0],
+    ageRange: ageRangeList[0].label,
+    domain: '',
     email: '',
     website: '',
     facebook: '',

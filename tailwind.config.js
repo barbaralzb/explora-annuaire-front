@@ -5,6 +5,9 @@ module.exports = withMT({
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
+    fontFamily: {
+      sans: ['Raleway', 'sans-serif']
+    },
     extend: {
       gridTemplateRows: {
         '[auto,auto,1fr]': 'auto auto 1fr'

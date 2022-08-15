@@ -7,14 +7,11 @@ import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { Loader } from './Loader'
-import { Button, Card, Checkbox, Chip, Input, Tab, TabPanel, Tabs, TabsBody, TabsHeader, Textarea } from '@material-tailwind/react'
+import { alert, Button, Card, Checkbox, Chip, Input, Tab, TabPanel, Tabs, TabsBody, TabsHeader, Textarea } from '@material-tailwind/react'
 import { Transition } from '@headlessui/react'
-import moment from 'moment'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import LayoutEvent from 'components/LayoutEvent'
-import 'moment/locale/fr'
 import { getCurrentDate } from 'utils/currentDate'
+import { TbWorld } from 'react-icons/tb'
 
 export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [file, setFile] = useState([])
@@ -30,6 +27,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [queryDomain, setQueryDomain] = useState('')
   const [startdate, setStartDate] = useState(new Date())
   const [enddate, setEndDate] = useState(new Date())
+  const [toastMessage, setToastMessage] = useState('')
 
   const [form, setform] = useState({
     title: formData.title,
@@ -48,7 +46,6 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     website: formData.website,
     facebook: formData.facebook,
     instagram: formData.instagram,
-    twitter: formData.twitter,
     images: formData.images
   })
 
@@ -60,14 +57,6 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     })
   }
 
-  const [DateRDV, setDateRDV] = useState(null)
-  const handleChangeDate = date => {
-    const newday = moment(date).format('DD')
-    const newmonth = moment(date).format('MM') - 1
-    const newyear = moment(date).format('YYYY')
-    setDateRDV(moment.utc().set('month', newmonth).set('date', newday).set('year', newyear).toDate())
-  }
-
   useEffect(() => {
     setform({
       ...form,
@@ -76,9 +65,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     })
   }, [selectedAge, selectedDomain])
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    setIsLoading(true)
+    toast('Evenement ajouté avec success 🎈')
+
     if (file.length > 0) {
       uploadFileHandler()
     } else {
@@ -91,16 +81,16 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     }
   }
 
-  useEffect(() => {
-    if (file.length > 0) {
-      if (forNewEvent) {
-        postData(form)
-      } else {
-        console.log('click')
-        putData(form)
-      }
-    }
-  }, [form.images])
+  // useEffect(() => {
+  //   if (file.length > 0) {
+  //     if (forNewEvent) {
+  //       postData(form)
+  //     } else {
+  //       putData(form)
+  //     }
+  //   }
+  // }, [form.images])
+  console.log(form.images)
 
   const uploadFileHandler = async () => {
     const formData = new FormData()
@@ -117,19 +107,12 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
       })
       const data = await res.json()
       console.log('respuesta', data)
-      // setform({
-      //   ...form,
-      //   images: data
-      // })
-
-      // buffer para modificar mis imagenes
-      let buffer = { ...form }
-      const imageBuffer = [...form.images, ...data]
-      buffer = { ...buffer, images: imageBuffer }
-
       setform({
-        ...buffer
+        ...form,
+        images: data
       })
+
+      console.log(form.images)
     } catch (error) {
       console.log('Error del servidor', error)
     }
@@ -192,9 +175,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
             { message: error.message }
           ])
         }
-      } else {
-        router.push('/')
       }
+      //  else {
+      //   router.push('/')
+      // }
     } catch (error) {
       console.log('Error del servidor', error)
     }
@@ -224,79 +208,80 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     const s = file.filter((item, index) => index !== e)
     setFile(s)
   }
-  const notify = () => toast('Something important isn\'t valid')
+  const notify = () => toast(`Le(s) champs ${fieldVide.toString()} doit(s) etre remplir`)
+
+  const fieldVide = []
+  !form.title && fieldVide.push(' title')
+  !form.description && fieldVide.push(' description')
+  !form.dateStart && fieldVide.push(' date debut')
+  !form.timeStart && fieldVide.push(' heure de debut')
+  !form.address && fieldVide.push(' adress')
+  !form.city && fieldVide.push(' ville')
+  !form.postalCode && fieldVide.push(' code postale')
+  !form.email && fieldVide.push(' email')
+  !form.ageRange && fieldVide.push(' tranche d\'age')
+  !form.domain && fieldVide.push(' domaine')
 
   const steps = [
     {
       label: '1. Information',
       value: 'step1',
       form:
-  <div className='grid grid-cols-6 gap-6 gap-y-8'>
-    <div className='col-span-6'>
-      <label htmlFor='title' className='flex text-sm font-medium text-gray-700' />
-      <Input
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Nom de l'événement</div>}
-        color='deep-purple'
-        type='text'
-        name='title'
-        id='title'
-        autoComplete='given-name'
-        onChange={handleChange}
-        value={form.title}
-        success={form.title}
-        required
-      />
-    </div>
+  <div className='flex flex-col gap-6 gap-y-8'>
+    <Input
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Nom de l'événement</div>}
+      color='deep-purple'
+      type='text'
+      name='title'
+      id='title'
+      autoComplete='given-name'
+      onChange={handleChange}
+      value={form.title}
+      success={form.title}
+      required
+    />
 
-    <div className='col-span-6'>
-      <Textarea
-        label={<div><span className='text-deep-purple-500 mr-1'>⚹</span>Description</div>}
-        color='deep-purple'
-        type='text'
-        name='description'
-        id='description'
-        autoComplete='given-name'
-        onChange={handleChange}
-        value={form.description}
-        success={form.description}
-        required
-      />
-    </div>
+    <Textarea
+      label={<div><span className='text-orange-500 mr-1'>⚹</span>Description</div>}
+      color='deep-purple'
+      type='text'
+      name='description'
+      id='description'
+      autoComplete='given-name'
+      onChange={handleChange}
+      value={form.description}
+      success={form.description}
+      required
+    />
 
-    <div className='col-span-6'>
-      <label htmlFor='dateStart' className='flex text-sm font-medium text-gray-700' />
-      <Input
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Date debut</div>}
-        color='deep-purple'
-        type='date'
-        name='dateStart'
-        id='dateStart'
-        onChange={handleChange}
-        value={form.dateStart}
-        success={form.dateStart}
-        required
-        min={getCurrentDate()}
-      />
-    </div>
+    <Input
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Date debut</div>}
+      color='deep-purple'
+      type='date'
+      name='dateStart'
+      id='dateStart'
+      onChange={handleChange}
+      value={form.dateStart}
+      success={form.dateStart}
+      required
+      min={getCurrentDate()}
+    />
 
-    <div className='col-span-6'>
-      <label htmlFor='dateEnd' className='flex text-sm font-medium text-gray-700' />
-      <Input
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Date fin</div>}
-        color='deep-purple'
-        type='date'
-        name='dateEnd'
-        id='dateEnd'
-        onChange={handleChange}
-        value={form.dateEnd ? form.dateEnd : form.dateStart}
-        success={form.dateEnd}
-        required
-        min={form.dateStart}
-      />
-    </div>
+    <Input
+      label='Date fin'
+      color='deep-purple'
+      type='date'
+      name='dateEnd'
+      id='dateEnd'
+      onChange={handleChange}
+      value={form.dateEnd ? form.dateEnd : form.dateStart}
+      success={form.dateEnd}
+      required
+      min={form.dateStart}
+    />
 
     {/*  TODO  */}
-    <div className='col-span-6 flex items-center'>
+    {/* <div className='col-span-6 flex items-center'>
       <Checkbox
         id='fullDay'
         name='fullDay'
@@ -308,191 +293,144 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         color='deep-purple'
       />
       <label htmlFor='fullDay' className='ml-2 block text-sm text-gray-900'>Toute le journee</label>
-    </div>
+    </div> */}
 
-    <div className='col-span-6'>
+    {/* <Transition
+      show={isCheck}
+      enter='transition-opacity duration-150'
+      enterFrom='opacity-0'
+      enterTo='opacity-100'
+      leave='transition-opacity duration-250'
+      leaveFrom='opacity-100'
+      leaveTo='opacity-0'
+      className='col-span-6 grid grid-cols-1  gap-6 gap-y-8'
+    > */}
 
-      <Transition
-        show={isCheck}
-        enter='transition-opacity duration-150'
-        enterFrom='opacity-0'
-        enterTo='opacity-100'
-        leave='transition-opacity duration-250'
-        leaveFrom='opacity-100'
-        leaveTo='opacity-0'
-        className='col-span md:col-span-2'
-      >
+    <Input
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Heure debut</div>}
+      color='deep-purple'
+      type='time'
+      name='timeStart'
+      id='timeStart'
+      onChange={handleChange}
+      value={form.timeStart}
+      success={form.timeStart}
+    />
 
-        <div className='w-full flex justify-between'>
-          <div className='col-span-6'>
-            <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-              <span className='text-deep-purple-500 mr-1'>⚹</span>Heure debut
-            </label>
-            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'>
-              <DatePicker
-                className='outline-0 focus:outline-0'
-                selected={enddate}
-                onChange={(date) => setEndDate(date)}
-                timeCaption='Heure'
-                showTimeSelect
-                timeFormat='HH:mm'
-                dateFormat='HH : mm'
-                showTimeSelectOnly
-              />
-            </div>
-          </div>
-          <div className='col-span-6'>
-            <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-              <span className='text-deep-purple-500 mr-1'>⚹</span>Heure fin
-            </label>
-            <div className='peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'>
-              <DatePicker
-                className='outline-0 focus:outline-0'
-                selected={enddate}
-                onChange={(date) => setEndDate(date)}
-                timeCaption='Heure'
-                showTimeSelect
-                timeFormat='HH:mm'
-                dateFormat='HH : mm'
-                showTimeSelectOnly
-              />
-            </div>
-          </div>
+    <Input
+      label='Heure fin'
+      color='deep-purple'
+      type='time'
+      name='timeEnd'
+      id='timeEnd'
+      onChange={handleChange}
+      value={form.timeEnd}
+      success={form.timeEnd}
+    />
+    {/* </Transition> */}
 
-        </div>
-      </Transition>
-    </div>
-
-    <div className='col-span-6'>
-      <Input
-        success={form.title}
-        color='deep-purple'
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Adresse postale</div>}
-        type='text'
-        name='address'
-        id='address'
-        onChange={handleChange}
-        value={form.address}
-        autoComplete='street-address'
-        required
-      />
-    </div>
-
-    <div className='col-span-6'>
-
-      <Input
-        success={form.city}
-        color='deep-purple'
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Ville</div>}
-        type='text'
-        name='city'
-        id='city'
-        required
-        onChange={handleChange}
-        value={form.city}
-        autoComplete='home city'
-      />
-    </div>
-
-    <div className='col-span-6'>
-      <Input
-        success={form.postalCode}
-        color='deep-purple'
-        label={<div> <span className='text-deep-purple-500 mr-1'>⚹</span>Code postale</div>}
-        type='text'
-        maxLength='5'
-        minLength='5'
-        onInput={onInput}
-        name='postalCode'
-        id='postalCode'
-        required
-        onChange={handleChange}
-        value={form.postalCode}
-        autoComplete='postal-code'
-      />
-    </div>
   </div>
 
     },
     {
-      label: '2. Réseaux Sociaux',
+      label: '2. Adresse/Liens',
       value: 'step2',
       form:
-  <div className='md:grid md:grid-cols-1 md:gap-6 gap-y-8'>
-    <div>
+  <div className='flex flex-col gap-6 gap-y-8'>
+    <Input
+      color='deep-purple'
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Adresse postale</div>}
+      type='text'
+      name='address'
+      id='address'
+      onChange={handleChange}
+      value={form.address}
+      autoComplete='street-address'
+      required
+      success={form.address}
+    />
+
+    <Input
+      success={form.city}
+      color='deep-purple'
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Ville</div>}
+      type='text'
+      name='city'
+      id='city'
+      required
+      onChange={handleChange}
+      value={form.city}
+      autoComplete='home city'
+    />
+
+    <Input
+      success={form.postalCode}
+      color='deep-purple'
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Code postale</div>}
+      type='text'
+      maxLength='5'
+      minLength='5'
+      onInput={onInput}
+      name='postalCode'
+      id='postalCode'
+      required
+      onChange={handleChange}
+      value={form.postalCode}
+      autoComplete='postal-code'
+    />
+
+    <Input
+      color='deep-purple'
+      label={<div> <span className='text-orange-500 mr-1'>⚹</span>Email Contact</div>}
+      type='text'
+      name='email'
+      id='email'
+      autoComplete='email'
+      onChange={handleChange}
+      value={form.email}
+      success={form.email}
+    />
+
+    <div className='mt-1 flex rounded-md'>
+      <Chip color='indigo' value={<FaFacebookSquare size='16' />} variant='gradient' className='mr-2' />
       <Input
+        label='Link Facebook'
         color='deep-purple'
-        label='Email Contact'
         type='text'
-        name='email'
-        id='email'
-        autoComplete='email'
+        name='facebook'
+        id='facebook'
         onChange={handleChange}
-        value={form.email}
-        success={form.email}
+        value={form.facebook}
+        success={form.facebook}
       />
     </div>
 
-    <div>
-      <div className='mt-1 flex rounded-md'>
-        <Chip value={<FaFacebookSquare size='16' />} variant='gradient' className='mr-2' />
-        <Input
-          label='Link Facebook'
-          color='deep-purple'
-          type='text'
-          name='facebook'
-          id='facebook'
-          onChange={handleChange}
-          value={form.facebook}
-          success={form.facebook}
-        />
-      </div>
+    <div className='mt-1 flex rounded-md'>
+      <Chip color='pink' value={<FaInstagram size='16' />} variant='gradient' className='mr-2' />
+      <Input
+        success={form.instagram}
+        color='deep-purple'
+        label='Instagram'
+        type='text'
+        name='instagram'
+        id='instagram'
+        onChange={handleChange}
+        value={form.instagram}
+      />
     </div>
-    <div>
-      <div className='mt-1 flex rounded-md'>
-        <Chip color='pink' value={<FaInstagram size='16' />} variant='gradient' className='mr-2' />
-        <Input
-          success={form.instagram}
-          color='deep-purple'
-          label='Instagram'
-          type='text'
-          name='instagram'
-          id='instagram'
-          onChange={handleChange}
-          value={form.instagram}
-        />
-      </div>
-    </div>
-    <div>
-      <div className='mt-1 flex rounded-md'>
-        <Chip color='teal' value={<FaLinkedin size='16' />} variant='gradient' className='mr-2' />
-        <Input
-          success={form.twitter}
-          color='deep-purple'
-          label='Twitter'
-          type='text'
-          name='twitter'
-          id='twitter'
-          onChange={handleChange}
-          value={form.twitter}
-        />
-      </div>
-    </div>
-    <div>
-      <div className='mt-1 flex rounded-md'>
 
-        <Chip color='deep-purple' value='http://' variant='gradient' className='mr-2' />
-        <Input
-          success={form.website}
-          color='deep-purple'
-          label='Site web'
-          type='text'
-          name='website'
-          id='website'
-          onChange={handleChange}
-          value={form.website}
-        />
-      </div>
+    <div className='mt-1 flex rounded-md'>
+      <Chip color='teal' value={<TbWorld size='16' />} variant='gradient' className='mr-2' />
+      <Input
+        success={form.website}
+        color='deep-purple'
+        label='Site web'
+        type='text'
+        name='website'
+        id='website'
+        onChange={handleChange}
+        value={form.website}
+      />
     </div>
   </div>
     },
@@ -500,10 +438,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
       label: '3. Finalisation',
       value: 'save',
       form:
-  <>
-    <div className='col-span-6'>
+  <div className='flex flex-col gap-6 gap-y-8'>
+    <div>
       <label htmlFor='ageRange' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-deep-purple-500 mr-1'>⚹</span>Tranch d'age
+        <span className='text-orange-500 mr-1'>⚹</span>Tranch d'age
       </label>
       <SelectComponent
         labels={ageRangeList}
@@ -514,9 +452,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         setQuery={setQueryAge}
       />
     </div>
-    <div className='col-span-6'>
+
+    <div>
       <label htmlFor='Domaine' className='flex text-sm font-medium text-gray-700'>
-        <span className='text-deep-purple-500 mr-1'>⚹</span>Domaine
+        <span className='text-orange-500 mr-1'>⚹</span>Domaine
       </label>
       <SelectComponent
         labels={domainList}
@@ -527,6 +466,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         setQuery={setQueryDomain}
       />
     </div>
+
     {!forNewEvent && form.images.length > 0 &&
       <div className='flex snap-x gap-x-4'>
         {form.images.map((image) => {
@@ -551,22 +491,25 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
       <div className='flex snap-x gap-x-4'>
         {imagesPreview.map((item, index) => {
           return (
-            <div key={item} className='relative shadow h-24 w-24 rounded'>
-              <Image
-                src={item}
-                layout='fill'
-                objectFit='cover'
-                alt=''
-              />
-              <div className='absolute top-0 left-0 bg-slate-50'>
-                <button type='button' onClick={() => deleteFile(index)}>
-                  delete
-                </button>
+            <div key={item} className='flex items-center'>
+              <div className='relative shadow h-24 w-24 rounded'>
+                <Image
+                  src={item}
+                  layout='fill'
+                  objectFit='cover'
+                  alt=''
+                />
+              </div>
+              <div>
+                <Button variant='text' color='deep-purple' onClick={() => deleteFile(index)} className='normal-case'>
+                  Delete
+                </Button>
               </div>
             </div>
           )
         })}
       </div>}
+
     <div>
       <label className='block text-sm font-medium text-gray-700'>Photos</label>
       <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
@@ -606,14 +549,28 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         </div>
       </div>
     </div>
+    {fieldVide.length > 0 && <span className='text-sm text-gray-500'><span className='text-orange-500 mr-1'>⚹</span>{`Le(s) champ(s) est/sont ${fieldVide.toString()} sont vides`}</span>}
     <Button
       color='deep-purple'
       className='normal-case text-sm font-regular text-white'
       type='submit'
+      disabled={
+        !form.title ||
+        !form.description ||
+        !form.dateStart ||
+        !form.timeStart ||
+        !form.address ||
+        !form.city ||
+        !form.postalCode ||
+        !form.email ||
+        !form.ageRange ||
+        !form.domain
+        }
     >
-      Sauvegarder
+
+      {forNewEvent ? 'Créer événement' : 'Actualiser événement'}
     </Button>
-  </>
+  </div>
 
     }
   ]
@@ -661,7 +618,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
             </Card>
 
             <div className='col-span-2'>
-              <LayoutEvent data={form} user={user} />
+              <LayoutEvent data={form} user={user} imagesPreview={imagesPreview} />
             </div>
           </div>
           </>}

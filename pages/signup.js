@@ -46,9 +46,6 @@ export default function SignUp () {
 
   const postData = async (form) => {
     try {
-      console.log('type', typeof (form))
-      console.log(form)
-
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
         method: 'POST',
         headers: {
@@ -58,20 +55,10 @@ export default function SignUp () {
         // convierte el objeto form a JSON
         body: JSON.stringify(form)
       })
-
-      const data = await res.json()
-      const { token } = data
       if (res.ok === false) {
         console.log('Error al connectarse')
       } else {
-        window.localStorage.setItem(
-          'loggedUser', JSON.stringify(token)
-        )
-        dispatch({
-          type: 'init_stored',
-          value: data
-        })
-        router.push('/')
+        router.push('/signin')
       }
     } catch (error) {
       console.log('error crear user', error)
@@ -86,9 +73,9 @@ export default function SignUp () {
     <>
       {isLoading
         ? <Loader />
-        : <main className='relative flex flex-1 flex-col overflow-hidden py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-bg-red/5 to-bg-white'>
+        : <main className='relative min-h-screen h-screen grid grid-cols-1 place-content-stretch  overflow-hidden py-8 px-4 sm:px-6 lg:px-8'>
           <div className='relative flex flex-1 flex-col items-center justify-center pt-12 pb-16'>
-            <div className='w-11/12 h-auto'>
+            <div className='w-72'>
               <Image
                 priority
                 src='/images/logo/logo-explora.png'
@@ -137,7 +124,7 @@ export default function SignUp () {
                       {ShowPassword
                         ? <EyeIcon className='h-5 w-5 text-deep-purple-500' />
                         : <EyeOffIcon className='h-5 w-5' />}
-                    </div>}
+                          </div>}
                   />
                 </div>
               </div>
@@ -150,19 +137,20 @@ export default function SignUp () {
               </Button>
             </form>
           </div>
-          <footer className='relative shrink-0'>
+          <footer className='relative shrink-0 flex items-end justify-center'>
             <div className='space-y-4 text-sm text-gray-900 sm:flex sm:items-center sm:justify-center sm:space-y-0 sm:space-x-4'>
               <p className='text-center sm:text-left'>Vous avez déjà un compte ?</p>
-              <Link href='/signin'>
-                <a>
-                  <Button color='deep-purple' variant='outlined' className='normal-case text-sm font-regular text-black'>
+              <Button color='deep-purple' variant='outlined' className='normal-case text-sm font-regular text-black  mx-auto flex'>
+                <Link href='/signin'>
+                  <a>
                     Connectez-vous
-                  </Button>
-                </a>
-              </Link>
+                  </a>
+                </Link>
+              </Button>
+
             </div>
           </footer>
-          </main>}
+        </main>}
     </>
   )
 }

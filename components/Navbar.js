@@ -232,16 +232,16 @@ export default function Example () {
                       </Button>
                     </a>
                   </Link>
-                </div>
+                  </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
-                  <Button color='deep-purple' variant='outlined'>
-                    <Link href='/signup'>
-                      <a>
+                  <Link href='/signup'>
+                    <a>
+                      <Button color='deep-purple' variant='outlined'>
                         <span>Enregistrer →</span>
-                      </a>
-                    </Link>
-                  </Button>
+                      </Button>
+                    </a>
+                  </Link>
 
                   <Button color='deep-purple' variant='gradient'>
                     <Link href='/signin'>
@@ -251,7 +251,7 @@ export default function Example () {
                     </Link>
                   </Button>
 
-                </div>}
+                  </div>}
             </div>
             <IconButton
               variant='text'
@@ -366,7 +366,7 @@ export default function Example () {
                     <span className='font-bold'>Crée evenement →</span>
                   </a>
                 </Link>
-                </div>
+              </div>
               : <div className='flex gap-4 items-center'>
                 <span>Vous etes une association ?</span>
                 <Button color='deep-purple' variant='outlined' className='normal-case'>
@@ -383,7 +383,7 @@ export default function Example () {
                     </a>
                   </Link>
                 </Button>
-                </div>}
+              </div>}
           </MobileNav>
         </Navbar>
       </div>

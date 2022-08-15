@@ -13,14 +13,23 @@ export async function getServerSideProps () {
   return posts
 }
 export default function Home ({ posts }) {
+  const [item, setItem] = useState(posts)
   const [currentPage, setCurrentPage] = useState(1)
   const [eventsPerPage] = useState(6)
 
   const indexOfLastEvent = currentPage * eventsPerPage
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage
-  const currentEvents = posts.slice(indexOfFirstEvent, indexOfLastEvent)
+  const currentEvents = item.slice(indexOfFirstEvent, indexOfLastEvent)
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
+
+  const menuItems = [...new Set(Data.map((Val) => Val.category))]
+  const filterItem = (curcat) => {
+    const newItem = Data.filter((newVal) => {
+      return newVal.category === curcat
+    })
+    setItem(newItem)
+  }
 
   return (
     <div className={styles.container}>
@@ -30,7 +39,11 @@ export default function Home ({ posts }) {
       </Head>
 
       <LayoutPage>
-        <Hero />
+        <Hero
+          filterItem={filterItem}
+          setItem={setItem}
+          menuItems={menuItems}
+        />
         <div className='max-w-7xl mx-auto'>
           <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
             <div className='w-full flex justify-between'>
@@ -40,7 +53,7 @@ export default function Home ({ posts }) {
               {posts.length > 0 &&
              currentEvents.map(post => {
                let Color = ''
-               domainList.filter(domain => domain.label === post.domain[0]).map(filteredDomain => {
+               domainList.filter(domain => domain.label === item.domain[0]).map(filteredDomain => {
                  const color = filteredDomain.color
                  return (Color = color)
                })

@@ -49,6 +49,7 @@ export default function Hero () {
                         height='100%'
                         objectFit='cover'
                         className='rounded-xl'
+                        priority
                       />
                     </Card>
 
