@@ -25,7 +25,7 @@ export default function FormAccount ({ formData }) {
   const [isLoading, setIsLoading] = useState(false)
 
   // const router = useRouter()
-  const [selectedDomain, setSelectedDomain] = useState(formData.domain[0] || '')
+  const [selectedDomain, setSelectedDomain] = useState(formData.domain)
   const [queryDomain, setQueryDomain] = useState('')
   const [file, setFile] = useState([])
   const [form, setform] = useState({
@@ -40,7 +40,7 @@ export default function FormAccount ({ formData }) {
     facebook: formData.facebook,
     instagram: formData.instagram,
     twitter: formData.twitter,
-    image: formData.image
+    image: formData.image?.url
   })
 
   const handleChange = e => {
@@ -58,70 +58,62 @@ export default function FormAccount ({ formData }) {
     })
   }, [selectedDomain])
 
+  console.log('form.image', form)
+  console.log('selectedDomain', selectedDomain)
+  console.log('data user', formData.domain)
+  let formData2 = new FormData()
   const handleSubmit = e => {
     e.preventDefault()
-    putData(form)
+    formData2 = new FormData()
+    formData2.append('username', form.username)
+    formData2.append('email', form.email)
+    formData2.append('description', form.description)
+    formData2.append('address', form.address)
+    formData2.append('city', form.city)
+    formData2.append('postalCode', form.postalCode)
+    formData2.append('domain[label]', form.domain.label)
+    formData2.append('domain[id]', form.domain.id)
+    formData2.append('domain[color]', form.domain.color)
+    formData2.append('website', form.website)
+    formData2.append('facebook', form.facebook)
+    formData2.append('instagram', form.instagram)
+    formData2.append('twitter', form.twitter)
+    formData2.append('imageUser', file)
+    putData(formData2)
   }
 
-  console.log(form.image)
+  // console.log(form.image)
 
-  const uploadFileHandler = async () => {
-    const formData = new FormData()
-    formData.append('images', file)
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/uploadS3`, {
-        method: 'POST',
-        Headers: {
-          'content-type': 'multipart/form-data'
-        },
-        body: formData
-      })
-      const data = await res.json()
-      console.log('respuesta', data)
-      setform({
-        ...form,
-        image: data[0].url
-      })
-      // Promise.all(form.image).then(() => {
-      //   putData(form)
-      // })
-    } catch (error) {
-      console.log('Error del servidor', error)
-    }
-  }
   const notify = () => toast('Something important isn\'t valid')
 
-  const putData = async (form) => {
+  const putData = async (formDataBuffer) => {
     const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
     const { token, id } = loggedUser
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(form)
+        body: formDataBuffer
       })
+      const data = await res
 
-      const data = await res.json()
-      console.log('post realizado success:', data.success, data)
-      if (!data.success) {
+      if (!data.ok) {
         notify()
-        for (const key in data.err.errors) {
+        /* for (const key in data.err?.errors) {
           const error = data.err.errors[key]
           setMessage(oldmessage => [
             ...oldmessage,
             { message: error.message }
           ])
-        }
+        } */
       } else {
         setMessage([])
-        // toast('Profile est maintenaint mis a jour 🎈', {
-        //   onClose: () => router.push('/')
-        // })
-        toast('Profile est maintenaint mis a jour 🎈')
+        toast('Profile est maintenaint mis a jour 🎈', {
+          onClose: () => router.push('/')
+        })
       }
     } catch (error) {
       console.log('Error del servidor', error)
@@ -447,7 +439,7 @@ export default function FormAccount ({ formData }) {
               <LayoutAsso data={form} user={data} imagePreview={imagePreview} />
             </div>
           </div>
-          </>}
+        </>}
     </>
 
   )

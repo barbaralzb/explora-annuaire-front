@@ -36,11 +36,10 @@ export default function CardComponent ({ post, bgColor }) {
           <Link href={`/users/${post.user._id}`} className='pointer'>
             <a href='#' className='avatar flex'>
               <Avatar
-                src={post.user.image[0] ? post.user.image[0].url : 'https://demos.creative-tim.com/material-kit-pro/assets/img/marie.jpg'}
+                src={post.user.image.url || 'https://demos.creative-tim.com/material-kit-pro/assets/img/marie.jpg'}
               />
               <div className='ml-3'>
                 <span className='text-blue-gray-700 mb-0 font-bold'>{post.user.username}</span>
-                <p className='mb-0 text-xs'>{`${post.user.city} ${post.user.postalCode}`}</p>
               </div>
             </a>
           </Link>

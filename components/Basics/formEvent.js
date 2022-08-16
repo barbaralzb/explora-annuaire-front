@@ -68,17 +68,19 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const handleSubmit = async e => {
     e.preventDefault()
     toast('Evenement ajouté avec success 🎈')
+    // uploadFileHandler()
+    postData(form)
 
-    if (file.length > 0) {
-      uploadFileHandler()
-    } else {
-      if (forNewEvent) {
-        postData(form)
-      } else {
-        console.log('click')
-        putData(form)
-      }
-    }
+    // if (file.length > 0) {
+    //   uploadFileHandler()
+    // } else {
+    //   if (forNewEvent) {
+    //     postData(form)
+    //   } else {
+    //     console.log('click')
+    //     putData(form)
+    //   }
+    // }
   }
 
   // useEffect(() => {
@@ -621,7 +623,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
               <LayoutEvent data={form} user={user} imagesPreview={imagesPreview} />
             </div>
           </div>
-          </>}
+        </>}
     </>
   )
 }

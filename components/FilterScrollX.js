@@ -7,7 +7,7 @@ import { HiOutlineChevronRight, HiOutlineChevronLeft } from 'react-icons/hi'
 import PopoverComponent from './Basics/PopoverComponent'
 import { Transition } from '@headlessui/react'
 
-export default function FilterScrollX ({ refer }) {
+export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }) {
   const scrl = useRef(null)
   const [scrollX, setscrollX] = useState(0)
   const [scrolEnd, setscrolEnd] = useState(false)
@@ -96,15 +96,14 @@ export default function FilterScrollX ({ refer }) {
       >
 
         {domainList.map(e => {
+          console.log(e.color)
           return (
             <motion.li key={e.id} className='mx-2 h-full py-6' variants={item}>
-              <Button color={e.color} className='w-36 h-full' variant='gradient'>
-                <Link href='/signin'>
-                  <a className='grid grid-cols-1 h-full place-items-center'>
-                    <div className='self-start'>{e.icon}</div>
-                    <span className='self-start font-semibold text-center normal-case text-base'>{e.label}</span>
-                  </a>
-                </Link>
+              <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none' variant='text' onClick={() => filterItem(e.label)}>
+                <div className='grid grid-cols-1 h-full place-items-center'>
+                  <div className='self-start'>{e.icon}</div>
+                  <span className='self-start font-semibold text-center normal-case text-base'>{e.label}</span>
+                </div>
               </Button>
             </motion.li>
           )
@@ -129,7 +128,10 @@ export default function FilterScrollX ({ refer }) {
           <HiOutlineChevronRight />
         </IconButton>
       </Transition>
-      <div className='pl-6'>
+      <div className='pl-6 flex flex-col justify-between py-6 h-full'>
+        <Button variant='text' color='deep-purple'>
+          Tout
+        </Button>
         <PopoverComponent />
       </div>
     </div>

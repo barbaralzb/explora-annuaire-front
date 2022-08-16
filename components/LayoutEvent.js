@@ -151,10 +151,10 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
           <Link href={`/users/${forNewEvent ? user.id : data.user.id}`} className='pointer'>
             <a className='avatar flex items-center'>
               <Avatar
-                src={user.image[0] ? user.image[0] : 'https://demos.creative-tim.com/material-kit-pro/assets/img/marie.jpg'}
+                src={user.image.url || 'https://demos.creative-tim.com/material-kit-pro/assets/img/marie.jpg'}
               />
               <div className='ml-3'>
-                <span className='text-blue-gray-700 mb-0 font-bold'>{forNewEvent ? user.username : data.user.username}</span>
+                <span className='text-blue-gray-700 mb-0 font-bold'>{user.username}</span>
               </div>
             </a>
           </Link>

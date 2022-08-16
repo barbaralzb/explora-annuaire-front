@@ -191,7 +191,7 @@ export default function Example () {
                             <div
                               className={classNames(active ? 'bg-gray-100' : '')}
                             >
-                              <Link href='/account-settings'>
+                              <Link href='/account-settings/information-association'>
                                 <a className='block px-4 py-2 text-sm text-gray-700'>Mon compte</a>
                               </Link>
                             </div>
@@ -232,7 +232,7 @@ export default function Example () {
                       </Button>
                     </a>
                   </Link>
-                  </div>
+                </div>
                 : <div className='flex gap-4 items-center'>
                   <span>Vous etes une association ?</span>
                   <Link href='/signup'>
@@ -251,7 +251,7 @@ export default function Example () {
                     </Link>
                   </Button>
 
-                  </div>}
+                </div>}
             </div>
             <IconButton
               variant='text'
@@ -366,7 +366,7 @@ export default function Example () {
                     <span className='font-bold'>Crée evenement →</span>
                   </a>
                 </Link>
-              </div>
+                </div>
               : <div className='flex gap-4 items-center'>
                 <span>Vous etes une association ?</span>
                 <Button color='deep-purple' variant='outlined' className='normal-case'>
@@ -383,7 +383,7 @@ export default function Example () {
                     </a>
                   </Link>
                 </Button>
-              </div>}
+                </div>}
           </MobileNav>
         </Navbar>
       </div>

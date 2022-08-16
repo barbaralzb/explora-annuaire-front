@@ -1,67 +1,69 @@
 import Head from 'next/head'
-import Layout from 'components/LayoutPage'
+import LayoutPage from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
+import Hero from 'components/hero'
+import { useState } from 'react'
+import Pagination from 'components/Basics/pagination'
 import { getSortedUsersData } from 'lib/users'
+import CardAssociation from 'components/CardAssociation'
 export async function getServerSideProps () {
   const users = getSortedUsersData()
   return users
 }
-const products = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black'
+export default function AssociationPage ({ users }) {
+  const [item, setItem] = useState(users)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [eventsPerPage] = useState(6)
+
+  const indexOfLastEvent = currentPage * eventsPerPage
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage
+  const currentEvents = item.slice(indexOfFirstEvent, indexOfLastEvent)
+
+  const paginate = pageNumber => setCurrentPage(pageNumber)
+
+  const filterItem = (curcat) => {
+    console.log(curcat)
+    const newItem = users.filter((newVal) => {
+      return newVal.domain.label === curcat
+    })
+    setItem(newItem)
   }
-  // More products...
-]
 
-export default function allUsers ({ users }) {
   return (
-  // <div className={styles.container}>
-  //   <Head>
-  //     <title>Explora</title>
-  //     <meta name='description' content='Explora Rouen missios bénévolat' />
-  //   </Head>
+    <div className={styles.container}>
+      <Head>
+        <title>Associations - Rouen</title>
+        <meta name='description' content='Associations de Rouen evenements' />
+      </Head>
 
-    //   <Layout>
-    //     {users.map((user) => (<div key={user.id}>{user.username}</div>)
-    //     )}
-    //   </Layout>
-    // </div>
-    <div className='bg-white'>
-      <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
-        <h2 className='text-2xl font-extrabold tracking-tight text-gray-900'>Customers also purchased</h2>
-
-        <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
-          {products.map(product => (
-            <div key={product.id} className='group relative'>
-              <div className='w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none'>
-                <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className='w-full h-full object-center object-cover lg:w-full lg:h-full'
-                />
-              </div>
-              <div className='mt-4 flex justify-between'>
-                <div>
-                  <h3 className='text-sm text-gray-700'>
-                    <a href={`${product.href}`}>
-                      <span aria-hidden='true' className='absolute inset-0' />
-                      {product.name}
-                    </a>
-                  </h3>
-                  <p className='mt-1 text-sm text-gray-500'>{product.color}</p>
-                </div>
-                <p className='text-sm font-medium text-gray-900'>{product.price}</p>
-              </div>
+      <LayoutPage>
+        <Hero
+          heroAssos
+          filterItem={filterItem}
+          setItem={setItem}
+          // menuItems={menuItems}
+        />
+        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32'>
+          <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
+            <div className='w-full flex justify-between'>
+              <h2 className='text-2xl font-extrabold text-gray-900'>Associations de Rouen</h2>
             </div>
-          ))}
+            <div className='mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-24'>
+              {item.length > 0 &&
+             currentEvents.map(user => {
+               return (
+                 <CardAssociation
+                   key={user.id}
+                   user={user}
+                 />
+
+               )
+             })}
+            </div>
+          </div>
+          <Pagination currentPage={currentPage} totalEvents={item} eventsPerPage={eventsPerPage} paginate={paginate} />
         </div>
-      </div>
+      </LayoutPage>
     </div>
   )
 }
