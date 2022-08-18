@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import FilterScrollX from './FilterScrollX'
 
-export default function Hero ({ filterItem, setItem, menuItems, heroAssos = false }) {
+export default function HeroAbout ({ filterItem, setItem, menuItems, heroAssos = false }) {
   const refer = useRef(null)
 
   return (
@@ -71,6 +71,24 @@ export default function Hero ({ filterItem, setItem, menuItems, heroAssos = fals
                 Lorem ipsum dolor sit amet,
               </span>
             </div>
+
+            {/* <div className='tracking-tight font-extrabold text-gray-900 font-body text-8xl leading-snug'>
+              Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,
+            </div> */}
+
+            {/* <div className='tracking-tight font-extrabold text-gray-900 font-body indent-20 text-8xl leading-snug text-center'>
+              Explora  Rouen - Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              <div className='rounded-full w-40 h-40 shadow-lg ring-gray-900 -top-1/3 ring-4 left-1/2'>
+                <Image
+                  className='rounded-full'
+                  src='/images/rouen.jpg'
+                  width='100%'
+                  height='100%'
+                  objectFit='cover'
+                  layout='responsive'
+                />
+              </div>
+            </div> */}
           </div>
           <div className='grow-0 min-h-32' ref={refer}>
             <FilterScrollX refer={refer} menuItems={menuItems} setItem={setItem} filterItem={filterItem} />

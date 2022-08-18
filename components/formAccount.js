@@ -5,7 +5,7 @@ import { domainList } from 'utils/utils'
 import { toast, ToastContainer } from 'react-toastify'
 import { Loader } from './Basics/Loader'
 import { useRouter } from 'next/router'
-import { Card, Input, Tabs, TabsHeader, Textarea, Tab, TabsBody, TabPanel, Chip, Button } from '@material-tailwind/react'
+import { Card, Input, Textarea, Chip, Button, CardBody, Progress, CardFooter } from '@material-tailwind/react'
 import { useAppContext } from 'context/AppContext'
 import useSWR from 'swr'
 import LayoutAsso from './LayoutAsso'
@@ -23,6 +23,7 @@ export default function FormAccount ({ formData }) {
   const [imagePreview, setImagePreview] = useState('')
   const [message, setMessage] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(0)
 
   // const router = useRouter()
   const [selectedDomain, setSelectedDomain] = useState(formData.domain)
@@ -391,6 +392,8 @@ export default function FormAccount ({ formData }) {
 
   ]
 
+  const paginate = pageNumber => setCurrentPage(pageNumber)
+
   if (error) return <div>Failed to load</div>
   if (!data) return <Loader />
   return (
@@ -409,33 +412,29 @@ export default function FormAccount ({ formData }) {
             draggable
             pauseOnHover
           />
-          <div className='grid grid-cols-3 gap-8'>
-            <Card className='p-4'>
-              <form className='col-span-1' onSubmit={handleSubmit}>
-                <div>
-                  <Tabs value='step1'>
-                    <TabsHeader>
-                      {steps.map(({ label, value }) => (
-                        <Tab key={value} value={value}>
-                          {label}
-                        </Tab>
-                      ))}
-                    </TabsHeader>
-                    <TabsBody>
-                      {steps.map(({ value, form }) => (
-                        <TabPanel key={value} value={value}>
-                          <div className='px-4 py-5'>
-                            {form}
-                          </div>
-                        </TabPanel>
-                      ))}
-                    </TabsBody>
-                  </Tabs>
-                </div>
-              </form>
-            </Card>
-
+          <div className='grid grid-cols-6 gap-8 max-w-7xl mx-auto'>
             <div className='col-span-2'>
+              <Card className='flex flex-col justify-between'>
+                <CardBody>
+                  <Progress className='mb-12' color='deep-purple' variant='gradient' value={(currentPage / 2) * 100} />
+                  <form className='col-span-1' onSubmit={handleSubmit}>
+                    {steps[currentPage].form}
+                  </form>
+                </CardBody>
+                <CardFooter className={`flex
+                ${currentPage === 0 ? 'justify-end' : 'justify-between'}
+                `}
+                >
+                  {currentPage !== 0 &&
+                    <Button color='deep-purple' onClick={() => currentPage === 0 ? null : paginate(currentPage - 1)}>Preveus</Button>}
+
+                  {currentPage < steps.length - 1 &&
+                    <Button color='deep-purple' onClick={() => currentPage === steps.length ? null : paginate(currentPage + 1)}>Suivant</Button>}
+                </CardFooter>
+              </Card>
+            </div>
+
+            <div className='col-span-4'>
               <LayoutAsso data={form} user={data} imagePreview={imagePreview} />
             </div>
           </div>

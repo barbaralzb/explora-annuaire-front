@@ -12,7 +12,7 @@ export default function InformationAssociation () {
   if (error) return <div>Failed to load</div>
   if (!data) return <Loader />
   return (
-    <div className='mx-auto px-10 py-20 lg:py-32 xl:py-40 bg-dotssquares'>
+    <div className='mx-auto px-10 py-20 lg:py-32 xl:py-40 bg-indigo-50'>
       <FormAccount
         formData={data}
       />

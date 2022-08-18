@@ -54,7 +54,7 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
   }
   return (
     <Card>
-      <div className='relative w-full px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:py-16 lg:max-w-7xl lg:px-8 lg:grid-cols-5'>
+      <div className='relative w-full px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:pt-16 lg:max-w-7xl lg:px-8 lg:grid-cols-5'>
         {/* <Dropdown setEditEvent={setEditEvent} id={_id} setIsLoading={setIsLoading} /> */}
         <div className='self-start lg:col-span-3'>
           <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>{formData.title}</h2>
@@ -146,7 +146,7 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
           />
         </div>
       </div>
-      <CardFooter>
+      <CardFooter className='border-t'>
         <div className='flex'>
           <Link href={`/users/${forNewEvent ? user.id : data.user.id}`} className='pointer'>
             <a className='avatar flex items-center'>

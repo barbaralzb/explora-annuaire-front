@@ -7,7 +7,6 @@ import { useRef, useState } from 'react'
 import Pagination from 'components/Basics/pagination'
 import CardComponent from 'components/CardComponent'
 import { domainList } from 'utils/utils'
-import FilterScrollX from 'components/FilterScrollX'
 export async function getServerSideProps () {
   const posts = getSortedPostsData()
   return posts
@@ -44,10 +43,11 @@ export default function Home ({ posts }) {
 
       <LayoutPage>
         <Hero />
+
         {/* <div className='py-12' ref={refer}>
           <FilterScrollX refer={refer} setItem={setItem} filterItem={filterItem} />
         </div> */}
-        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32'>
+        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32  pt-20 lg:pt-32 xl:pt-40'>
           <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
             <div className='w-full flex justify-between'>
               <h2 className='text-2xl font-extrabold text-gray-900'>Evénements</h2>
@@ -73,6 +73,7 @@ export default function Home ({ posts }) {
           </div>
           <Pagination currentPage={currentPage} totalEvents={item} eventsPerPage={eventsPerPage} paginate={paginate} />
         </div>
+
       </LayoutPage>
     </div>
   )

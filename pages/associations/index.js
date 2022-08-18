@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import LayoutPage from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
-import Hero from 'components/hero'
 import { useState } from 'react'
 import Pagination from 'components/Basics/pagination'
 import { getSortedUsersData } from 'lib/users'
 import CardAssociation from 'components/CardAssociation'
+import HeroAssociations from 'components/heroAssociations'
 export async function getServerSideProps () {
   const users = getSortedUsersData()
   return users
@@ -37,13 +37,12 @@ export default function AssociationPage ({ users }) {
       </Head>
 
       <LayoutPage>
-        <Hero
-          heroAssos
+        <HeroAssociations
           filterItem={filterItem}
           setItem={setItem}
           // menuItems={menuItems}
         />
-        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32'>
+        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32  pt-20 lg:pt-32 xl:pt-40 '>
           <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
             <div className='w-full flex justify-between'>
               <h2 className='text-2xl font-extrabold text-gray-900'>Associations de Rouen</h2>

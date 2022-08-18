@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from 'react-icons/hi'
 import PopoverComponent from './Basics/PopoverComponent'
 import { Transition } from '@headlessui/react'
+import Image from 'next/image'
 
 export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }) {
   const scrl = useRef(null)
@@ -98,11 +99,24 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }
         {domainList.map(e => {
           console.log(e.color)
           return (
-            <motion.li key={e.id} className='mx-2 h-full py-6' variants={item}>
-              <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none' variant='text' onClick={() => filterItem(e.label)}>
-                <div className='grid grid-cols-1 h-full place-items-center'>
-                  <div className='self-start'>{e.icon}</div>
-                  <span className='self-start font-semibold text-center normal-case text-base'>{e.label}</span>
+            <motion.li key={e.id} className='mx-2 h-full py-12 relative' variants={item}>
+              <div className='self-start absolute top-10'>
+                <Image
+                  src='/images/iconos/2.svg'
+                  width='60'
+                  height='60'
+                />
+              </div>
+              <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none bg-white relative hover:-translate-y-2 hover:scale-105 hover:skew-y-3' variant='text' onClick={() => filterItem(e.label)}>
+                <div className='grid grid-cols-1 h-full place-items-center py-5'>
+                  {/* <div className='self-start absolute -top-10'>
+                    <Image
+                      src='/images/iconos/2.svg'
+                      width='60'
+                      height='60'
+                    />
+                  </div> */}
+                  <span className='font-semibold text-center normal-case text-base'>{e.label}</span>
                 </div>
               </Button>
             </motion.li>
@@ -128,7 +142,7 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }
           <HiOutlineChevronRight />
         </IconButton>
       </Transition>
-      <div className='pl-6 flex flex-col justify-between py-6 h-full'>
+      <div className='pl-6 flex flex-col justify-around py-12 h-full'>
         <Button variant='text' color='deep-purple'>
           Tout
         </Button>

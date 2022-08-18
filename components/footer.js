@@ -13,7 +13,7 @@ const navigation = [
 export default function Footer () {
   return (
     <>
-      <div className='bg-gray-50 h-1/2 w-full flex md:flex-row flex-col justify-around items-start p-20'>
+      <div className='bg-white h-1/2 w-full flex md:flex-row flex-col justify-around items-start p-20'>
         <div className='p-5 '>
           <ul>
             <div>
@@ -83,7 +83,7 @@ export default function Footer () {
           </ul>
         </div>
       </div>
-      <div className='flex flex-col justify-center items-center text-center  p-5 bg-gray-50'>
+      <div className='flex flex-col justify-center items-center text-center  p-5 bg-deep-purple-50/70'>
         <h1 className=' text-gray-800 font-semibold'>
           © 2021-2022 All rights reserved | Build with ❤ by{' '}
           <span className='hover:text-deep-purple font-semibold cursor-pointer'>

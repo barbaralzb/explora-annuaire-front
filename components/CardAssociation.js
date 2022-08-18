@@ -9,16 +9,19 @@ export default function CardAssociation ({ user }) {
       <a blur-shadow-image='true'>
         <Card>
           <CardBody className='grid grid-cols-2 lg:flex-row gap-x-4'>
-            <Image
-              className='rounded-lg'
-              src={user.image.url || 'images/default/2.jpg'}
-              alt={`image du profile du ${user.username}`}
-              width='100%'
-              height='100%'
-              objectFit='cover'
-            />
-            <di className=''>
-              <h5 className='mt-2 font-medium text-2xl'>{user.username}</h5>
+            <div className='relative w-full h-full'>
+              <Image
+                className='rounded-lg'
+                src={user.image.url || 'images/default/2.jpg'}
+                alt={`image du profile du ${user.username}`}
+                width='100%'
+                height='100%'
+                objectFit='cover'
+                layout='fill'
+              />
+            </div>
+            <div className=''>
+              <h5 className='mt-2 font-medium text-2xl mb-4'>{user.username}</h5>
               {user.domain &&
                 <Chip variant='gradient' color={user.domain.color} value={user.domain.label} className='mb-3' />}
               <div className='overflow-hidden text-ellipsismax-h-72 h-72'>
@@ -26,7 +29,7 @@ export default function CardAssociation ({ user }) {
                   {user.description}
                 </Typography>
               </div>
-            </di>
+            </div>
           </CardBody>
         </Card>
       </a>

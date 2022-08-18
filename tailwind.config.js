@@ -6,7 +6,8 @@ module.exports = withMT({
   ],
   theme: {
     fontFamily: {
-      sans: ['Raleway', 'sans-serif']
+      sans: ['Raleway', 'sans-serif'],
+      body: ['"Josefin Sans"']
     },
     extend: {
       gridTemplateRows: {
@@ -19,12 +20,13 @@ module.exports = withMT({
         black: '#39403F'
       },
       backgroundImage: {
-        // 'hero-pattern': "url('/images/backgound-gradient.jpg')"
         'hero-pattern': "url('/images/bbblurry-15.svg')",
         squares: "url('/images/square-bg.svg')",
         dots: "url('/images/points.svg')",
         dotssquares: "url('/images/dotssquares.svg')",
-        blubbles: "url('/images/rrrainbow.svg')"
+        blubbles: "url('/images/rrrainbow.svg')",
+        'square-indigo': "url('/images/bg-square-indigo.svg')",
+        'square-orange': "url('/images/bg-square-orange.svg')"
       },
       backgroundPosition: {
         top: 'top',

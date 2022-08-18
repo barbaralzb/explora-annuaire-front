@@ -1,14 +1,13 @@
 import SelectComponent from 'components/Basics/SelectComponent'
 import Image from 'next/image'
-import { FaFacebookSquare, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { FaFacebookSquare, FaInstagram } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import { ageRangeList, domainList } from 'utils/utils'
 import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { Loader } from './Loader'
-import { alert, Button, Card, Checkbox, Chip, Input, Tab, TabPanel, Tabs, TabsBody, TabsHeader, Textarea } from '@material-tailwind/react'
-import { Transition } from '@headlessui/react'
+import { Button, Card, CardBody, CardFooter, Chip, Input, Progress, Textarea, Typography } from '@material-tailwind/react'
 import LayoutEvent from 'components/LayoutEvent'
 import { getCurrentDate } from 'utils/currentDate'
 import { TbWorld } from 'react-icons/tb'
@@ -28,6 +27,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [startdate, setStartDate] = useState(new Date())
   const [enddate, setEndDate] = useState(new Date())
   const [toastMessage, setToastMessage] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
 
   const [form, setform] = useState({
     title: formData.title,
@@ -577,6 +577,8 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     }
   ]
 
+  const paginate = pageNumber => setCurrentPage(pageNumber)
+
   return (
     <>
       {isLoading
@@ -593,33 +595,49 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
             draggable
             pauseOnHover
           />
-          <div className='grid grid-cols-3 gap-8'>
-            <Card className='p-4'>
-              <form className='col-span-1' onSubmit={handleSubmit}>
-                <div>
-                  <Tabs value='step1'>
-                    <TabsHeader>
-                      {steps.map(({ label, value }) => (
-                        <Tab key={value} value={value}>
-                          {label}
-                        </Tab>
-                      ))}
-                    </TabsHeader>
-                    <TabsBody>
-                      {steps.map(({ value, form }) => (
-                        <TabPanel key={value} value={value}>
-                          <div className='px-4 py-5'>
-                            {form}
-                          </div>
-                        </TabPanel>
-                      ))}
-                    </TabsBody>
-                  </Tabs>
-                </div>
-              </form>
-            </Card>
-
+          <div className='grid grid-cols-6 gap-8 max-w-7xl mx-auto'>
             <div className='col-span-2'>
+              {/* <div className='relative mb-12'>
+                <Typography variant='h3' className='mb-6 ml-6'>Form</Typography>
+                <div className='absolute -top-2/3'>
+                  <Image
+                    src='/images/iconos/brush.svg'
+                    width='100%'
+                    height='100%'
+                  />
+                </div>
+              </div> */}
+              <Card className='flex flex-col justify-between'>
+                <CardBody>
+                  <Progress className='mb-12' color='deep-purple' variant='gradient' value={(currentPage / 2) * 100} />
+                  <form className='col-span-1' onSubmit={handleSubmit}>
+                    {steps[currentPage].form}
+                  </form>
+                </CardBody>
+                <CardFooter className={`flex
+                ${currentPage === 0 ? 'justify-end' : 'justify-between'}
+                `}
+                >
+                  {currentPage !== 0 &&
+                    <Button color='deep-purple' onClick={() => currentPage === 0 ? null : paginate(currentPage - 1)}>Preveus</Button>}
+
+                  {currentPage < steps.length - 1 &&
+                    <Button color='deep-purple' onClick={() => currentPage === steps.length ? null : paginate(currentPage + 1)}>Suivant</Button>}
+                </CardFooter>
+              </Card>
+            </div>
+
+            <div className='col-span-4'>
+              {/* <div className='relative mb-12'>
+                <Typography variant='h3' className='mb-6 ml-6'>Aperçu</Typography>
+                <div className='absolute -top-2/3'>
+                  <Image
+                    src='/images/iconos/brush.svg'
+                    width='100%'
+                    height='100%'
+                  />
+                </div>
+              </div> */}
               <LayoutEvent data={form} user={user} imagesPreview={imagesPreview} />
             </div>
           </div>
