@@ -12,7 +12,7 @@ export default function CardAssociation ({ user }) {
             <div className='relative w-full h-full'>
               <Image
                 className='rounded-lg'
-                src={user.image.url || 'images/default/2.jpg'}
+                src={user.image?.url || '/images/default/2.jpg'}
                 alt={`image du profile du ${user.username}`}
                 width='100%'
                 height='100%'

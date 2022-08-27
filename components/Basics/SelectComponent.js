@@ -20,7 +20,7 @@ export default function SelectComponent ({ labels, query, setQuery, setSelectedL
             <Combobox.Input
               className='peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 resize-y disabled:bg-blue-gray-50 disabled:border-0 disabled:resize-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  border focus:border-2  text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-deep-purple-500'
               onChange={(event) => setQuery(event.target.value)}
-              displayValue={(item) => item.label}
+              displayValue={(item) => item?.label}
             />
             <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
               <SelectorIcon
