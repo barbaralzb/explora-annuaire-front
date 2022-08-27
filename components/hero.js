@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import FilterScrollX from './FilterScrollX'
 
-export default function Hero ({ filterItem, setItem, menuItems, heroAssos = false }) {
+export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, heroAssos = false }) {
   const refer = useRef(null)
 
   return (
@@ -73,7 +73,7 @@ export default function Hero ({ filterItem, setItem, menuItems, heroAssos = fals
             </div>
           </div>
           <div className='grow-0 min-h-32' ref={refer}>
-            <FilterScrollX refer={refer} menuItems={menuItems} setItem={setItem} filterItem={filterItem} />
+            <FilterScrollX refer={refer} menuItems={menuItems} setItem={setItem} filterItem={filterItem} ResetFilter={ResetFilter} />
           </div>
         </div>
       </div>

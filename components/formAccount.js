@@ -59,9 +59,6 @@ export default function FormAccount ({ formData }) {
     })
   }, [selectedDomain])
 
-  console.log('form.image', form)
-  console.log('selectedDomain', selectedDomain)
-  console.log('data user', formData.domain)
   let formData2 = new FormData()
   const handleSubmit = e => {
     e.preventDefault()
@@ -72,9 +69,9 @@ export default function FormAccount ({ formData }) {
     formData2.append('address', form.address)
     formData2.append('city', form.city)
     formData2.append('postalCode', form.postalCode)
-    formData2.append('domain[label]', form.domain.label)
+    formData2.append('domain[label]', form.domain?.label)
     formData2.append('domain[id]', form.domain.id)
-    formData2.append('domain[color]', form.domain.color)
+    formData2.append('domain[color]', form.domain?.color)
     formData2.append('website', form.website)
     formData2.append('facebook', form.facebook)
     formData2.append('instagram', form.instagram)
@@ -83,7 +80,7 @@ export default function FormAccount ({ formData }) {
     putData(formData2)
   }
 
-  // console.log(form.image)
+  console.log(file)
 
   const notify = () => toast('Something important isn\'t valid')
 

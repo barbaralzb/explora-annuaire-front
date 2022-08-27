@@ -2,8 +2,10 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-export default function Dropdown ({ setEditEvent, id, setIsLoading }) {
+export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPostId }) {
   const router = useRouter()
   const [message, setMessage] = useState([])
 
@@ -19,7 +21,6 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading }) {
         }
       })
       const data = await res.json()
-      console.log('post realizado success:', data.success, data)
       if (!data.success) {
         for (const key in data.err.errors) {
           const error = data.err.errors[key]
@@ -29,119 +30,119 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading }) {
           ])
         }
       } else {
-        setIsLoading(true)
-        router.push('/')
+        toast('Evénement effacé', {
+          onClose: () => router.push('/mes-eventements')
+        })
+        setDeletedPostId(id)
       }
     } catch (error) {
       console.log('Error del servidor', error)
     }
   }
+
+  const handlerModifie = () => {
+    const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
+    if (loggedUser.success) {
+      router.push({
+        pathname: `/evenements/${id}/modifier`,
+        query: { id }
+      })
+    }
+  }
   return (
-    <div className='absolute top-10 right-10 z-10'>
-      <Menu as='div' className='relative inline-block text-left'>
-        <div>
-          <Menu.Button className='shadow-md bg-white/70 group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/25 focus-visible:ring-opacity-75'>
-            Options
-            <ChevronDownIcon
-              className='ml-2 h-5 w-5 focus:text-deep-purple-300 transition duration-150 ease-in-out group-hover:text-opacity-80'
-              aria-hidden='true'
-            />
-          </Menu.Button>
-        </div>
-        <Transition
-          as={Fragment}
-          enter='transition ease-out duration-100'
-          enterFrom='transform opacity-0 scale-95'
-          enterTo='transform opacity-100 scale-100'
-          leave='transition ease-in duration-75'
-          leaveFrom='transform opacity-100 scale-100'
-          leaveTo='transform opacity-0 scale-95'
-        >
-          <Menu.Items className='absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-            <div className='px-1 py-1 '>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => setEditEvent(true)}
-                    className={`${
+    <>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <div className='flex justify-end p-4 z-10'>
+        <Menu as='div' className='relative inline-block text-left'>
+          <div>
+            <Menu.Button className='shadow-md bg-white/70 group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/25 focus-visible:ring-opacity-75'>
+              Options
+              <ChevronDownIcon
+                className='ml-2 h-5 w-5 focus:text-deep-purple-300 transition duration-150 ease-in-out group-hover:text-opacity-80'
+                aria-hidden='true'
+              />
+            </Menu.Button>
+          </div>
+          <Transition
+            as={Fragment}
+            enter='transition ease-out duration-100'
+            enterFrom='transform opacity-0 scale-95'
+            enterTo='transform opacity-100 scale-100'
+            leave='transition ease-in duration-75'
+            leaveFrom='transform opacity-100 scale-100'
+            leaveTo='transform opacity-0 scale-95'
+          >
+            <Menu.Items className='absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+              <div className='px-1 py-1 '>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={handlerModifie}
+                      className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active
-                      ? (
-                        <EditActiveIcon
-                          className='mr-2 h-5 w-5'
-                          aria-hidden='true'
-                        />
-                        )
-                      : (
-                        <EditInactiveIcon
-                          className='mr-2 h-5 w-5'
-                          aria-hidden='true'
-                        />
-                        )}
-                    Edit
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-            <div className='px-1 py-1'>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
+                    >
+                      {active
+                        ? (
+                          <EditActiveIcon
+                            className='mr-2 h-5 w-5'
+                            aria-hidden='true'
+                          />
+                          )
+                        : (
+                          <EditInactiveIcon
+                            className='mr-2 h-5 w-5'
+                            aria-hidden='true'
+                          />
+                          )}
+                      Edit
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className='px-1 py-1'>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={deletePost}
+                      className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active
-                      ? (
-                        <ArchiveActiveIcon
-                          className='mr-2 h-5 w-5'
-                          aria-hidden='true'
-                        />
-                        )
-                      : (
-                        <ArchiveInactiveIcon
-                          className='mr-2 h-5 w-5'
-                          aria-hidden='true'
-                        />
-                        )}
-                    Archive
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-            <div className='px-1 py-1'>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={deletePost}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active
-                      ? (
-                        <DeleteActiveIcon
-                          className='mr-2 h-5 w-5 text-violet-400'
-                          aria-hidden='true'
-                        />
-                        )
-                      : (
-                        <DeleteInactiveIcon
-                          className='mr-2 h-5 w-5 text-violet-400'
-                          aria-hidden='true'
-                        />
-                        )}
-                    Delete
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </div>
+                    >
+                      {active
+                        ? (
+                          <DeleteActiveIcon
+                            className='mr-2 h-5 w-5 text-violet-400'
+                            aria-hidden='true'
+                          />
+                          )
+                        : (
+                          <DeleteInactiveIcon
+                            className='mr-2 h-5 w-5 text-violet-400'
+                            aria-hidden='true'
+                          />
+                          )}
+                      Delete
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      </div>
+    </>
+
   )
 }
 

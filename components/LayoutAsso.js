@@ -39,7 +39,7 @@ export default function LayoutAsso ({ data, imagePreview }) {
         <div className='self-start lg:col-span-3 h-full grid grid-cols-1'>
           <div>
             <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mb-6'>{formData.username}</h2>
-            <Chip className='mb-6' variant='gradient' color={formData.domain ? formData.domain.color : 'deep-purple'} value={formData.domain ? formData.domain.label : 'Domaine'} />
+            <Chip className='mb-6' variant='gradient' color={formData.domain ? formData.domain?.color : 'deep-purple'} value={formData.domain ? formData.domain?.label : 'Domaine'} />
           </div>
 
           <p className='mb-6 text-gray-500'>{formData.description}</p>

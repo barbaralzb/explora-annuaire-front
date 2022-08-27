@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { Loader } from './Loader'
-import { Button, Card, CardBody, CardFooter, Chip, Input, Progress, Textarea, Typography } from '@material-tailwind/react'
+import { Button, Card, CardBody, CardFooter, Chip, Input, Progress, Textarea } from '@material-tailwind/react'
 import LayoutEvent from 'components/LayoutEvent'
 import { getCurrentDate } from 'utils/currentDate'
 import { TbWorld } from 'react-icons/tb'
@@ -24,9 +24,6 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const [isCheck, setCheck] = useState(typeof (formData.fullDay) === 'boolean' ? formData.fullDay : true)
   const [queryAge, setQueryAge] = useState('')
   const [queryDomain, setQueryDomain] = useState('')
-  const [startdate, setStartDate] = useState(new Date())
-  const [enddate, setEndDate] = useState(new Date())
-  const [toastMessage, setToastMessage] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
 
   const [form, setform] = useState({
@@ -61,134 +58,93 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
     setform({
       ...form,
       ageRange: selectedAge.label,
-      domain: selectedDomain.label
+      domain: selectedDomain
     })
   }, [selectedAge, selectedDomain])
 
-  const handleSubmit = async e => {
+  let formData2 = new FormData()
+  const handleSubmit = e => {
     e.preventDefault()
-    toast('Evenement ajouté avec success 🎈')
-    // uploadFileHandler()
-    postData(form)
+    formData2 = new FormData()
 
-    // if (file.length > 0) {
-    //   uploadFileHandler()
-    // } else {
-    //   if (forNewEvent) {
-    //     postData(form)
-    //   } else {
-    //     console.log('click')
-    //     putData(form)
-    //   }
-    // }
-  }
-
-  // useEffect(() => {
-  //   if (file.length > 0) {
-  //     if (forNewEvent) {
-  //       postData(form)
-  //     } else {
-  //       putData(form)
-  //     }
-  //   }
-  // }, [form.images])
-  console.log(form.images)
-
-  const uploadFileHandler = async () => {
-    const formData = new FormData()
     for (let i = 0; i < file.length; i++) {
-      formData.append('images', file[i])
+      formData2.append('imageEvent', file[i])
     }
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/uploadS3`, {
-        method: 'POST',
-        Headers: {
-          'content-type': 'multipart/form-data'
-        },
-        body: formData
-      })
-      const data = await res.json()
-      console.log('respuesta', data)
-      setform({
-        ...form,
-        images: data
-      })
+    formData2.append('title', form.title)
+    formData2.append('description', form.description)
+    formData2.append('dateStart', form.dateStart)
+    formData2.append('dateEnd', form.dateEnd)
+    formData2.append('fullDay', form.fullDay)
+    formData2.append('timeStart', form.timeStart)
+    formData2.append('timeEnd', form.timeEnd)
+    formData2.append('address', form.address)
+    formData2.append('city', form.city)
+    formData2.append('postalCode', form.postalCode)
+    formData2.append('ageRange', form.ageRange)
+    formData2.append('domain[label]', form.domain?.label)
+    formData2.append('domain[id]', form.domain.id)
+    formData2.append('domain[color]', form.domain?.color)
+    formData2.append('email', form.email)
+    formData2.append('website', form.website)
+    formData2.append('facebook', form.facebook)
+    formData2.append('instagram', form.instagram)
 
-      console.log(form.images)
-    } catch (error) {
-      console.log('Error del servidor', error)
-    }
+    forNewEvent ? postData(formData2) : putData(formData2)
   }
 
-  const putData = async (form) => {
+  const putData = async (formDataBuffer) => {
     const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
     const { token } = loggedUser
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${formData._id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(form)
+        body: formDataBuffer
       })
 
-      const data = await res.json()
-      console.log('post realizado success:', data.success, data)
-      if (!data.success) {
+      const data = await res
+      if (!data.ok) {
         notify()
-        for (const key in data.err.errors) {
-          const error = data.err.errors[key]
-          setMessage(oldmessage => [
-            ...oldmessage,
-            { message: error.message }
-          ])
-        }
       } else {
-        setMessage([])
-        router.push('/')
+        toast('Evénement mis a jour🎈', {
+          onClose: () => router.push('/')
+        })
       }
     } catch (error) {
       console.log('Error del servidor', error)
     }
   }
 
-  const postData = async (form) => {
+  const postData = async (formDataBuffer) => {
     const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
     const { token } = loggedUser
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(form)
+        body: formDataBuffer
       })
 
-      const data = await res.json()
-      console.log('post realizado success:', data.success, data)
-      if (!data.success) {
+      const data = await res
+      if (!data.ok) {
         notify()
-        for (const key in data.err.errors) {
-          const error = data.err.errors[key]
-          setMessage(oldmessage => [
-            ...oldmessage,
-            { message: error.message }
-          ])
-        }
+      } else {
+        toast('Evénement enregistrer🎈', {
+          onClose: () => router.push('/')
+        })
       }
-      //  else {
-      //   router.push('/')
-      // }
     } catch (error) {
       console.log('Error del servidor', error)
     }
   }
 
-  const handleCheckbox = () => {
-    setCheck((isCheck) => !isCheck)
-  }
+  // const handleCheckbox = () => {
+  //   setCheck((isCheck) => !isCheck)
+  // }
   const onInput = e => {
     e.target.value = e.target.value.replace(/[^0-9+]/g, '')
   }
@@ -199,8 +155,10 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
       imagesSrc.push(URL.createObjectURL(img))
     }
     setImagesPreview(imagesSrc)
-    setFile(file)
+    console.log('-> file:', file)
   }, [file])
+
+  console.log('-> Image preview:', imagesPreview)
 
   function handleUploadSingleFile (e) {
     setFile(file => [...file, e.target.files[0]])
@@ -490,12 +448,13 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
         })}
       </div>}
     {imagesPreview.length > 0 &&
-      <div className='flex snap-x gap-x-4'>
+      <div className='grid grid-cols-2 gap-y-4'>
         {imagesPreview.map((item, index) => {
           return (
             <div key={item} className='flex items-center'>
               <div className='relative shadow h-24 w-24 rounded'>
                 <Image
+                  className='rounded'
                   src={item}
                   layout='fill'
                   objectFit='cover'

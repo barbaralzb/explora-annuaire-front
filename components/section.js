@@ -16,7 +16,7 @@ export default function Section ({ currentEvents, totalEvents, eventsPerPage }) 
             {totalEvents.length > 0 &&
              currentEvents.map(post => {
                let Color = ''
-               domainList.filter(domain => domain.label === post.domain[0]).map(filteredDomain => {
+               domainList.filter(domain => domain?.label === post.domain[0]).map(filteredDomain => {
                  const color = filteredDomain.color
                  // const bgColor = `bg-${color}-500`
                  return (Color = color)

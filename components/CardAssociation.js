@@ -23,7 +23,7 @@ export default function CardAssociation ({ user }) {
             <div className=''>
               <h5 className='mt-2 font-medium text-2xl mb-4'>{user.username}</h5>
               {user.domain &&
-                <Chip variant='gradient' color={user.domain.color} value={user.domain.label} className='mb-3' />}
+                <Chip variant='gradient' color={user.domain?.color} value={user.domain?.label} className='mb-3' />}
               <div className='overflow-hidden text-ellipsismax-h-72 h-72'>
                 <Typography className='h-full text-ellipsis'>
                   {user.description}

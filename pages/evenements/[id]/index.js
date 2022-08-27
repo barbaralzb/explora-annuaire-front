@@ -3,7 +3,7 @@ import LayoutEvent from 'components/LayoutEvent'
 import { useAppContext } from 'context/AppContext'
 import Head from 'next/head'
 import useSWR from 'swr'
-import { getAllPostIds, getPostData } from '../../lib/posts'
+import { getAllPostIds, getPostData } from '../../../lib/posts'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
@@ -14,7 +14,6 @@ export default function Post ({ data }) {
   if (error) return <div>Failed to load</div>
   if (!res) return <Loader />
 
-  console.log(data)
   return (
     <>
       <Head>

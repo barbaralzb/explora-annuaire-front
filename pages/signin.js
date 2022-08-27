@@ -1,4 +1,3 @@
-import Layout from 'components/Layout'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
@@ -13,15 +12,15 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function SignIn () {
   const router = useRouter
   const { state, dispatch } = useAppContext()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    if (state) {
-      router.push('/')
-    } else {
-      setIsLoading(false)
-    }
-  }, [state])
+  // useEffect(() => {
+  //   if (state !== undefined || state !== null) {
+  //     router.push('/')
+  //   } else {
+  //     setIsLoading(false)
+  //   }
+  // }, [state])
 
   const [ShowPassword, setShowPassword] = useState(false)
   // const { token } = user

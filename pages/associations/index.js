@@ -24,7 +24,7 @@ export default function AssociationPage ({ users }) {
   const filterItem = (curcat) => {
     console.log(curcat)
     const newItem = users.filter((newVal) => {
-      return newVal.domain.label === curcat
+      return newVal.domain?.label === curcat
     })
     setItem(newItem)
   }

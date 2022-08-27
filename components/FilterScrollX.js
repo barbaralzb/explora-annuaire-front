@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import { Button, IconButton } from '@material-tailwind/react'
-import Link from 'next/link'
 import { domainList } from 'utils/utils'
 import { motion } from 'framer-motion'
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from 'react-icons/hi'
@@ -8,7 +7,7 @@ import PopoverComponent from './Basics/PopoverComponent'
 import { Transition } from '@headlessui/react'
 import Image from 'next/image'
 
-export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }) {
+export default function FilterScrollX ({ refer, menuItems, setItem, filterItem, ResetFilter }) {
   const scrl = useRef(null)
   const [scrollX, setscrollX] = useState(0)
   const [scrolEnd, setscrolEnd] = useState(false)
@@ -96,32 +95,30 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }
         animate='visible'
       >
 
-        {domainList.map(e => {
-          console.log(e.color)
-          return (
-            <motion.li key={e.id} className='mx-2 h-full py-12 relative' variants={item}>
-              <div className='self-start absolute top-10'>
-                <Image
-                  src='/images/iconos/2.svg'
-                  width='60'
-                  height='60'
-                />
-              </div>
-              <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none bg-white relative hover:-translate-y-2 hover:scale-105 hover:skew-y-3' variant='text' onClick={() => filterItem(e.label)}>
-                <div className='grid grid-cols-1 h-full place-items-center py-5'>
-                  {/* <div className='self-start absolute -top-10'>
+        {domainList.map(e => (
+          <motion.li key={e.id} className='mx-2 h-full py-12 relative' variants={item}>
+            <div className='self-start absolute top-10'>
+              <Image
+                src='/images/iconos/2.svg'
+                width='60'
+                height='60'
+              />
+            </div>
+            <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none bg-white relative hover:-translate-y-2 hover:scale-105 hover:skew-y-3' variant='text' onClick={() => filterItem(e.label)}>
+              <div className='grid grid-cols-1 h-full place-items-center py-5'>
+                {/* <div className='self-start absolute -top-10'>
                     <Image
                       src='/images/iconos/2.svg'
                       width='60'
                       height='60'
                     />
                   </div> */}
-                  <span className='font-semibold text-center normal-case text-base'>{e.label}</span>
-                </div>
-              </Button>
-            </motion.li>
-          )
-        })}
+                <span className='font-semibold text-center normal-case text-base'>{e.label}</span>
+              </div>
+            </Button>
+          </motion.li>
+        )
+        )}
       </motion.ul>
       <Transition
         show={!scrolEnd}
@@ -143,7 +140,7 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem }
         </IconButton>
       </Transition>
       <div className='pl-6 flex flex-col justify-around py-12 h-full'>
-        <Button variant='text' color='deep-purple'>
+        <Button variant='text' color='deep-purple' onClick={ResetFilter}>
           Tout
         </Button>
         <PopoverComponent />
