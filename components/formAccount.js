@@ -100,14 +100,8 @@ export default function FormAccount ({ formData }) {
 
       if (!data.ok) {
         notify()
-        /* for (const key in data.err?.errors) {
-          const error = data.err.errors[key]
-          setMessage(oldmessage => [
-            ...oldmessage,
-            { message: error.message }
-          ])
-        } */
       } else {
+        console.log(data)
         setMessage([])
         toast('Profile est maintenaint mis a jour 🎈', {
           onClose: () => router.push('/')
@@ -393,6 +387,7 @@ export default function FormAccount ({ formData }) {
 
   if (error) return <div>Failed to load</div>
   if (!data) return <Loader />
+
   return (
     <>
       {isLoading

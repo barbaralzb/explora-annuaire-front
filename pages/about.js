@@ -77,33 +77,32 @@ export default function Example () {
 
       <LayoutPage>
         <HeroAbout />
-
         <SectionObjects />
         <CallToAction />
 
         <div className='min-h-screen h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center bg-square-indigo'>
           <div className='shrink relative'>
-            <div className='absolute top-0'>
+            <div className='absolute top-0 hidden lg:block'>
               <Image
                 className='hover:scale-125 transition ease-in-out delay-150'
                 src='/images/iconos/3.svg'
-                width='200'
-                height='100'
+                width='250'
+                height='200'
               />
             </div>
-            <div className='absolute top-1/3 left-10 scale-125 hover:scale-150 transition ease-in-out delay-150'>
+            <div className='absolute top-1/3 -left-12 scale-125 hover:scale-150 transition ease-in-out delay-150'>
               <Image
                 src='/images/iconos/dashed.svg'
-                width='200'
+                width='150'
                 height='100'
               />
             </div>
-            <div className='absolute top-1/2 right-4'>
+            <div className='absolute bottom-0 right-4 -z-10 hidden lg:block'>
               <Image
                 className='hover:scale-125 transition ease-in-out delay-150'
                 src='/images/iconos/7.svg'
-                width='150'
-                height='150'
+                width='200'
+                height='250'
               />
             </div>
             <div className='flex flex-col h-full shrink'>
@@ -140,8 +139,8 @@ export default function Example () {
 
                   </div>
 
-                  <span className='tracking-tight font-extrabold text-gray-900 font-body text-8xl leading-snug text-center'>
-                    Lorem ipsum dolor sit amet,
+                  <span className='tracking-tight font-extrabold text-gray-900 font-body lg:text-8xl leading-snug text-center'>
+                    TROUVER UNE ACTIVITÉ
                   </span>
                 </div>
               </div>
@@ -149,7 +148,7 @@ export default function Example () {
           </div>
         </div>
 
-        <div className='pb-20 lg:pb-32 xl:pb-40'>
+        <div className='pb-20 lg:pb-32 xl:pb-40 px-8'>
           <div className='mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8'>
             <div className='hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block'>
               <Image
@@ -195,19 +194,18 @@ export default function Example () {
             </div>
           </div>
           <div className='lg:text-center  pt-20 lg:pt-32 xl:pt-40'>
-            <h2 className='text-base text-deep-purple-500 font-semibold tracking-wide uppercase'>Objectifs</h2>
             <p className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-              Mettre en contact des asosciations avec des gens motives
+              Découvrez l'associatif
             </p>
             <p className='mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto'>
-              Rouen c'est une ville etudiante de taille humaine qui a un grand quantité des belles associations qui cherche de benevolats. Explora a comme objectif faire connaitre ces associations et leur mission et faire des lieux de recontres pour les gens rouannaise
+              Les associations de bénévoles. Offrent un cadre assez idéal pour des rencontres amicales fructueuses. Dans les associations, les participants ont des valeurs communes de générosité et d’attention aux autres. Des qualités qui font de bons amis et facilitent les rapprochements entre ceux qui les partagent
             </p>
             <div className='pt-10 lg:pt-16 xl:pt-20 flex lg:mt-0 lg:flex-shrink-0 justify-center'>
               <div className='inline-flex'>
                 <Button color='pink' size='lg' className='rounded-full'>
                   <Link href='/'>
                     <a>
-                      Commence l'avnture !
+                      Commencer l'aventure !
                     </a>
                   </Link>
                 </Button>

@@ -4,8 +4,10 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { TbDots } from 'react-icons/tb'
+import { FiEdit, FiTrash2 } from 'react-icons/fi'
 
-export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPostId }) {
+export default function wn ({ id, setDeletedPostId }) {
   const router = useRouter()
   const [message, setMessage] = useState([])
 
@@ -30,10 +32,8 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPo
           ])
         }
       } else {
-        toast('Evénement effacé', {
-          onClose: () => router.push('/mes-eventements')
-        })
-        setDeletedPostId(id)
+        toast('Evénement effacé')
+        setDeletedPostId(true)
       }
     } catch (error) {
       console.log('Error del servidor', error)
@@ -62,15 +62,11 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPo
         draggable
         pauseOnHover
       />
-      <div className='flex justify-end p-4 z-10'>
+      <div className='absolute top-4 right-4 z-10'>
         <Menu as='div' className='relative inline-block text-left'>
           <div>
-            <Menu.Button className='shadow-md bg-white/70 group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/25 focus-visible:ring-opacity-75'>
-              Options
-              <ChevronDownIcon
-                className='ml-2 h-5 w-5 focus:text-deep-purple-300 transition duration-150 ease-in-out group-hover:text-opacity-80'
-                aria-hidden='true'
-              />
+            <Menu.Button className='shadow-md bg-white group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-black hover:text-opacity-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-black/25 focus-visible:ring-opacity-75'>
+              <TbDots size='20' />
             </Menu.Button>
           </div>
           <Transition
@@ -89,19 +85,20 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPo
                     <button
                       onClick={handlerModifie}
                       className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                      active ? 'bg-deep-purple-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       {active
                         ? (
-                          <EditActiveIcon
-                            className='mr-2 h-5 w-5'
+                          <FiEdit
+                            size='14'
+                            className='mr-2 h-5 w-5 text-white'
                             aria-hidden='true'
                           />
                           )
                         : (
-                          <EditInactiveIcon
-                            className='mr-2 h-5 w-5'
+                          <FiEdit
+                            className='mr-2 h-5 w-5 text-deep-purple-400'
                             aria-hidden='true'
                           />
                           )}
@@ -116,19 +113,19 @@ export default function Dropdown ({ setEditEvent, id, setIsLoading, setDeletedPo
                     <button
                       onClick={deletePost}
                       className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                      active ? 'bg-deep-purple-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       {active
                         ? (
-                          <DeleteActiveIcon
-                            className='mr-2 h-5 w-5 text-violet-400'
+                          <FiTrash2
+                            className='mr-2 h-5 w-5 text-white'
                             aria-hidden='true'
                           />
                           )
                         : (
-                          <DeleteInactiveIcon
-                            className='mr-2 h-5 w-5 text-violet-400'
+                          <FiTrash2
+                            className='mr-2 h-5 w-5 text-deep-purple-400'
                             aria-hidden='true'
                           />
                           )}
@@ -178,68 +175,6 @@ function EditActiveIcon (props) {
         stroke='#C4B5FD'
         strokeWidth='2'
       />
-    </svg>
-  )
-}
-
-function ArchiveInactiveIcon (props) {
-  return (
-    <svg
-      {...props}
-      viewBox='0 0 20 20'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-    >
-      <rect
-        x='5'
-        y='8'
-        width='10'
-        height='8'
-        fill='#EDE9FE'
-        stroke='#A78BFA'
-        strokeWidth='2'
-      />
-      <rect
-        x='4'
-        y='4'
-        width='12'
-        height='4'
-        fill='#EDE9FE'
-        stroke='#A78BFA'
-        strokeWidth='2'
-      />
-      <path d='M8 12H12' stroke='#A78BFA' strokeWidth='2' />
-    </svg>
-  )
-}
-
-function ArchiveActiveIcon (props) {
-  return (
-    <svg
-      {...props}
-      viewBox='0 0 20 20'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-    >
-      <rect
-        x='5'
-        y='8'
-        width='10'
-        height='8'
-        fill='#8B5CF6'
-        stroke='#C4B5FD'
-        strokeWidth='2'
-      />
-      <rect
-        x='4'
-        y='4'
-        width='12'
-        height='4'
-        fill='#8B5CF6'
-        stroke='#C4B5FD'
-        strokeWidth='2'
-      />
-      <path d='M8 12H12' stroke='#A78BFA' strokeWidth='2' />
     </svg>
   )
 }

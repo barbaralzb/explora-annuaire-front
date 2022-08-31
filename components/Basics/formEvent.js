@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { Loader } from './Loader'
-import { Button, Card, CardBody, CardFooter, Chip, Input, Progress, Textarea } from '@material-tailwind/react'
+import { Button, Card, CardBody, CardFooter, Chip, Input, Progress, Textarea, Typography } from '@material-tailwind/react'
 import LayoutEvent from 'components/LayoutEvent'
 import { getCurrentDate } from 'utils/currentDate'
 import { TbWorld } from 'react-icons/tb'
@@ -433,7 +433,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
           return (
             <div key={image.url} className='relative shadow h-24 w-24 rounded'>
               <Image
-                src={image.url ? image.url : '/images/proj.jpeg'}
+                src={image.url ? image.url : '/images/default/6.jpg'}
                 layout='fill'
                 objectFit='cover'
                 alt=''
@@ -543,62 +543,62 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
       {isLoading
         ? <Loader />
         : <>
-          <ToastContainer
-            position='top-right'
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-          <div className='grid grid-cols-6 gap-8 max-w-7xl mx-auto'>
-            <div className='col-span-2'>
-              {/* <div className='relative mb-12'>
-                <Typography variant='h3' className='mb-6 ml-6'>Form</Typography>
-                <div className='absolute -top-2/3'>
-                  <Image
-                    src='/images/iconos/brush.svg'
-                    width='100%'
-                    height='100%'
-                  />
-                </div>
-              </div> */}
-              <Card className='flex flex-col justify-between'>
-                <CardBody>
-                  <Progress className='mb-12' color='deep-purple' variant='gradient' value={(currentPage / 2) * 100} />
-                  <form className='col-span-1' onSubmit={handleSubmit}>
-                    {steps[currentPage].form}
-                  </form>
-                </CardBody>
-                <CardFooter className={`flex
+          <div className='absolute'>
+            <ToastContainer
+              position='top-right'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </div>
+          <div className='lg:col-span-2 bg-gradient-to-t from-gray-50/70 via-gray-100/70 to-gray-50/50 lg:py-32 xl:py-40 px-8'>
+            <div className='relative mb-12'>
+              <Typography variant='h3' className='font-bold'>Formulaire</Typography>
+              <div className='absolute -top-2/3'>
+                <Image
+                  src='/images/iconos/brush.svg'
+                  width='100%'
+                  height='100%'
+                />
+              </div>
+            </div>
+            <Card className='flex flex-col justify-between shadow-gray-700/20 shadow-2xl'>
+              <CardBody>
+                <Progress className='mb-12' color='deep-purple' variant='gradient' value={(currentPage / 2) * 100} />
+                <form className='col-span-1' onSubmit={handleSubmit}>
+                  {steps[currentPage].form}
+                </form>
+              </CardBody>
+              <CardFooter className={`flex
                 ${currentPage === 0 ? 'justify-end' : 'justify-between'}
                 `}
-                >
-                  {currentPage !== 0 &&
-                    <Button color='deep-purple' onClick={() => currentPage === 0 ? null : paginate(currentPage - 1)}>Preveus</Button>}
+              >
+                {currentPage !== 0 &&
+                  <Button color='deep-purple' onClick={() => currentPage === 0 ? null : paginate(currentPage - 1)}>Preveus</Button>}
 
-                  {currentPage < steps.length - 1 &&
-                    <Button color='deep-purple' onClick={() => currentPage === steps.length ? null : paginate(currentPage + 1)}>Suivant</Button>}
-                </CardFooter>
-              </Card>
-            </div>
+                {currentPage < steps.length - 1 &&
+                  <Button color='deep-purple' onClick={() => currentPage === steps.length ? null : paginate(currentPage + 1)}>Suivant</Button>}
+              </CardFooter>
+            </Card>
+          </div>
 
-            <div className='col-span-4'>
-              {/* <div className='relative mb-12'>
-                <Typography variant='h3' className='mb-6 ml-6'>Aperçu</Typography>
-                <div className='absolute -top-2/3'>
-                  <Image
-                    src='/images/iconos/brush.svg'
-                    width='100%'
-                    height='100%'
-                  />
-                </div>
-              </div> */}
-              <LayoutEvent data={form} user={user} imagesPreview={imagesPreview} />
+          <div className='lg:col-span-6 py-20 lg:py-32 xl:py-40 px-8'>
+            <div className='relative mb-12'>
+              <Typography variant='h3' className='font-bold'>Aperçu de votre événement</Typography>
+              <div className='absolute -top-2/3'>
+                <Image
+                  src='/images/iconos/brush.svg'
+                  width='100%'
+                  height='100%'
+                />
+              </div>
             </div>
+            <LayoutEvent data={form} user={user} imagesPreview={imagesPreview} />
           </div>
         </>}
     </>

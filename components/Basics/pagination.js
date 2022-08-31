@@ -42,7 +42,7 @@ export default function Pagination ({ eventsPerPage, totalEvents, paginate, curr
               <a
                 key={number}
                 onClick={() => paginate(number)}
-                className={`${currentPage === number ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : ''}
+                className={`${currentPage === number ? 'z-10 bg-deep-purple-50 border-deep-purple-500 text-deep-purple-600' : ''}
                 bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium cursor-default`}
               >
                 {number}

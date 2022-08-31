@@ -7,27 +7,27 @@ import { HiColorSwatch } from 'react-icons/hi'
 
 const features = [
   {
-    name: 'Faire des nouvelles connaisances',
+    name: 'Avoir le sentiment d’être utile et de rendre service',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    'Développer des caractères plus humains : effectivement, les valeurs du cœur (humilité, abnégation, don de soi) sont essentielles pour travailler dans le social ou l’humanitaire.',
     icon: GiThreeFriends
   },
   {
-    name: 'Se rendre util(e)',
+    name: 'Avoir le sentiment d’être utile et de rendre service',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    'Participer gratuitement aux différentes manifestations organisées par la structure : compétition sportive, manifestation culturelle et artistique, etc.',
     icon: FaHandsHelping
   },
   {
-    name: 'Evenements des gouts varies pour tout le monde',
+    name: 'Le bénévolat donne l’opportunité d’acquérir de nouvelles compétences et connaissances',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    'Donner du sens à son travail : en faisant ce que l’on aime, on est plus engagé et on s’investit plus, élargir son horizon et ses compétences. Et Évoluer dans une structure plus humaine',
     icon: HiColorSwatch
   },
   {
-    name: 'Decouverte a nouvelle choses',
+    name: 'Rencontrer de nouvelles personnes et d\'élargir son cercle de connaissances',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+    'Faire du bénévolat permet de sortir de la solitude, de partager le quotidien avec des personnes qui partagent les mêmes valeurs que soi',
     icon: BiWorld
   }
 ]
@@ -35,15 +35,15 @@ const features = [
 export default function SectionObjects () {
   return (
     <div className='min-h-screen h-full'>
-      <div className='py-12 bg-white flex items-center h-screen'>
+      <div className='bg-white flex items-center h-screen'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='lg:text-center'>
-            <h2 className='text-base text-deep-purple-500 font-semibold tracking-wide uppercase'>Objectifs</h2>
+            <h2 className='text-base text-deep-purple-500 font-semibold tracking-wide uppercase'>s’engager pour / dans une association ?</h2>
             <p className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-              Mettre en contact des asosciations avec des gens motives
+              Pourquoi s’engager, adhérer, faire partie, devenir bénévole ou travailler dans une association ?
             </p>
             <p className='mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto'>
-              Rouen c'est une ville etudiante de taille humaine qui a un grand quantité des belles associations qui cherche de benevolats. Explora a comme objectif faire connaitre ces associations et leur mission et faire des lieux de recontres pour les gens rouannaise
+              Les bonnes raisons de le faire
             </p>
           </div>
 
@@ -52,7 +52,7 @@ export default function SectionObjects () {
               {features.map((feature) => (
                 <div key={feature.name} className='relative'>
                   <dt className='flex gap-6'>
-                    <IconButton color='deep-purple' variant='gradient' className='hover:shadow-md cursor-default'>
+                    <IconButton color='deep-purple' variant='gradient' className='hover:shadow-md cursor-default w-full'>
                       <feature.icon />
                     </IconButton>
                     <p className='text-lg font-medium text-gray-900'>{feature.name}</p>

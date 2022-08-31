@@ -6,6 +6,7 @@ import { getSortedPostsData } from 'lib/posts'
 import { useRef, useState } from 'react'
 import Pagination from 'components/Basics/pagination'
 import CardComponent from 'components/CardComponent'
+import PopoverComponent from 'components/Basics/PopoverComponent'
 export async function getServerSideProps () {
   const posts = getSortedPostsData()
   return posts
@@ -22,8 +23,6 @@ export default function Home ({ posts }) {
   const currentEvents = item.slice(indexOfFirstEvent, indexOfLastEvent)
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
-
-  // const menuItems = [...new Set(posts.map((Val) => Val.domain[0]))]
 
   const filterItem = (curcat) => {
     const newItem = posts.filter((newVal) => {
@@ -48,12 +47,16 @@ export default function Home ({ posts }) {
           setItem={setItem}
           filterItem={filterItem}
           ResetFilter={ResetFilter}
+          posts={posts}
         />
 
-        <div className='w-full max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32  pt-20 lg:pt-32 xl:pt-40'>
+        <div className='w-full max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32 pt-20 lg:pt-32 xl:pt-40 px-8'>
           <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
             <div className='w-full flex justify-between'>
               <h2 className='text-2xl font-extrabold text-gray-900'>Evénements</h2>
+              <div className='xl:hidden'>
+                <PopoverComponent posts={posts} />
+              </div>
             </div>
             <div className='mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-12 lg:gap-y-24'>
               {item.length > 0 &&
@@ -61,6 +64,7 @@ export default function Home ({ posts }) {
                <CardComponent
                  key={post._id}
                  post={post}
+                 ableToModifie={false}
                />
              )
              )}

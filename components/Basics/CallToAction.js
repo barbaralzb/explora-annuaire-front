@@ -10,7 +10,7 @@ export default function CallToAction () {
           <span className='block'>Etez-vous un association ?</span>
           <span className='block text-deep-purple-500'>Publie vos evenements pour rancontrer des benevolats</span>
         </h2>
-        <div className='mt-8 flex lg:mt-0 lg:flex-shrink-0'>
+        <div className='mt-8 flex justify-center lg:mt-0 lg:flex-shrink-0'>
           <div className='inline-flex'>
             <Button color='deep-purple' variant='outlined'>
               <Link href='/signup'>

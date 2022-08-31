@@ -16,17 +16,17 @@ export default function LayoutAsso ({ data, imagePreview }) {
     website: data.website,
     facebook: data.facebook,
     instagram: data.instagram,
-    twitter: data.twitter,
-    image: data.image
+    twitter: data.twitter
+    // image: data.image.url
   }
-  const image = data.image || '/images/default/6.jpg'
+  console.log(data)
 
   return (
     <Card>
       <div className='relative w-full px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:py-16 lg:max-w-7xl lg:px-8 lg:grid-cols-5'>
         <div className='flex flex-col gap-4 lg:col-span-2'>
           <Image
-            src={image}
+            src={imagePreview || data.image?.url || '/images/default/6.jpg'}
             alt='Explora'
             className='rounded-xl'
             width='100%'

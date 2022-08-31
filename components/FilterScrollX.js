@@ -5,9 +5,8 @@ import { motion } from 'framer-motion'
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from 'react-icons/hi'
 import PopoverComponent from './Basics/PopoverComponent'
 import { Transition } from '@headlessui/react'
-import Image from 'next/image'
 
-export default function FilterScrollX ({ refer, menuItems, setItem, filterItem, ResetFilter }) {
+export default function FilterScrollX ({ refer, menuItems, setItem, filterItem, ResetFilter, posts }) {
   const scrl = useRef(null)
   const [scrollX, setscrollX] = useState(0)
   const [scrolEnd, setscrolEnd] = useState(false)
@@ -97,13 +96,13 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem, 
 
         {domainList.map(e => (
           <motion.li key={e.id} className='mx-2 h-full py-12 relative' variants={item}>
-            <div className='self-start absolute top-10'>
+            {/* <div className='self-start absolute top-10'>
               <Image
                 src='/images/iconos/2.svg'
                 width='60'
                 height='60'
               />
-            </div>
+            </div> */}
             <Button color={e.color} className='w-36 h-full shadow-md text-black rounded-none bg-white relative hover:-translate-y-2 hover:scale-105 hover:skew-y-3' variant='text' onClick={() => filterItem(e.label)}>
               <div className='grid grid-cols-1 h-full place-items-center py-5'>
                 {/* <div className='self-start absolute -top-10'>
@@ -143,7 +142,7 @@ export default function FilterScrollX ({ refer, menuItems, setItem, filterItem, 
         <Button variant='text' color='deep-purple' onClick={ResetFilter}>
           Tout
         </Button>
-        <PopoverComponent />
+        <PopoverComponent posts={posts} />
       </div>
     </div>
   )

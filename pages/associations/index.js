@@ -6,6 +6,7 @@ import Pagination from 'components/Basics/pagination'
 import { getSortedUsersData } from 'lib/users'
 import CardAssociation from 'components/CardAssociation'
 import HeroAssociations from 'components/heroAssociations'
+import PopoverComponent from 'components/Basics/PopoverComponent'
 export async function getServerSideProps () {
   const users = getSortedUsersData()
   return users
@@ -40,12 +41,15 @@ export default function AssociationPage ({ users }) {
         <HeroAssociations
           filterItem={filterItem}
           setItem={setItem}
-          // menuItems={menuItems}
+          posts={users}
         />
-        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32  pt-20 lg:pt-32 xl:pt-40 '>
+        <div className='max-w-7xl mx-auto mb-16 sm:mb-24 lg:mb-32  pt-20 lg:pt-32 xl:pt-40 px-8'>
           <div className='max-w-2xl mx-auto pb-16 sm:pb-24 lg:pb-32 lg:max-w-none'>
             <div className='w-full flex justify-between'>
               <h2 className='text-2xl font-extrabold text-gray-900'>Associations de Rouen</h2>
+              <div className='xl:hidden'>
+                <PopoverComponent posts={users} />
+              </div>
             </div>
             <div className='mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-24'>
               {item.length > 0 &&

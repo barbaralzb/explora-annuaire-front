@@ -16,7 +16,7 @@ export default function addEvent () {
   if (erroUser || errorPost) return <div>Failed to load</div>
   if (!user || !post) return <Loader />
   return (
-    <div className='mx-auto py-20 lg:py-32 xl:py-40 bg-indigo-50'>
+    <div className='bg-white grid grid-cols-8 gap-x-6 h-full min-h-screen'>
       <FormEvent
         formData={post}
         user={user}

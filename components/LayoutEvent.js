@@ -45,7 +45,7 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
   const image = imagesPreview[0] || '/images/default/6.jpg'
 
   return (
-    <Card>
+    <Card className='shadow-2xl shadow-gray-300 border'>
       <CardBody>
         <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>{formData.title}</h2>
         <div className='flex justify-between'>
@@ -157,7 +157,7 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
 
         </div>
       </CardBody>
-      <CardFooter className='border-t'>
+      <CardFooter className='border-t bg-black rounded-b-xl'>
         <div className='flex'>
           <Link href={`/users/${forNewEvent ? user.id : data.user.id}`} className='pointer'>
             <a className='avatar flex items-center'>
@@ -165,7 +165,7 @@ export default function LayoutEvent ({ data, user, imagesPreview, forNewEvent = 
                 src={user.image?.url || '/images/default.jpg'}
               />
               <div className='ml-3'>
-                <span className='text-blue-gray-700 mb-0 font-bold'>{user.username}</span>
+                <span className='mb-0 font-bold text-white'>{user.username}</span>
               </div>
             </a>
           </Link>

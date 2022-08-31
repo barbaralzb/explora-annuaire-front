@@ -35,7 +35,8 @@ export default function addEvent () {
   if (error) return <div>Failed to load</div>
   if (!data) return <Loader />
   return (
-    <div className='mx-auto py-20 lg:py-32 xl:py-40 bg-white'>
+  // <div className='py-20 lg:py-32 xl:py-40'>
+    <div className='bg-white grid grid-cols-1 lg:grid-cols-8 gap-x-6 h-full min-h-screen'>
       <FormEvent
         formData={formData}
         user={data}

@@ -10,7 +10,7 @@ export default function Layout ({ children }) {
   return (
     <>
       {insite && <Navbar />}
-      <main className='relative bg-gradient-to-r from-indigo-50/40 via-white to-indigo-50/80'>
+      <main className='relative'>
         {!insite && <div className='absolute inset-0 [mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)] bg-squares bg-cover bg-no-repeat' />}
         {/* <div className='min-h-screen flex content-between justify-center'> */}
         <div className='min-h-screen h-full w-full'>

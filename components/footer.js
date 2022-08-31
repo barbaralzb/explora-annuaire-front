@@ -45,40 +45,24 @@ export default function Footer () {
         <div className='p-5'>
           <ul>
             <p className='text-gray-800 font-bold text-2xl pb-4'>Associations</p>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              About
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Products
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Pricing
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Careers
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Press & Media
+            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-deep-purple-600 cursor-pointer'>
+              <Link href='/associations'>
+                <a>
+                  Découvrir les associations
+                </a>
+              </Link>
             </li>
           </ul>
         </div>
         <div className='p-5'>
           <ul>
-            <p className='text-gray-800 font-bold text-2xl pb-4'>Contact</p>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Contact
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Support Portals
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              List Of Charges
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Downloads & Resources
-            </li>
-            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer'>
-              Videos
+            <p className='text-gray-800 font-bold text-2xl pb-4'>A propos</p>
+            <li className='text-gray-500 text-md pb-2 font-semibold hover:text-deep-purple-600 cursor-pointer'>
+              <Link href='/about'>
+                <a>
+                  Connaître notre histoire
+                </a>
+              </Link>
             </li>
           </ul>
         </div>
