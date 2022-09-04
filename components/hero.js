@@ -1,5 +1,4 @@
 
-import { Button } from '@material-tailwind/react'
 import Image from 'next/image'
 import { useRef } from 'react'
 import FilterScrollX from './FilterScrollX'
@@ -11,69 +10,6 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
 
     <div className='h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center bg-square-indigo'>
       <div className='shrink relative'>
-        <div className='absolute top-0 hidden xl:block'>
-          <Image
-            className='hover:scale-125 transition ease-in-out delay-150'
-            src='/images/iconos/3.svg'
-            width='200'
-            height='100'
-          />
-        </div>
-        <div className='hidden xl:block absolute top-1/3 left-10 scale-125 hover:scale-150 transition ease-in-out delay-150'>
-          <Image
-            src='/images/iconos/dashed.svg'
-            width='200'
-            height='100'
-          />
-        </div>
-        <div className='absolute top-1/2 right-4'>
-          <Image
-            className='hover:scale-125 transition ease-in-out delay-150'
-            src='/images/iconos/7.svg'
-            width='150'
-            height='150'
-          />
-        </div>
-        {/* <div className='flex flex-col h-full shrink'>
-          <div className='grow max-w-7xl justify-center items-center flex mx-auto'>
-            <div className='flex flex-wrap gap-4 justify-center'>
-              <div className='tracking-tight font-extrabold text-gray-900 font-body text-6xl lg:text-8xl leading-snug text-center border-r-4 border-black pr-6'>
-                Explora
-              </div>
-
-              <div className='flex flex-col relative'>
-
-                <div className='rounded-full w-24 h-24 shadow-lg ring-gray-900 ring-2 relative overflow-hidden mb-6'>
-                  <Image
-                    className='rounded-full scale-125 hover:scale-150 transition ease-in-out delay-150'
-                    src='/images/rouen.jpg'
-                    width='100'
-                    height='100'
-                    objectFit='cover'
-                    layout='fill'
-                  />
-                </div>
-                <div className='absolute right-0'>
-                  <Image
-                    className='scale-125 hover:scale-150 transition ease-in-out delay-150'
-                    src='/images/iconos/arrow-dashed.svg'
-                    width='200'
-                    height='100%'
-                  />
-                </div>
-
-                <span className='tracking-tight font-extrabold text-gray-900 font-body text-6xl lg:text-8xl'>
-                  Rouen
-                </span>
-
-              </div>
-
-              <span className='tracking-tight font-extrabold text-gray-900 font-body text-6xl lg:text-8xl leading-snug text-center'>
-                Lorem ipsum dolor sit amet,
-              </span>
-            </div>
-          </div> */}
-
         <div className='xl:pb-40'>
           <div className='mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8'>
             <main className='mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28'>
@@ -83,7 +19,7 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
                   <span className='block text-deep-purple-600 xl:inline'>Bénévolats Rouen</span>
                 </h1>
                 <p className='mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0'>
-                  Explora est un annuaire en ligne pour encourager la participation aux événements associatifs.
+                  Annuaire en ligne pour encourager la participation à la vie associative.
                 </p>
               </div>
             </main>

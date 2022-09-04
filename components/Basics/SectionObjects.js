@@ -7,9 +7,9 @@ import { HiColorSwatch } from 'react-icons/hi'
 
 const features = [
   {
-    name: 'Avoir le sentiment d’être utile et de rendre service',
+    name: 'Se découvrir',
     description:
-    'Développer des caractères plus humains : effectivement, les valeurs du cœur (humilité, abnégation, don de soi) sont essentielles pour travailler dans le social ou l’humanitaire.',
+    'Sortir de sa zone de confort : autonomie, empathie, compétences, valeurs morales, cohésion social, travail d\'équipe',
     icon: GiThreeFriends
   },
   {
@@ -40,7 +40,7 @@ export default function SectionObjects () {
           <div className='lg:text-center'>
             <h2 className='text-base text-deep-purple-500 font-semibold tracking-wide uppercase'>s’engager pour / dans une association ?</h2>
             <p className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-              Pourquoi s’engager, adhérer, faire partie, devenir bénévole ou travailler dans une association ?
+              Pourquoi s’engager dans une association ?
             </p>
             <p className='mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto'>
               Les bonnes raisons de le faire

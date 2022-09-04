@@ -10,13 +10,6 @@ export default function HeroAssociations ({ filterItem, setItem, menuItems, post
 
     <div className='min-h-screen h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center bg-square-orange'>
       <div className='shrink relative'>
-        <div className='absolute top-1/3 left-10 scale-125 hover:scale-150 transition ease-in-out delay-150'>
-          <Image
-            src='/images/iconos/dashed.svg'
-            width='200'
-            height='100'
-          />
-        </div>
         <div className='flex flex-col h-full shrink'>
           <div className='grow max-w-7xl justify-center items-center flex mx-auto'>
             <div className='grid lg:grid-cols-2 gap-4 justify-center'>
@@ -27,7 +20,7 @@ export default function HeroAssociations ({ filterItem, setItem, menuItems, post
                     <span className='block text-orange-700 xl:inline'>Espace de rencontre et de découverte</span>
                   </h1>
                   <p className='mt-3 text-base text-gray-700 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0'>
-                    Choisissez une catégorie et découvrez les associations recherchent des bénévoles
+                    Choisissez une catégorie et découvrez les associations recherchant des bénévoles
                   </p>
                 </div>
               </main>

@@ -198,14 +198,14 @@ export default function Example () {
               Découvrez l'associatif
             </p>
             <p className='mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto'>
-              Les associations de bénévoles. Offrent un cadre assez idéal pour des rencontres amicales fructueuses. Dans les associations, les participants ont des valeurs communes de générosité et d’attention aux autres. Des qualités qui font de bons amis et facilitent les rapprochements entre ceux qui les partagent
+              Faire partie du monde associatif offre un cadre idéal pour des rencontres exceptionnelles. Dans les associations, les participants partagent des valeurs communes de générosité et d’attention aux autres. Des qualités qui facilitent les rapprochements entre ceux qui les partagent !
             </p>
             <div className='pt-10 lg:pt-16 xl:pt-20 flex lg:mt-0 lg:flex-shrink-0 justify-center'>
               <div className='inline-flex'>
                 <Button color='pink' size='lg' className='rounded-full'>
                   <Link href='/'>
                     <a>
-                      Commencer l'aventure !
+                      Commencez l'aventure !
                     </a>
                   </Link>
                 </Button>
@@ -214,7 +214,7 @@ export default function Example () {
                 <Button color='deep-purple' size='lg' className='rounded-full'>
                   <Link href='/associations'>
                     <a>
-                      Connaitre les association
+                      Connaitre les associations
                     </a>
                   </Link>
                 </Button>

@@ -38,6 +38,7 @@ export default function Home ({ posts }) {
   return (
     <div className={styles.container}>
       <Head>
+        <link rel='shortcut icon' href='images/logo/logo-explora.png' />
         <title>Explora</title>
         <meta name='description' content='Explora Rouen missios bénévolat' />
       </Head>
