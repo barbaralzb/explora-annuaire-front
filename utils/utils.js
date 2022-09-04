@@ -6,7 +6,7 @@ import { TbHeartHandshake } from 'react-icons/tb'
 /*********************************/
 /** **** developpement urls *******/
 /*********************************/
-export const ServerUrl = 'http://localhost:5000'
+// export const ServerUrl = 'http://localhost:5000'
 
 export const ageRangeList = [
   { id: 1, label: 'Tout public' },
