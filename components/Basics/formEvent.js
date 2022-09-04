@@ -18,10 +18,7 @@ export default function FormEvent ({ formData, id, forNewEvent = true, user }) {
   const router = useRouter()
   const [selectedAge, setSelectedAge] = useState(formData.ageRange)
   const [selectedDomain, setSelectedDomain] = useState(formData.domain)
-  const [message, setMessage] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-
-  const [isCheck, setCheck] = useState(typeof (formData.fullDay) === 'boolean' ? formData.fullDay : true)
+  const [isLoading] = useState(false)
   const [queryAge, setQueryAge] = useState('')
   const [queryDomain, setQueryDomain] = useState('')
   const [currentPage, setCurrentPage] = useState(0)

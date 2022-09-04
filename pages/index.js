@@ -3,7 +3,7 @@ import LayoutPage from 'components/LayoutPage'
 import styles from 'styles/Home.module.css'
 import Hero from 'components/hero'
 import { getSortedPostsData } from 'lib/posts'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import Pagination from 'components/Basics/pagination'
 import CardComponent from 'components/CardComponent'
 import PopoverComponent from 'components/Basics/PopoverComponent'
@@ -12,8 +12,6 @@ export async function getServerSideProps () {
   return posts
 }
 export default function Home ({ posts }) {
-  const refer = useRef(null)
-
   const [item, setItem] = useState(posts)
   const [currentPage, setCurrentPage] = useState(1)
   const [eventsPerPage] = useState(6)

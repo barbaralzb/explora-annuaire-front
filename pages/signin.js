@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 import useRouter from 'next/dist/client/router'
 import { useAppContext } from 'context/AppContext'
@@ -11,8 +11,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export default function SignIn () {
   const router = useRouter
-  const { state, dispatch } = useAppContext()
-  const [isLoading, setIsLoading] = useState(false)
+  const { dispatch } = useAppContext()
+  const [isLoading] = useState(false)
 
   // useEffect(() => {
   //   if (state !== undefined || state !== null) {
@@ -136,7 +136,7 @@ export default function SignIn () {
                         {ShowPassword
                           ? <EyeIcon className='h-5 w-5 text-deep-purple-500' />
                           : <EyeOffIcon className='h-5 w-5' />}
-                            </div>}
+                      </div>}
                     />
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export default function SignIn () {
               </div>
             </footer>
           </main>
-        </>}
+          </>}
     </>
   )
 }
