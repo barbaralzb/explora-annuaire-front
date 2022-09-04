@@ -12,13 +12,13 @@ export default function CallToAction () {
         </h2>
         <div className='mt-8 flex justify-center lg:mt-0 lg:flex-shrink-0'>
           <div className='inline-flex'>
-            <Button color='deep-purple' variant='outlined'>
-              <Link href='/signup'>
-                <a>
+            <Link href='/signup'>
+              <a>
+                <Button color='deep-purple' variant='outlined'>
                   connexion
-                </a>
-              </Link>
-            </Button>
+                </Button>
+              </a>
+            </Link>
           </div>
           <div className='ml-3 inline-flex'>
             <Button color='deep-purple'>
