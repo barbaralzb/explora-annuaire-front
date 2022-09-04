@@ -31,3 +31,5 @@ yarn-error.log*
 # vercel
 .vercel
 ./pages/associations/[id] copy.js
+
+.vercel
