@@ -31,6 +31,7 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
                 layout='fill'
                 width='100'
                 height='100%'
+                priority
               />
             </div>
             <div className='grid grid-cols-2 gap-x-8 m-8 lg:m-0 lg:grid-cols-1 lg:gap-y-8'>
@@ -42,6 +43,7 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
                   layout='fill'
                   width='100'
                   height='100%'
+                  priority
                 />
               </div>
               <div className='aspect-w-3 aspect-h-2 rounded-xl overflow-hidden'>
@@ -52,6 +54,7 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
                   layout='fill'
                   width='100'
                   height='100%'
+                  priority
                 />
               </div>
             </div>
