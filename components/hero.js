@@ -8,7 +8,7 @@ export default function Hero ({ filterItem, setItem, menuItems, ResetFilter, her
 
   return (
 
-    <div className='h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center bg-square-indigo'>
+    <div className='h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center'>
       <div className='shrink relative'>
         <div className='xl:pb-40'>
           <div className='mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8'>

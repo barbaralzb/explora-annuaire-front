@@ -8,7 +8,7 @@ export default function HeroAssociations ({ filterItem, setItem, menuItems, post
 
   return (
 
-    <div className='min-h-screen h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center bg-square-orange'>
+    <div className='min-h-screen h-full w-full max-h-screen pt-20 lg:pt-32 xl:pt-40 flex-1 flex bg-no-repeat justify-center'>
       <div className='shrink relative'>
         <div className='flex flex-col h-full shrink'>
           <div className='grow max-w-7xl justify-center items-center flex mx-auto'>
