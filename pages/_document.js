@@ -5,6 +5,7 @@ export default function Document () {
     <Html>
       <Head>
         <link rel='shortcut icon' href='images/logo/logo-explora-bg-white.png' />
+        <meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests' />
         <link href='https://fonts.googleapis.com' rel='preconnect' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
         <link href='https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap' rel='stylesheet' />
